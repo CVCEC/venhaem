@@ -21,3 +21,23 @@ Lô 10 câu – Gemini không trả tiếng: không có tiếng trả về: {"ca
 0.00  xì dầu  |  xí dâu
 0.71  Rửa sạch lá lốt rồi để ráo.  |  rửa sạch lá lốt rồi đề giáo
 0.00  đổ  |  Đồ
+1.00  cuốn  |  cuốn
+1.00  Cách làm Bún mọc.  |  Cách làm bún mọc
+1.00  Đặt rau và thịt bò lên miếng bánh.  |  Đặt rau và thịt bò lên miếng bánh
+1.00  Xào nấm và đậu phụ cho thơm.  |  xào nấm và đậu phụ cho thơm.
+0.00  gà ta  |  Dạ tạ
+0.00  rán  |  Xán
+1.00  Nấu canh rau củ với nấm.  |  nấu canh rau củ với nấm
+0.75  Rán đậu phụ cho vàng đều các mặt.  |  Gián đậu phụ cho vàng đều cắt mặt
+1.00  Các bạn ơi, vào bếp cùng mình nhé!  |  Các bạn ơi, vào bếp cùng mình nhé!
+0.88  Áp chảo đến khi lá thơm và bóng.  |  áp chào đến khi lá thơm và bóng.
+1.00  Xếp gà, hành lá, lá chanh lên bánh phở rồi chan nước dùng.  |  xếp gà, hành lá, lá chanh lên bánh phở rồi chan nước dùng
+1.00  Trộn thịt với rau củ, miến và trứng.  |  trộn thịt với rau củ, miến và trứng
+1.00  hành khô  |  Hành khô
+1.00  Cách làm Nem rán.  |  cách làm, nem rán
+1.00  giò sống  |  giò sống
+0.89  Bày cơm, gà, dưa và tương ớt ra đĩa.  |  bày cơm, gà, dưa và tương ốt ra đĩa.
+0.00  xương lợn  |  Sưu lột
+1.00  lá chanh  |  Lá chanh
+1.00  Ăn nem với bún, rau sống và nước chấm.  |  ăn nem với bún, rau sống và nước chấm.
+1.00  Pha bột gạo với nước, bột nghệ và nước cốt dừa.  |  pha bột gạo với nước, bột nghệ và nước cốt dừa.
