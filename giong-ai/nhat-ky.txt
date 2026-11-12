@@ -46,3 +46,6 @@ Lô 10 câu có 4 câu lệch nhiều – có thể cắt sai, chia đôi để 
 Lô 5 câu có 3 câu lệch nhiều – có thể cắt sai, chia đôi để đọc lại
 0.00  Bước hai.  |  Book high
 0.00  tỏi  |  TÔI
+0.00  giá  |  DÀ
+0.00  ma  |  Má
+1.00  Mâm cơm chay  |  Mâm cơm chay
