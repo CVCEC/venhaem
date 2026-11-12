@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, noai, noimageai">
+<title>Nghe thử giọng đọc · Vào Bếp Nhà Em</title>
+<style>
+:root{--paper:#F4F0EA;--card:#FBF8F3;--ink:#3A3B3C;--soft:#66625B;--line:#D9CFC0;--straw:#DDAA55;--warn:#B5542E}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}
+p.sub{color:var(--soft);margin:0 0 16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
+button{font:inherit;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;cursor:pointer}
+button.on{background:var(--straw);border-color:var(--straw);color:#2b2b2b;font-weight:700}
+ol{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:2.4em 1fr auto;gap:4px 10px;align-items:center}
+li.flag{border-left:5px solid var(--warn)}
+li.bad{background:#fbe9e2}
+.n{color:var(--soft);font-variant-numeric:tabular-nums}
+.t{font-size:18px;font-weight:600}
+.h{grid-column:2/4;color:var(--soft);font-size:13.5px}
+.h b{color:var(--warn)}
+label{font-size:14px;white-space:nowrap}
+#out{width:100%;min-height:70px;font:14px/1.4 ui-monospace,monospace;border:1px solid var(--line);border-radius:10px;padding:8px;box-sizing:border-box}
+</style>
+</head>
+<body>
+<main>
+<h1>Nghe thử giọng đọc AI · Vào Bếp Nhà Em</h1>
+<p class="sub">Trang nội bộ để kiểm tra giọng. Câu có viền đỏ là câu máy nghe lại thấy hơi khác chữ (thường do từ quá ngắn, chưa chắc là sai). Bấm ▶ để nghe; câu nào đọc sai thì tick “Đọc sai”, rồi gửi danh sách ở cuối trang cho Claude để đọc lại.</p>
+<div class="bar"><button id="f-flag" class="on">Câu cần nghe kỹ</button><button id="f-all">Tất cả câu đã có giọng</button><span id="count" class="sub"></span></div>
+<ol id="list"></ol>
+<h2 style="font-size:17px;margin:22px 0 6px">Danh sách câu đọc sai</h2>
+<textarea id="out" readonly placeholder="Tick “Đọc sai” ở các câu trên, danh sách sẽ hiện ở đây."></textarea>
+</main>
+<script src="../vao-bep/am-ai.js"></script>
+<script>
+(async function(){
+  const AM=window.AM_AI||{};
+  const tsv=async p=>{try{const t=await (await fetch(p,{cache:'no-store'})).text();return t.split('\n').slice(1).filter(Boolean).map(l=>l.split('\t'))}catch(e){return []}};
+  const kt=Object.fromEntries((await tsv('kiem-tra.tsv')).map(r=>[r[0],{nghe:r[1],diem:parseFloat(r[2])}]));
+  const rows=Object.entries(AM).map(([chu,ma])=>({chu,ma,...(kt[ma]||{nghe:'',diem:1})})).sort((a,b)=>a.diem-b.diem||a.chu.localeCompare(b.chu,'vi'));
+  const bad=new Set(); let mode='flag';
+  const list=document.getElementById('list'),out=document.getElementById('out'),count=document.getElementById('count');
+  function draw(){
+    const show=rows.filter(r=>mode==='all'||r.diem<0.75);
+    count.textContent=show.length+' câu';
+    list.innerHTML=show.map((r,i)=>`<li class="${r.diem<0.75?'flag':''} ${bad.has(r.ma)?'bad':''}" data-ma="${r.ma}"><span class="n">${i+1}.</span><span class="t" lang="vi">${r.chu}</span><span><button type="button" data-play="${r.ma}">▶</button> <label><input type="checkbox" data-bad="${r.ma}" ${bad.has(r.ma)?'checked':''}> Đọc sai</label></span>${r.diem<0.75?`<span class="h">Máy nghe thành: <b>${r.nghe||'(không rõ)'}</b></span>`:''}</li>`).join('');
+  }
+  let au=null;
+  list.addEventListener('click',e=>{const b=e.target.closest('[data-play]');if(!b)return;if(au)au.pause();au=new Audio('../vao-bep/am-ai/'+b.dataset.play+'.mp3');au.play()});
+  list.addEventListener('change',e=>{const c=e.target.closest('[data-bad]');if(!c)return;c.checked?bad.add(c.dataset.bad):bad.delete(c.dataset.bad);
+    out.value=rows.filter(r=>bad.has(r.ma)).map(r=>r.ma+'  '+r.chu).join('\n');c.closest('li').classList.toggle('bad',c.checked)});
+  document.getElementById('f-flag').onclick=()=>{mode='flag';document.getElementById('f-flag').classList.add('on');document.getElementById('f-all').classList.remove('on');draw()};
+  document.getElementById('f-all').onclick=()=>{mode='all';document.getElementById('f-all').classList.add('on');document.getElementById('f-flag').classList.remove('on');draw()};
+  draw();
+})();
+</script>
+</body>
+</html>

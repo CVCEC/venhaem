@@ -31,4 +31,6 @@ Disallow: /img/
 Disallow: /vid/
 Disallow: /vao-bep/img/
 Disallow: /vao-bep/am-ai/
+Disallow: /giong-ai/
+Disallow: /tools/
 Allow: /
