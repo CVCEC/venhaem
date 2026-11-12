@@ -1,6 +1,7 @@
 /* Giọng đọc AI cho Vào Bếp Nhà Em – do tools/gan_am.py tạo, đừng sửa tay */
 window.AM_AI = {
 "Bày cơm, gà, dưa và tương ớt ra đĩa.": "47a44ffb23f8",
+"Bước hai.": "534d865be901",
 "Cuốn bánh với rau sống, chấm nước chấm chay.": "26eb8d256b52",
 "Cuốn chặt tay để nhân không bị rơi ra.": "0e19be8fad24",
 "Các bạn ơi, vào bếp cùng mình nhé!": "387077c67ba8",
@@ -32,6 +33,7 @@ window.AM_AI = {
 "rau thơm": "048349611ffd",
 "rán": "34f6f66580f7",
 "sả": "296053eb112b",
+"tỏi": "5525f8e688ef",
 "xì dầu": "2aecdb919f3e",
 "xương lợn": "48ca6f5ab095",
 "Áp chảo đến khi lá thơm và bóng.": "3b9e23340306",
