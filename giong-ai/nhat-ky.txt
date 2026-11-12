@@ -1,1 +1,13 @@
-
+Lô 20 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper
+Lô 20 câu có đoạn cắt hỏng (gạo: đoạn quá ngắn) – chia đôi để đọc lại
+Lô 10 câu – Gemini không trả tiếng: không có tiếng trả về: {"candidates": [{"finishReason": "SAFETY", "index": 0, "finishMessage": "The audio stream could not be completed. Please retry your reque
+0.00  Phở gà  |  phô gá
+1.00  rau thơm  |  Rau thơm
+1.00  Đặt nhân lên bánh đa nem rồi cuốn chặt tay.  |  Đặt nhân lên bánh đa nem rồi cuốn chặt tay
+0.50  bánh phở  |  Bánh phơ
+1.00  Cách làm Phở gà.  |  Cách làm phở gà
+1.00  Xé gà, bóp với hành tây và rau răm.  |  xé gà, bóp với hành tây và rau răm
+0.89  Cuốn chặt tay để nhân không bị rơi ra.  |  cuốn chặt tay để nhân không bị rôi ra.
+1.00  Nêm nước mắm và hạt tiêu cho vừa ăn.  |  Nêm nước mắm và hạt tiêu cho vừa ăn.
+0.00  gạo  |  Vào!
+0.50  lá lốt  |  Lá lột
