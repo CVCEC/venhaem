@@ -5,3 +5,4 @@
 - Đã có tiếng: **45 / 129** câu (lần này thêm 45, dùng 10 lượt gọi)
 - Câu Whisper nghe hơi khác chữ (cần nghe kỹ): 15
 - Câu bỏ qua theo yêu cầu: 0 · câu lỗi: 0
+- Ghi chú: Dừng vì đủ thời gian / số lượt của lần chạy này – lần sau làm tiếp.
