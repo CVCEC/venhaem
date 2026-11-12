@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noimageindex, noarchive, noai, noimageai">
+<meta name="description" content="Vào Bếp Nhà Em: eight Vietnamese home dishes with English and Vietnamese audio, a pronunciation guide and games.">
+<link rel="icon" href="img/trau-con.png">
+<title>Vào Bếp Nhà Em</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: a cookbook that talks. Hub of eight dish cards; each dish opens one long lesson page
+   (about → words → steps → play) on brand paper, with tap-to-hear Vietnamese everywhere. */
+:root{
+  --paper:#F4F0EA; --paper-2:#EAE2D5; --card:#FBF8F3;
+  --ink:#3A3B3C; --ink-soft:#66625B; --line:#D9CFC0;
+  --straw:#DDAA55; --wood:#C68B59; --wood-ink:#8A5630;
+  --sage:#DCE4CB; --sage-ink:#55663A; --peach:#F5D3BD;
+  --ok:#3E7D3A; --ok-bg:#DDEBD3; --bad:#B4442A; --bad-bg:#F6DDD3; --warn:#9A6A12; --warn-bg:#F6E8C8;
+  --btn-ink:#3A3B3C;
+  --brand-paper:#F4F0EA;
+  --f-display:"Baloo 2","Nunito","Varela Round",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+  --r:18px; --r-sm:12px; --w:1080px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#232426; --paper-2:#2D2E31; --card:#2A2B2E;
+  --ink:#F1ECE3; --ink-soft:#B8B1A5; --line:#45464A;
+  --straw:#E2B565; --wood:#D59C6C; --wood-ink:#E6B387;
+  --sage:#343D2C; --sage-ink:#C3D3A4; --peach:#4F3A2E;
+  --ok:#9FD493; --ok-bg:#2C3D29; --bad:#F09A80; --bad-bg:#4A2A22; --warn:#EBC679; --warn-bg:#463A20;
+  --btn-ink:#26221B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#232426; --paper-2:#2D2E31; --card:#2A2B2E;
+  --ink:#F1ECE3; --ink-soft:#B8B1A5; --line:#45464A;
+  --straw:#E2B565; --wood:#D59C6C; --wood-ink:#E6B387;
+  --sage:#343D2C; --sage-ink:#C3D3A4; --peach:#4F3A2E;
+  --ok:#9FD493; --ok-bg:#2C3D29; --bad:#F09A80; --bad-bg:#4A2A22; --warn:#EBC679; --warn-bg:#463A20;
+  --btn-ink:#26221B; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:var(--w);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0;font-weight:700}
+h2{font-size:clamp(26px,3.6vw,36px)}
+h3{font-size:21px}
+p{margin:0}
+a{color:var(--wood-ink)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--straw);outline-offset:3px;border-radius:6px}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--wood-ink)}
+.muted{color:var(--ink-soft)}
+.lede{font-size:clamp(17px,2vw,19px);max-width:60ch}
+section{padding-block:clamp(28px,5vw,48px)}
+
+/* header */
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:18px}
+.logo{display:inline-flex;background:var(--brand-paper);border-radius:14px;padding:6px 10px;flex-shrink:0}
+.logo img{display:block;height:46px;width:auto}
+@media (max-width:400px){.logo img{height:38px}}
+.top-links{display:flex;gap:16px;align-items:center;font-size:15px;font-weight:500;flex-wrap:wrap;justify-content:flex-end}
+.top-links a{color:var(--ink);text-decoration:none}
+.top-links a:hover{text-decoration:underline}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15.5px/1.1 var(--f-body);padding:12px 18px;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;background:transparent;color:var(--ink)}
+.btn-primary{background:var(--straw);color:var(--btn-ink)}
+.btn-ghost{border-color:var(--ink)}
+.btn-soft{background:var(--paper-2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn-sm{padding:8px 14px;font-size:14.5px}
+.seg{display:inline-flex;background:var(--paper-2);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+
+/* tap-to-hear */
+[data-say]{cursor:pointer;border-radius:6px;transition:background .15s ease}
+[data-say]:hover{background:color-mix(in srgb,var(--straw) 22%,transparent)}
+[data-say].speaking{background:color-mix(in srgb,var(--straw) 40%,transparent)}
+.vi{font-family:var(--f-display);font-weight:700}
+
+/* respelling */
+.ps{font-size:14.5px;color:var(--ink-soft);letter-spacing:.01em}
+.ps .s{white-space:nowrap}
+.ps sup{font-size:.78em;color:var(--wood-ink);font-weight:700;margin-left:1px}
+
+/* home */
+.hello{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:clamp(18px,4vw,40px);align-items:center;padding-block:clamp(12px,3vw,28px) clamp(24px,4vw,40px)}
+.hello > *{min-width:0}
+.trau{display:block;width:100%;height:auto}
+.bubble{display:inline-flex;flex-direction:column;gap:2px;background:#FFFDF8;color:#3A3B3C;border:2px solid #DDAA55;border-radius:18px;padding:10px 14px;margin-bottom:16px;position:relative;max-width:100%}
+.bubble b{font-family:var(--f-display);font-size:18px;font-weight:700}
+.bubble span{font-size:14px;color:#66625B}
+.hello h1{font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1}
+.hello .ps{margin:8px 0 14px;font-size:16px}
+@media (max-width:620px){.hello{grid-template-columns:96px 1fr}}
+
+.howto{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:h}
+.howto li{background:var(--card);border-radius:var(--r-sm);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0;counter-increment:h}
+.howto li::before{content:counter(h);font-family:var(--f-display);font-weight:800;font-size:15px;width:28px;height:28px;border-radius:50%;background:var(--straw);color:var(--btn-ink);display:grid;place-items:center;margin-bottom:4px}
+.howto b{font-weight:600}
+.howto span{font-size:15px;color:var(--ink-soft)}
+@media (max-width:820px){.howto{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){.howto{grid-template-columns:1fr}}
+
+.grid{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid li{min-width:0}
+.dcard{display:flex;flex-direction:column;height:100%;border-radius:16px;overflow:hidden;background:var(--card);text-decoration:none;color:var(--ink);transition:transform .15s ease,box-shadow .15s ease}
+.dcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(58,59,60,.14)}
+.dcard img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.dcard .meta{display:flex;flex-direction:column;gap:2px;padding:12px 14px 14px;flex:1}
+.num{font-size:12.5px;font-weight:600;letter-spacing:.03em;color:var(--ink-soft)}
+.dcard .name{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.15}
+.dcard .en{font-size:14px;color:var(--ink-soft);line-height:1.35}
+.dcard .foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:10px}
+.ptag{font-size:12px;font-weight:600;letter-spacing:.03em;border-radius:999px;padding:2px 10px;background:var(--paper-2)}
+.ptag.p-vegetarian{background:var(--sage);color:var(--sage-ink)}
+.stars{color:var(--wood);font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:820px){.grid{grid-template-columns:1fr 1fr;gap:10px}.dcard .name{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.dcard{transition:none}.dcard:hover{transform:none}}
+
+.guide{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,4vw,40px);margin-top:20px}
+.guide > *{min-width:0}
+.tones{list-style:none;padding:0;margin:12px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tones li{background:var(--card);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;min-width:0}
+.tones .vi{font-size:26px;line-height:1.1;align-self:flex-start;padding:0 4px}
+.tones .arrow{font-weight:700;color:var(--wood-ink)}
+.tones small{font-size:13px;color:var(--ink-soft)}
+.sounds{margin:12px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
+.sounds dt{font-family:var(--f-display);font-weight:700;font-size:17px}
+.sounds dd{margin:0;color:var(--ink-soft)}
+@media (max-width:760px){.guide{grid-template-columns:1fr}.tones{grid-template-columns:repeat(2,1fr)}}
+.note{background:var(--paper-2);border-radius:var(--r-sm);padding:14px 16px;font-size:15px;margin-top:18px}
+
+/* dish */
+.back{display:inline-flex;align-items:center;gap:6px;font-weight:600;text-decoration:none;color:var(--ink);margin-top:4px}
+.dhero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,44px);align-items:center;padding-block:18px 8px}
+.dhero > *{min-width:0}
+.dhero img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r)}
+.dhero h1{font-size:clamp(38px,6vw,60px);font-weight:800;line-height:1.02;display:inline-block;padding:0 4px;margin-left:-4px}
+.dhero .ps{display:block;font-size:16px;margin:6px 0 4px}
+.dhero .en{font-size:19px;font-weight:500}
+.audio{margin-top:18px;background:var(--card);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+.audio .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.audio .hint{font-size:14px;color:var(--ink-soft)}
+.voice-status{font-size:13.5px;border-radius:10px;padding:8px 12px}
+.voice-status.warn{background:var(--warn-bg);color:var(--warn)}
+@media (max-width:820px){.dhero{grid-template-columns:1fr}}
+.subnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);display:flex;gap:8px;padding-block:10px;overflow-x:auto;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.subnav button{flex-shrink:0;border:0;border-radius:999px;padding:8px 14px;background:var(--paper-2);font-weight:600;font-size:14.5px;cursor:pointer}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,4vw,44px);margin-top:16px}
+.about > *{min-width:0}
+.about h3{margin-bottom:8px}
+@media (max-width:760px){.about{grid-template-columns:1fr}}
+.words{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.words li{background:var(--card);border-radius:var(--r-sm);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.words .vi{font-size:22px;line-height:1.15;align-self:flex-start;padding:0 4px;margin-left:-4px}
+.words .en{font-size:14.5px}
+.words.words-img li{padding:10px 10px 12px;gap:4px;cursor:pointer}
+.wtile{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:10px;background:#FFFFFF;border:clamp(8px,1.6vw,14px) solid #9DB57A;margin-bottom:4px;font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3vw,34px);color:#1E1E1E;text-align:center;padding:8px;line-height:1.1}
+.wimg{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:10px;margin-bottom:4px}
+@media (max-width:820px){.words{grid-template-columns:1fr 1fr}}
+.steps{list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:10px;counter-reset:st}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--card);border-radius:var(--r-sm);padding:14px 16px;counter-increment:st;transition:box-shadow .2s ease}
+.steps li::before{content:counter(st);font-family:var(--f-display);font-weight:800;font-size:18px;width:40px;height:40px;border-radius:50%;background:var(--sage);color:var(--sage-ink);display:grid;place-items:center}
+.steps li.now{box-shadow:0 0 0 3px var(--straw)}
+.steps.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.steps.steps-grid li{display:flex;flex-direction:column;gap:0;padding:0;overflow:hidden;position:relative;min-width:0}
+.steps.steps-grid li::before{position:absolute;top:10px;left:10px;z-index:1;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.step-ph{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.steps.steps-grid li > div{padding:14px 16px 16px}
+.steps.steps-grid .vi{font-size:clamp(18px,2vw,21px)}
+@media (max-width:760px){.steps.steps-grid{grid-template-columns:1fr 1fr;gap:10px}}
+@media (max-width:480px){.steps.steps-grid{grid-template-columns:1fr}}
+.steps li > div{min-width:0;display:flex;flex-direction:column;gap:3px}
+.steps .vi{font-size:clamp(19px,2.4vw,23px);line-height:1.3;align-self:flex-start;padding:0 4px;margin-left:-4px}
+.steps .en{font-size:15px;color:var(--ink-soft)}
+
+/* games */
+.play{background:var(--sage);border-radius:calc(var(--r) + 6px);padding:clamp(18px,4vw,34px);margin-top:16px}
+.play .eyebrow{color:var(--sage-ink)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
+.tabs button{border:0;border-radius:999px;padding:9px 14px;background:var(--card);font-weight:600;font-size:14.5px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.tabs .stars{color:inherit;opacity:.85}
+.panel{background:var(--card);border-radius:var(--r);padding:clamp(16px,3vw,24px);display:flex;flex-direction:column;gap:14px}
+.panel h3{font-size:20px}
+.total{font-weight:600;margin-top:14px}
+.pick{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.pick button{width:100%;text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.pick button:hover{border-color:var(--wood)}
+.pick .vi{font-size:18px}
+.pick .en{font-size:13.5px;color:var(--ink-soft)}
+.pick .txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pick.with-ph button{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center}
+.gth{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:8px}
+.slots button.with-ph{grid-template-columns:30px 64px 1fr}
+.slots{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;counter-reset:sl}
+.slots li{counter-increment:sl}
+.slots button{width:100%;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--paper-2);border-radius:12px;padding:10px 12px;cursor:pointer}
+.slots button::before{content:counter(sl);font-family:var(--f-display);font-weight:800;width:28px;height:28px;border-radius:50%;background:var(--card);display:grid;place-items:center}
+.slots .empty{border:1.5px dashed var(--line);border-radius:12px;padding:12px;color:var(--ink-soft);font-size:14px}
+.slots button.right{border-color:var(--ok);background:var(--ok-bg)}
+.slots button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cols > *{min-width:0;display:flex;flex-direction:column;gap:8px}
+.cols .lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+@media (max-width:700px){.cols{grid-template-columns:1fr}}
+.fb{border-radius:12px;padding:10px 14px;font-weight:600}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}
+.fb.bad{background:var(--bad-bg);color:var(--bad)}
+.fb small{display:block;font-weight:400}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts button{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:2px;text-align:left}
+.opts button .vi{font-size:22px}
+.opts button.right{border-color:var(--ok);background:var(--ok-bg)}
+.opts button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opts.opts-img{grid-template-columns:repeat(4,1fr)}
+.opts.opts-img button{padding:8px;gap:4px}
+.opts.opts-img .wimg{margin:0}
+@media (max-width:640px){.opts.opts-img{grid-template-columns:1fr 1fr}}
+.big-star{font-size:30px;letter-spacing:4px;color:var(--wood)}
+.big-star .off{color:var(--line)}
+.prog{font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+.tph{display:block;width:100%;max-width:420px;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:12px}
+.target .vi{font-size:clamp(21px,3vw,27px);line-height:1.3;padding:0 4px;margin-left:-4px;display:inline-block}
+.heard{display:flex;flex-wrap:wrap;gap:6px}
+.heard span{border-radius:8px;padding:3px 8px;font-family:var(--f-display);font-weight:700;font-size:18px}
+.heard .ok{background:var(--ok-bg);color:var(--ok)}
+.heard .tone{background:var(--warn-bg);color:var(--warn)}
+.heard .miss{background:var(--bad-bg);color:var(--bad)}
+.rate{display:flex;flex-wrap:wrap;gap:8px}
+.mode-note{font-size:14px;background:var(--paper-2);border-radius:10px;padding:10px 12px}
+.bye{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:center;margin-top:12px}
+.bye > *{min-width:0}
+
+footer{border-top:1px solid var(--line);margin-top:28px;padding-block:24px 36px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font-size:14.5px}
+footer > *{min-width:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.copyright{font-size:12px;color:var(--ink-soft);opacity:.75;width:100%}
+
+/* Chỉ xem: hạn chế lưu ảnh, kéo thả, in trang · Terms of use */
+img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.terms{margin:44px 0 8px}
+.terms-box{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--straw);border-radius:12px;padding:18px 20px;max-width:860px}
+.terms-box h2{font-family:var(--f-body);font-size:18px;font-weight:800;line-height:1.3;margin:0 0 6px}
+.terms-box h2 .en{font-weight:600;color:var(--ink-soft)}
+.terms-box p{margin:8px 0 0;font-size:15px;line-height:1.55}
+.terms-box p.en{font-size:14px;color:var(--ink-soft)}
+.terms-box a{color:var(--wood-ink);font-weight:700}
+.terms-box hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.print-only{display:none}
+@media print{body>*:not(.print-only){display:none !important}.print-only{display:block !important;padding:40px;font:18px/1.6 system-ui,sans-serif;text-align:center;color:#000}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#"><img src="img/wordmark.png" width="640" height="257" alt="Trường Tiếng Việt Của Em"></a>
+    <nav class="top-links" aria-label="Site">
+      <a href="#">All dishes</a>
+      <a href="../">Về Nhà Em trip</a>
+    </nav>
+  </header>
+  <main id="app" aria-live="polite"></main>
+  <section class="terms" id="terms" aria-labelledby="terms-title">
+    <div class="terms-box">
+      <h2 id="terms-title">Lưu ý về sử dụng tài liệu <span class="en">· Terms of use</span></h2>
+      <p lang="vi">Các bài học, hình ảnh và thẻ từ trên trang này được đăng tải nhằm phục vụ việc học, và có thể được dùng cho nghiên cứu về tiếng Việt như một ngoại ngữ. Các nhà nghiên cứu ngôn ngữ muốn tìm hiểu thêm xin liên hệ <a href="mailto:contact@cvcec.org">contact@cvcec.org</a>.</p>
+      <p lang="vi">Trang hoàn toàn <b>phi lợi nhuận</b>. Tài liệu <b>không được</b> sử dụng vào mục đích thương mại, và không được sao chép, tải xuống hay chia sẻ lại dưới bất kỳ hình thức nào khi chưa có sự đồng ý bằng văn bản của CVCEC. Việc chia sẻ đường link của trang thì luôn được hoan nghênh.</p>
+      <hr>
+      <p class="en">The lessons, photos and word cards on this site are published for learning, and may be used for research on Vietnamese as a foreign language. Language researchers who would like more information may contact <a href="mailto:contact@cvcec.org">contact@cvcec.org</a>.</p>
+      <p class="en">This site is entirely <b>non-profit</b>. The materials may <b>not</b> be used for any commercial purpose, and may not be copied, downloaded or shared in any form without written permission from CVCEC. Sharing the link to this page is always welcome.</p>
+    </div>
+  </section>
+  <footer>
+    <span>Vào Bếp Nhà Em is part of Về Nhà Em, organized by CVCEC.</span>
+    <span>Questions? <span style="user-select:all">trang.ptq@cvcec.org</span></span>
+    <p class="copyright">Copyrighted by CVCEC Trường Tiếng Việt Của Em 2026</p>
+  </footer>
+</div>
+<div class="print-only">Vào Bếp Nhà Em chỉ để xem trực tuyến tại venhaem.cvcec.org/vao-bep.<br>This page is for online viewing only.</div>
+
+<script>
+const MON_AN = [
+ { id:'nem', vi:'Nem rán', en:'Crispy fried spring rolls', region:'Hanoi', protein:'Pork', img:'img/dish/nem.jpg',
+   wimg:['img/words/nem-thit-lon-xay.jpg','img/words/nem-mien.jpg','img/words/nem-moc-nhi.jpg','img/words/nem-ca-rot.jpg','img/words/nem-hanh-kho.jpg','img/words/nem-trung.jpg','img/words/nem-banh-da-nem.jpg','img/words/nem-ran.jpg'],
+   photos:['img/steps/nem-1.jpg','img/steps/nem-2.jpg','img/steps/nem-3.jpg','img/steps/nem-4.jpg','img/steps/nem-5.jpg','img/steps/nem-6.jpg'],
+   intro:"Nem rán are Hanoi's crispy fried spring rolls: minced pork, glass noodles, wood-ear mushrooms and vegetables rolled in thin rice paper and fried until golden. In southern Vietnam the same dish is called chả giò.",
+   meaning:"No northern family feast is complete without a plate of nem. They appear at Tết, the Lunar New Year, at weddings and on death anniversaries, when relatives gather to remember an ancestor. Making them is a family job: one person mixes the filling while everyone else sits around the tray and rolls.",
+   words:[['thịt lợn xay','minced pork'],['miến','glass noodles'],['mộc nhĩ','wood-ear mushroom'],['cà rốt','carrot'],['hành khô','shallot'],['trứng','egg'],['bánh đa nem','rice paper for nem'],['rán','to fry']],
+   steps:[['Ngâm miến và mộc nhĩ cho mềm.','Soak the glass noodles and wood-ear mushrooms until soft.'],
+          ['Thái nhỏ mộc nhĩ, cà rốt và hành khô.','Finely chop the mushrooms, carrot and shallots.'],
+          ['Trộn thịt với rau củ, miến và trứng.','Mix the pork with the vegetables, noodles and egg.'],
+          ['Đặt nhân lên bánh đa nem rồi cuốn chặt tay.','Put the filling on the rice paper and roll it up tightly.'],
+          ['Rán nem trong dầu nóng đến khi vàng giòn.','Fry the rolls in hot oil until golden and crisp.'],
+          ['Ăn nem với bún, rau sống và nước chấm.','Eat them with rice noodles, fresh herbs and dipping sauce.']] },
+ { id:'bun-moc', vi:'Bún mọc', en:'Pork-ball noodle soup', region:'Hanoi', protein:'Pork', img:'img/dish/bunmoc.jpg',
+   photos:['img/steps/bunmoc-1.jpg','img/steps/bunmoc-2.jpg','img/steps/bunmoc-3.jpg','img/steps/bunmoc-4.jpg','img/steps/bunmoc-5.jpg','img/steps/bunmoc-6.jpg'],
+   wimg:['img/words/bunmoc-xuong-lon.jpg','img/words/bunmoc-gio-song.jpg','img/words/bunmoc-nam-huong.jpg','img/words/nem-moc-nhi.jpg','img/words/bunmoc-bun.jpg','img/words/bunmoc-hanh-la.jpg','img/words/bunmoc-nuoc-mam.jpg','img/words/bunmoc-hat-tieu.jpg'],
+   intro:"Bún mọc is a light Hanoi noodle soup: a clear pork-bone broth, soft rice vermicelli and mọc, tender pork balls flecked with wood-ear and shiitake mushrooms.",
+   meaning:"It's a gentle everyday breakfast, eaten at street stalls on low plastic stools and loved on cold mornings. Mọc are the soft, springy balls made from giò sống, a seasoned raw pork paste, and every family has its own way of shaping them.",
+   words:[['xương lợn','pork bones'],['giò sống','raw pork paste'],['nấm hương','shiitake mushroom'],['mộc nhĩ','wood-ear mushroom'],['bún','rice vermicelli'],['hành lá','spring onion'],['nước mắm','fish sauce'],['hạt tiêu','black pepper']],
+   steps:[['Ninh xương lợn để lấy nước dùng trong.','Simmer the pork bones for a clear broth.'],
+          ['Trộn giò sống với mộc nhĩ và nấm hương.','Mix the pork paste with wood-ear and shiitake mushrooms.'],
+          ['Viên hỗn hợp thành những viên mọc nhỏ.','Roll the mixture into small balls.'],
+          ['Thả mọc vào nồi nước dùng đang sôi.','Drop the balls into the boiling broth.'],
+          ['Nêm nước mắm và hạt tiêu cho vừa ăn.','Season with fish sauce and pepper to taste.'],
+          ['Cho bún vào bát, chan nước dùng, rắc hành lá.','Put noodles in a bowl, ladle over the broth and add spring onion.']] },
+ { id:'pho-ga', vi:'Phở gà', en:'Chicken pho', region:'Hanoi', protein:'Chicken', img:'img/dish/phoga.jpg',
+   photos:['img/steps/phoga-1.jpg','img/steps/phoga-2b.jpg','img/steps/phoga-3.jpg','img/steps/phoga-4.jpg','img/steps/phoga-5.jpg','img/steps/phoga-6.jpg'],
+   wimg:['img/words/phoga-ga-luoc.jpg','img/words/phoga-banh-pho.jpg','img/words/phoga-gung.jpg','img/words/nem-hanh-kho.jpg','img/words/phoga-la-chanh.jpg','img/words/bunmoc-hanh-la.jpg','img/words/phoga-chanh.jpg','img/words/phoga-ot.jpg'],
+   intro:"Phở gà is chicken pho: a clear, fragrant broth made by poaching a whole chicken with charred ginger and shallots, served over flat rice noodles with shredded chicken, spring onion and fine strips of lime leaf.",
+   meaning:"Phở is Vietnam's best-known dish. It was born in northern Vietnam in the early 1900s, and Hanoi made it famous. Locals say chicken pho spread in the late 1930s, when beef could not be sold on some days of the week. Today a steaming bowl of phở is the classic Hanoi breakfast, eaten early before work.",
+   words:[['gà luộc','poached chicken'],['bánh phở','flat rice noodles'],['gừng','ginger'],['hành khô','shallot'],['lá chanh','lime leaf'],['hành lá','spring onion'],['chanh','lime'],['ớt','chili']],
+   steps:[['Nướng gừng và hành khô cho thơm.','Char the ginger and shallots until fragrant.'],
+          ['Luộc gà với gừng và hành nướng.','Poach the chicken with the charred ginger and shallots.'],
+          ['Vớt gà ra, để nguội rồi xé nhỏ.','Lift out the chicken, let it cool, then shred it.'],
+          ['Lọc nước dùng và nêm nước mắm.','Strain the broth and season it with fish sauce.'],
+          ['Trần bánh phở qua nước sôi.','Dip the noodles briefly in boiling water.'],
+          ['Xếp gà, hành lá, lá chanh lên bánh phở rồi chan nước dùng.','Top with chicken, spring onion and lime leaf, then ladle over the broth.']] },
+ { id:'com-ga', vi:'Cơm gà Hội An', en:'Hội An chicken rice', region:'Hội An', protein:'Chicken', img:'img/dish/comga.jpg',
+   photos:['img/steps/comga-1.jpg','img/steps/comga-2.jpg','img/steps/comga-3.jpg','img/steps/comga-4.jpg','img/steps/comga-5.jpg','img/steps/comga-6.jpg'],
+   wimg:['img/words/comga-ga-ta.jpg','img/words/comga-gao.jpg','img/words/comga-nghe.jpg','img/words/comga-hanh-tay.jpg','img/words/comga-rau-ram.jpg','img/words/comga-du-du-xanh.jpg','img/words/phoga-ot.jpg','img/words/comga-mo-ga.jpg'],
+   intro:"Cơm gà Hội An is the old town's chicken rice: rice cooked in chicken broth with turmeric until golden, topped with shredded chicken tossed with onion and rau răm (Vietnamese coriander), and served with pickled papaya and chili sauce.",
+   meaning:"It's Hội An's signature lunch, served in small family-run shops in the old town. One bird becomes a whole meal: the broth flavours the rice, the meat is shredded by hand, and nothing is wasted, a habit of thrift that runs through Vietnamese home cooking.",
+   words:[['gà ta','free-range chicken'],['gạo','uncooked rice'],['nghệ','turmeric'],['hành tây','onion'],['rau răm','Vietnamese coriander'],['đu đủ xanh','green papaya'],['ớt','chili'],['mỡ gà','chicken fat']],
+   steps:[['Luộc gà với chút muối, giữ lại nước luộc.','Poach the chicken with a little salt and keep the broth.'],
+          ['Xào gạo với mỡ gà và nghệ.','Stir-fry the rice with chicken fat and turmeric.'],
+          ['Nấu cơm bằng nước luộc gà.','Cook the rice in the chicken broth.'],
+          ['Xé gà, bóp với hành tây và rau răm.','Shred the chicken and toss it by hand with onion and rau răm.'],
+          ['Bào đu đủ xanh làm dưa chua.','Shred green papaya for a quick pickle.'],
+          ['Bày cơm, gà, dưa và tương ớt ra đĩa.','Plate the rice with the chicken, pickle and chili sauce.']] },
+ { id:'pho-cuon', vi:'Phở cuốn', en:'Beef pho rolls', region:'Hanoi', protein:'Beef', img:'img/dish/phocuon.jpg',
+   photos:['img/steps/phocuon-1.jpg','img/steps/phocuon-2.jpg','img/steps/phocuon-3.jpg','img/steps/phocuon-4.jpg','img/steps/phocuon-5.jpg'],
+   wimg:['img/words/phocuon-banh-pho.jpg','img/words/phocuon-thit-bo-2.jpg','img/words/phocuon-toi.jpg','img/words/phocuon-xa-lach.jpg','img/words/phocuon-rau-mui.jpg','img/words/phocuon-rau-thom.jpg','img/words/phocuon-duong.jpg','img/words/phoga-chanh.jpg'],
+   intro:"Phở cuốn are soft rolls made from uncut sheets of fresh pho noodle, wrapped around stir-fried beef, lettuce and herbs, and dipped in a sweet-and-sour fish sauce.",
+   meaning:"The rolls come from Ngũ Xã, a neighbourhood by Hanoi's Trúc Bạch Lake that is now lined with phở cuốn restaurants. They turn the flavours of phở into finger food made for sharing: everyone rolls their own at the table and talks while they eat.",
+   words:[['bánh phở','fresh pho noodle sheet'],['thịt bò','beef'],['tỏi','garlic'],['xà lách','lettuce'],['rau mùi','coriander'],['rau thơm','fragrant herbs'],['đường','sugar'],['chanh','lime']],
+   steps:[['Thái mỏng thịt bò, ướp với tỏi và nước mắm.','Slice the beef thinly and marinate it with garlic and fish sauce.'],
+          ['Xào nhanh thịt bò trên lửa lớn.','Stir-fry the beef quickly over high heat.'],
+          ['Đặt rau và thịt bò lên miếng bánh.','Lay herbs and beef on each sheet.'],
+          ['Cuốn chặt tay để nhân không bị rơi ra.','Roll tightly so the filling stays inside.'],
+          ['Pha nước chấm chua ngọt với chanh và đường.','Mix a sweet-and-sour dipping sauce with lime and sugar.']] },
+ { id:'bo-la-lot', vi:'Bò lá lốt', en:'Beef in betel leaves', region:'Across Vietnam', protein:'Beef', img:'img/dish/bolalot.jpg',
+  photos:['img/steps/bolalot-1.jpg','img/steps/bolalot-2.jpg','img/steps/bolalot-3.jpg','img/steps/bolalot-4.jpg','img/steps/bolalot-5.jpg','img/steps/bolalot-6.jpg'],
+   wimg:['img/words/bolalot-la-lot.jpg','img/words/bolalot-thit-bo-xay.jpg','img/words/bolalot-sa.jpg','img/words/phocuon-toi.jpg','img/words/bolalot-hanh-kho.jpg','img/words/chay-lac-rang.jpg','img/words/bunmoc-bun.jpg','img/words/bolalot-cuon.jpg'],
+   intro:"Bò lá lốt is minced beef seasoned with lemongrass, garlic and shallots, wrapped in peppery lá lốt (wild betel) leaves and pan-fried until the leaves turn glossy and fragrant.",
+   meaning:"The leaves keep the beef juicy and give off a smoky, peppery smell you notice from down the street. It's a favourite for family gatherings all over Vietnam, eaten wrapped in lettuce with rice noodles, herbs and a dipping sauce.",
+   words:[['lá lốt','wild betel leaf'],['thịt bò xay','minced beef'],['sả','lemongrass'],['tỏi','garlic'],['hành khô','shallot'],['lạc rang','roasted peanuts'],['bún','rice vermicelli'],['cuốn','to roll']],
+   steps:[['Rửa sạch lá lốt rồi để ráo.','Wash the betel leaves and let them dry.'],
+          ['Ướp thịt bò với sả, tỏi và hành khô.','Marinate the beef with lemongrass, garlic and shallots.'],
+          ['Đặt một thìa thịt lên mặt sau của lá.','Put a spoonful of beef on the back of each leaf.'],
+          ['Cuốn lá thật chặt thành từng cuộn nhỏ.','Roll each leaf tightly into a small roll.'],
+          ['Áp chảo đến khi lá thơm và bóng.','Pan-fry until the leaves are fragrant and glossy.'],
+          ['Rắc lạc rang, ăn kèm bún và rau sống.','Sprinkle with roasted peanuts and serve with noodles and herbs.']] },
+ { id:'com-chay', vi:'Mâm cơm chay', en:'A vegetarian family meal', region:'Hanoi', protein:'Vegetarian', img:'img/dish/comchay.jpg',
+  photos:['img/steps/comchay-1.jpg','img/steps/comchay-2.jpg','img/steps/comchay-3.jpg','img/steps/comchay-4.jpg','img/steps/comchay-5.jpg','img/steps/comchay-6.jpg'],
+   wimg:['img/words/chay-dau-phu.jpg','img/words/chay-ca-chua.jpg','img/words/chay-xi-dau.jpg','img/words/chay-rau-muong.jpg','img/words/phocuon-toi.jpg','img/words/chay-nam.jpg','img/words/comga-gao.jpg','img/words/chay-moi.jpg'],
+   intro:"A vegetarian family meal: tofu in tomato sauce, morning glory stir-fried with garlic, a light vegetable and mushroom soup and steamed rice, set out on one tray and shared by everyone.",
+   meaning:"The family tray, mâm cơm, is the heart of Vietnamese home life: everyone eats from shared dishes, each with their own bowl of rice. Many families eat vegetarian on the first and fifteenth days of the lunar month, a Buddhist custom. Before the meal, younger people invite their elders to start.",
+   words:[['đậu phụ','tofu'],['cà chua','tomato'],['xì dầu','soy sauce'],['rau muống','morning glory'],['tỏi','garlic'],['nấm','mushroom'],['gạo','uncooked rice'],['mời','to invite']],
+   steps:[['Vo gạo rồi nấu cơm.','Rinse the rice, then cook it.'],
+          ['Rán đậu phụ cho vàng đều các mặt.','Fry the tofu until golden on every side.'],
+          ['Xào cà chua, nêm xì dầu rồi cho đậu phụ vào.','Cook down the tomatoes, season with soy sauce, then add the tofu.'],
+          ['Xào rau muống với tỏi trên lửa lớn.','Stir-fry the morning glory with garlic over high heat.'],
+          ['Nấu canh rau củ với nấm.','Make a vegetable soup with mushrooms.'],
+          ['Dọn mâm và mời mọi người ăn cơm.','Set the tray and invite everyone to eat.']] },
+ { id:'banh-xeo-chay', vi:'Bánh xèo chay', en:'Vegetarian sizzling crêpes', region:'Central Vietnam', protein:'Vegetarian', img:'img/dish/xeochay.jpg',
+  photos:['img/steps/xeochay-1.jpg','img/steps/xeochay-2.jpg','img/steps/xeochay-3.jpg','img/steps/xeochay-4.jpg','img/steps/xeochay-5.jpg','img/steps/xeochay-6.jpg'],
+   wimg:['img/words/chay-bot-gao.jpg','img/words/chay-bot-nghe.jpg','img/words/chay-dua.jpg','img/words/chay-nam.jpg','img/words/chay-dau-phu.jpg','img/words/chay-gia.jpg','img/words/chay-chao.jpg','img/words/chay-do.jpg'],
+   intro:"Bánh xèo chay are crisp, turmeric-yellow rice-flour crêpes filled with mushrooms, tofu and bean sprouts, wrapped in lettuce and herbs and dipped in a sweet-and-sour sauce.",
+   meaning:"The name comes from the xèo sizzle the batter makes when it hits the hot pan. In central Vietnam the crêpes are small and crisp, and the region's Buddhist heritage, strongest in the old capital Huế, has made vegetarian versions a local favourite. This version adds a little coconut milk to the batter, as cooks do in the South.",
+   words:[['bột gạo','rice flour'],['bột nghệ','turmeric powder'],['nước cốt dừa','coconut milk'],['nấm','mushroom'],['đậu phụ','tofu'],['giá','bean sprouts'],['chảo','frying pan'],['đổ','to pour']],
+   steps:[['Pha bột gạo với nước, bột nghệ và nước cốt dừa.','Mix the rice flour with water, turmeric and coconut milk.'],
+          ['Xào nấm và đậu phụ cho thơm.','Sauté the mushrooms and tofu until fragrant.'],
+          ['Đun nóng chảo với một chút dầu.','Heat a pan with a little oil.'],
+          ['Đổ một muôi bột vào chảo cho kêu xèo xèo.','Pour in a ladle of batter so it sizzles.'],
+          ['Cho nhân và giá vào rồi gập đôi bánh.','Add the filling and bean sprouts, then fold the crêpe in half.'],
+          ['Cuốn bánh với rau sống, chấm nước chấm chay.','Wrap it with herbs and dip it in vegetarian sauce.']] },
+];
+if (typeof module!=='undefined') module.exports={MON_AN};
+
+/* Phiên âm: Hanoi-standard respelling for English speakers, with tone arrows. */
+const TONE_OF = {'́':'sac','̀':'huyen','̉':'hoi','̃':'nga','̣':'nang'};
+const TONE_GLYPH = {ngang:'', sac:'↗', huyen:'↘', hoi:'↘↗', nga:'~↗', nang:'↓'};
+const INITS = ['ngh','ng','nh','ch','gh','gi','kh','ph','th','tr','qu','b','c','d','đ','g','h','k','l','m','n','p','r','s','t','v','x'];
+const INIT_MAP = {ngh:'ng',ng:'ng',nh:'ny',ch:'ch',gh:'g',gi:'z',kh:'kh',ph:'f',th:'t',tr:'ch',qu:'kw',b:'b',c:'k',d:'z','đ':'d',g:'g',h:'h',k:'k',l:'l',m:'m',n:'n',p:'p',r:'z',s:'s',t:'t',v:'v',x:'s'};
+const VOWELS = 'aăâeêioôơuưy';
+const VOW = {a:'ah','ă':'a','â':'uh',e:'eh','ê':'ay',i:'ee',y:'ee',o:'aw','ô':'oh','ơ':'uh',u:'oo','ư':'eu'};
+const FIN = {c:'k',ch:'k',ng:'ng',nh:'ng',m:'m',n:'n',p:'p',t:'t'};
+const RHYME = {
+  anh:'aing',ach:'aik','ênh':'ayng','êch':'ayk',inh:'ing',ich:'ik',
+  ong:'awng',oc:'awk','ông':'ohng','ôc':'ohk',ung:'oong',uc:'ook',
+  ai:'ahy',ay:'ahy',ao:'ow',au:'ow','âu':'oh','ây':'uhy',eo:'eh-oo','êu':'ay-oo',iu:'ew',
+  oi:'oy','ôi':'oy','ơi':'uhy',ui:'ooy','ưi':'euy','ưu':'eu-oo',
+  ia:'ee-uh','iê':'ee-uh','iên':'ee-uhn','iêng':'ee-uhng','iêc':'ee-uhk','iêt':'ee-uht','iêm':'ee-uhm','iêp':'ee-uhp','iêu':'ee-ew',
+  'yê':'ee-uh','yên':'ee-uhn','yêu':'ee-ew',
+  ua:'oo-uh','uô':'oo-uh','uôn':'oo-uhn','uông':'oo-uhng','uôc':'oo-uhk','uôt':'oo-uht','uôm':'oo-uhm','uôi':'oo-uhy',
+  'ưa':'eu-uh','ươ':'eu-uh','ươn':'eu-uhn','ương':'eu-uhng','ươc':'eu-uhk','ươt':'eu-uht','ươm':'eu-uhm','ươp':'eu-uhp','ươi':'eu-uhy','ươu':'eu-uhw',
+  oa:'wah',oan:'wahn',oang:'wahng',oat:'waht',oac:'wahk',oanh:'waing',oach:'waik',oai:'wahy',oay:'wahy','oăn':'wan','oăt':'wat','oăng':'wang',
+  oe:'weh',oen:'wehn',oet:'weht','uê':'way','uênh':'wayng',uy:'wee',uyn:'ween',uyt:'weet',uynh:'wing',uych:'wik',
+  'uyên':'wee-uhn','uyêt':'wee-uht',uya:'wee-uh','uân':'wuhn','uât':'wuht','uâng':'wuhng','uơ':'wuh'
+};
+function splitTone(syl){
+  let tone='ngang', out='';
+  for (const ch of syl.normalize('NFD')) { if (TONE_OF[ch]) tone=TONE_OF[ch]; else out+=ch; }
+  return {base: out.normalize('NFC').toLowerCase(), tone};
+}
+function respellSyllable(syl){
+  const {base, tone} = splitTone(syl);
+  if (!/[a-zđăâêôơư]/.test(base)) return {text: syl, tone: 'ngang'};
+  let init='', rest=base;
+  for (const i of INITS) { if (base.startsWith(i)) { init=i; rest=base.slice(i.length); break; } }
+  if (init==='gi' && (rest==='' || !VOWELS.includes(rest[0]))) rest='i'+rest;      // gì, gìn
+  if (init==='qu' && rest==='') rest='';
+  let r;
+  if (RHYME[rest]!==undefined) r=RHYME[rest];
+  else {
+    let k=0; while (k<rest.length && VOWELS.includes(rest[k])) k++;
+    const v=rest.slice(0,k), f=rest.slice(k);
+    r = (RHYME[v]!==undefined ? RHYME[v] : [...v].map(c=>VOW[c]||c).join('')) + (f ? (FIN[f]||f) : '');
+  }
+  return {text: (INIT_MAP[init]||'') + r, tone};
+}
+function respellParts(text){
+  // returns [{text, tone}] for each syllable, punctuation kept as plain text tokens
+  return text.split(/(\s+|[,.;:!?()“”"'…–-]+)/).filter(Boolean).map(tok => {
+    if (/^\s+$/.test(tok) || /^[,.;:!?()“”"'…–-]+$/.test(tok)) return {sep: tok};
+    return respellSyllable(tok);
+  });
+}
+if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,splitTone,TONE_GLYPH};
+
+(function(){
+  const NUM=['một','hai','ba','bốn','năm','sáu','bảy','tám'];
+  const app=document.getElementById('app');
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const ps=t=>'<span class="ps">'+respellParts(t).map(p=>p.sep!==undefined?esc(p.sep):'<span class="s">'+esc(p.text)+(TONE_GLYPH[p.tone]?'<sup>'+TONE_GLYPH[p.tone]+'</sup>':'')+'</span>').join('')+'</span>';
+  const say=(t,cls)=>'<span class="vi '+(cls||'')+'" lang="vi" data-say="'+esc(t)+'">'+esc(t)+'</span>';
+  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const card=(d,i)=>{const im=d.wimg&&d.wimg[i],w=d.words[i];return im?`<img class="wimg" src="${im}" width="600" height="600" loading="lazy" alt="${esc(w[0])}: ${esc(w[1])}">`:`<span class="wtile" role="img" aria-label="${esc(w[0])}: ${esc(w[1])}"><span lang="vi">${esc(w[0])}</span></span>`};
+  const starStr=n=>'★'.repeat(n)+'☆'.repeat(3-n);
+
+  /* ---------- stars (per-viewer, browser storage) ---------- */
+  const KEY='vaobep-stars-v1';
+  function loadStars(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+  let STARS=loadStars();
+  function setStar(dish,game,n){
+    STARS[dish]=STARS[dish]||{};
+    if((STARS[dish][game]||0)>=n) return;
+    STARS[dish][game]=n;
+    try{localStorage.setItem(KEY,JSON.stringify(STARS))}catch(e){}
+  }
+  const dishStars=id=>{const s=STARS[id]||{};return (s.order||0)+(s.listen||0)+(s.speak||0)};
+
+  /* ---------- voices ---------- */
+  const TTS='speechSynthesis' in window;
+  const V={vi:null,en:null,slow:true};
+  function pickVoices(){
+    if(!TTS) return;
+    const vs=speechSynthesis.getVoices();
+    V.vi=vs.find(v=>/^vi[-_]VN/i.test(v.lang))||vs.find(v=>/^vi/i.test(v.lang))||null;
+    V.en=['en-CA','en-US','en-GB'].map(l=>vs.find(v=>v.lang.replace('_','-')===l)).find(Boolean)||vs.find(v=>/^en/i.test(v.lang))||null;
+    const st=document.getElementById('voice-status'); if(st) renderVoiceStatus(st);
+  }
+  if(TTS){pickVoices();speechSynthesis.addEventListener&&speechSynthesis.addEventListener('voiceschanged',pickVoices);setTimeout(pickVoices,800)}
+  let queue=[],speakingEl=null;
+  function clearSpeaking(){if(speakingEl){speakingEl.classList.remove('speaking');speakingEl=null}document.querySelectorAll('.steps li.now').forEach(l=>l.classList.remove('now'))}
+  function stop(){queue=[];if(TTS)speechSynthesis.cancel();clearSpeaking()}
+  function utter(text,lang){
+    const u=new SpeechSynthesisUtterance(text);
+    if(lang==='vi'){u.lang='vi-VN';if(V.vi)u.voice=V.vi;u.rate=V.slow?0.72:0.95}
+    else{u.lang='en-US';if(V.en){u.voice=V.en;u.lang=V.en.lang}u.rate=0.98}
+    return u;
+  }
+  function playQueue(items){
+    if(!TTS) return;
+    stop(); queue=items.slice();
+    const next=()=>{
+      clearSpeaking();
+      const it=queue.shift(); if(!it) return;
+      const u=utter(it.text,it.lang);
+      u.onstart=()=>{if(it.el){it.el.classList.add(it.el.tagName==='LI'?'now':'speaking');speakingEl=it.el.tagName==='LI'?null:it.el}};
+      u.onend=()=>{if(it.el&&it.el.tagName==='LI')it.el.classList.remove('now');next()};
+      u.onerror=()=>{clearSpeaking();queue=[]};
+      speechSynthesis.speak(u);
+    };
+    next();
+  }
+  const sayOne=(text,lang,el)=>playQueue([{text,lang,el}]);
+  document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-say][tabindex]')){e.preventDefault();e.target.click()}});
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('[data-say]'); if(!t) return;
+    sayOne(t.getAttribute('data-say'),t.getAttribute('data-lang')||'vi',t);
+  });
+  function renderVoiceStatus(el){
+    if(!TTS){el.className='voice-status warn';el.textContent='This browser cannot read text aloud, so audio is off. The words, steps and games still work.';el.hidden=false;return}
+    if(!V.vi){el.className='voice-status warn';el.textContent='No Vietnamese voice was found on this device yet. iPad and iPhone have one built in; on a computer, add a Vietnamese voice in your system speech settings.';el.hidden=false;return}
+    el.hidden=true;
+  }
+
+  /* ---------- views ---------- */
+  function home(){
+    document.title='Vào Bếp Nhà Em';
+    app.innerHTML=`
+    <section class="hello" aria-labelledby="h1">
+      <img class="trau" src="img/trau-con.png" width="609" height="720" alt="Trâu Con, a cartoon water buffalo in a conical straw hat, waving.">
+      <div>
+        <div class="bubble"><b lang="vi" data-say="Các bạn ơi, vào bếp cùng mình nhé!">Các bạn ơi, vào bếp cùng mình nhé!</b><span>Hi everyone, come into the kitchen with me!</span></div>
+        <h1 id="h1" lang="vi">${say('Vào Bếp Nhà Em')}</h1>
+        ${ps('Vào Bếp Nhà Em')}
+        <p class="lede">Cook, listen and speak your way through eight Vietnamese home dishes before the trip. Every lesson is explained in English, with Vietnamese steps you can hear, read and say.</p>
+      </div>
+    </section>
+    <section aria-labelledby="how-h">
+      <p class="eyebrow">Each lesson</p>
+      <h2 id="how-h">Listen, learn, cook, play</h2>
+      <ol class="howto">
+        <li><b>Listen</b><span>Hear how to make the dish in English, then the steps read aloud in Vietnamese.</span></li>
+        <li><b>Learn the words</b><span>Key ingredients and verbs, each with a pronunciation guide.</span></li>
+        <li><b>Follow the steps</b><span>Short Vietnamese steps with pronunciation and a plain English line.</span></li>
+        <li><b>Play</b><span>Three games: put the steps in order, listen and choose, say it aloud. Up to 9 stars per dish.</span></li>
+      </ol>
+    </section>
+    <section aria-labelledby="dish-h">
+      <p class="eyebrow">Tám món · Eight dishes</p>
+      <h2 id="dish-h">Choose a dish</h2>
+      <ul class="grid">
+        ${MON_AN.map((d,i)=>`<li><a class="dcard" href="#${d.id}">
+          <img src="${d.img}" width="800" height="600" loading="lazy" alt="${esc(d.vi)} (${esc(d.en)}), as typically served">
+          <span class="meta"><span class="num">Món ${i+1} · ${esc(d.region)}</span><span class="name" lang="vi">${esc(d.vi)}</span><span class="en">${esc(d.en)}</span>
+          <span class="foot"><span class="ptag p-${d.protein.toLowerCase()}">${d.protein}</span><span class="stars" aria-label="${dishStars(d.id)} of 9 stars">★ ${dishStars(d.id)}/9</span></span></span>
+        </a></li>`).join('')}
+      </ul>
+    </section>
+    <section aria-labelledby="read-h">
+      <p class="eyebrow">Pronunciation guide</p>
+      <h2 id="read-h">How to read the pronunciation</h2>
+      <p class="lede" style="margin-top:8px">The grey line under each Vietnamese word spells it the English way, Hanoi style. The small arrow after each syllable shows its tone. Tap any Vietnamese word to hear it.</p>
+      <div class="guide">
+        <div>
+          <h3>Six tones</h3>
+          <ul class="tones">
+            ${[['ma','level, steady','(none)'],['má','rising','↗'],['mà','falling, low','↘'],['mả','dipping, then up','↘↗'],['mã','rising with a catch','~↗'],['mạ','heavy, low and cut short','↓']].map(t=>`<li><span class="vi" lang="vi" data-say="${t[0]}">${t[0]}</span><span class="arrow">${t[2]}</span><small>${t[1]}</small></li>`).join('')}
+          </ul>
+        </div>
+        <div>
+          <h3>Sounds that surprise</h3>
+          <dl class="sounds">
+            <dt>d, gi, r</dt><dd>sound like <b>z</b> in Hanoi</dd>
+            <dt>đ</dt><dd>like English <b>d</b></dd>
+            <dt>nh</dt><dd><b>ny</b>, as in "canyon"</dd>
+            <dt>ng</dt><dd>as in "si<b>ng</b>", even at the start of a word</dd>
+            <dt>ph · x · tr</dt><dd><b>f</b> · <b>s</b> · <b>ch</b></dd>
+            <dt>kh</dt><dd>like "ch" in Scottish "loch"</dd>
+            <dt>a · ă</dt><dd><b>ah</b> · written <b>a</b>: a short, clipped "ah"</dd>
+            <dt>ơ, â</dt><dd><b>uh</b>; ơ is longer</dd>
+            <dt>ư</dt><dd>written <b>eu</b>: say "oo" with a smile</dd>
+            <dt>o · ô · ê</dt><dd><b>aw</b> · <b>oh</b> · <b>ay</b></dd>
+          </dl>
+        </div>
+      </div>
+      <p class="note">Audio uses your device's built-in voices. iPad and iPhone have a Vietnamese voice built in. Stars are saved in this browser only.</p>
+    </section>`;
+  }
+
+  function dish(d,idx){
+    document.title=d.vi+' · Vào Bếp Nhà Em';
+    const next=MON_AN[(idx+1)%MON_AN.length];
+    app.innerHTML=`
+    <a class="back" href="#">← All dishes</a>
+    <section class="dhero" aria-labelledby="dn">
+      <img src="${d.img}" width="800" height="600" alt="${esc(d.vi)} (${esc(d.en)}), as typically served">
+      <div>
+        <p class="num">Món ${idx+1} · ${esc(d.region)} · ${d.protein}</p>
+        <h1 id="dn" lang="vi" data-say="${esc(d.vi)}">${esc(d.vi)}</h1>
+        ${ps(d.vi)}
+        <p class="en">${esc(d.en)}</p>
+        <div class="audio" role="group" aria-label="Listen">
+          <div class="row">
+            <button class="btn btn-primary btn-sm" type="button" id="play-en">▶ How to make it · English</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="play-vi">▶ Đọc các bước · Vietnamese</button>
+            <button class="btn btn-soft btn-sm" type="button" id="stop">■ Stop</button>
+          </div>
+          <div class="row"><span class="hint">Vietnamese speed</span>
+            <span class="seg" role="group" aria-label="Vietnamese speed"><button type="button" id="sp-slow" aria-pressed="${V.slow}">Slow</button><button type="button" id="sp-norm" aria-pressed="${!V.slow}">Normal</button></span>
+          </div>
+          <p class="hint">Tip: tap any Vietnamese word or sentence to hear it.</p>
+          <p class="voice-status" id="voice-status" hidden></p>
+        </div>
+      </div>
+    </section>
+    <nav class="subnav" aria-label="Lesson sections">
+      <button type="button" data-go="sec-about">About</button><button type="button" data-go="sec-words">Words</button><button type="button" data-go="sec-steps">Steps</button><button type="button" data-go="sec-play">Play</button>
+    </nav>
+    <section id="sec-about" aria-labelledby="ab-h">
+      <h2 id="ab-h" class="sr">About the dish</h2>
+      <div class="about">
+        <div><h3>What it is</h3><p>${esc(d.intro)}</p></div>
+        <div><h3>What it means</h3><p>${esc(d.meaning)}</p></div>
+      </div>
+    </section>
+    <section id="sec-words" aria-labelledby="w-h">
+      <p class="eyebrow">Từ vựng · Key words</p>
+      <h2 id="w-h">Words for this dish</h2>
+      <ul class="words${d.wimg?' words-img':''}">${d.words.map((w,i)=>d.wimg?`<li data-say="${esc(w[0])}" tabindex="0" role="button" aria-label="Hear ${esc(w[0])}, ${esc(w[1])}">${card(d,i)}${ps(w[0])}<span class="en">${esc(w[1])}</span></li>`:`<li>${say(w[0])}${ps(w[0])}<span class="en">${esc(w[1])}</span></li>`).join('')}</ul>
+    </section>
+    <section id="sec-steps" aria-labelledby="s-h">
+      <p class="eyebrow">Cách làm · How to make it</p>
+      <h2 id="s-h">${['','One','Two','Three','Four','Five','Six','Seven','Eight'][d.steps.length]||d.steps.length} steps</h2>
+      <ol class="steps${d.photos?' steps-grid':''}" id="steps">${d.steps.map((s,i)=>{const ph=d.photos&&d.photos[i];return `<li>${ph?`<img class="step-ph" src="${ph}" width="800" height="600" loading="lazy" alt="Step ${i+1}: ${esc(s[1])}">`:''}<div>${say(s[0])}${ps(s[0])}<span class="en">${esc(s[1])}</span></div></li>`}).join('')}</ol>
+    </section>
+    <section id="sec-play" aria-labelledby="p-h">
+      <div class="play">
+        <p class="eyebrow">Trò chơi · Play</p>
+        <h2 id="p-h">Remember the steps, then say them</h2>
+        <div class="tabs" role="tablist" aria-label="Games">
+          <button role="tab" type="button" id="t-order" aria-selected="true">1 · Xếp thứ tự <span class="stars" data-st="order"></span></button>
+          <button role="tab" type="button" id="t-listen" aria-selected="false">2 · Nghe và chọn <span class="stars" data-st="listen"></span></button>
+          <button role="tab" type="button" id="t-speak" aria-selected="false">3 · Nói theo <span class="stars" data-st="speak"></span></button>
+        </div>
+        <div class="panel" id="game" role="tabpanel"></div>
+        <p class="total" id="total"></p>
+      </div>
+      <div class="bye">
+        <img class="trau" src="img/trau-con.png" width="609" height="720" alt="Trâu Con waving goodbye.">
+        <div>
+          <div class="bubble"><b lang="vi" data-say="Giỏi lắm! Hẹn gặp các bạn ở món tiếp theo nhé!">Giỏi lắm! Hẹn gặp các bạn ở món tiếp theo nhé!</b><span>Well done! See you at the next dish.</span></div>
+          <p><a class="btn btn-primary" href="#${next.id}">Next: ${esc(next.vi)} →</a></p>
+        </div>
+      </div>
+    </section>`;
+    renderVoiceStatus(document.getElementById('voice-status'));
+    const stepsEls=[...document.querySelectorAll('#steps li')];
+    document.getElementById('play-en').onclick=()=>playQueue(
+      [{text:d.en+'. '+d.intro,lang:'en'},{text:d.meaning,lang:'en'},{text:"Here's how to make it.",lang:'en'}]
+      .concat(d.steps.map((s,i)=>({text:'Step '+(i+1)+'. '+s[1],lang:'en',el:stepsEls[i]}))));
+    document.getElementById('play-vi').onclick=()=>playQueue(
+      [{text:'Cách làm '+d.vi+'.',lang:'vi'}].concat(d.steps.map((s,i)=>({text:'Bước '+NUM[i]+'. '+s[0],lang:'vi',el:stepsEls[i]}))));
+    document.getElementById('stop').onclick=stop;
+    const setSpeed=slow=>{V.slow=slow;document.getElementById('sp-slow').setAttribute('aria-pressed',slow);document.getElementById('sp-norm').setAttribute('aria-pressed',!slow)};
+    document.getElementById('sp-slow').onclick=()=>setSpeed(true);
+    document.getElementById('sp-norm').onclick=()=>setSpeed(false);
+    document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.go).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}));
+    const tabs={order:'t-order',listen:'t-listen',speak:'t-speak'};
+    const show=g=>{Object.entries(tabs).forEach(([k,id])=>document.getElementById(id).setAttribute('aria-selected',k===g));GAMES[g](d,document.getElementById('game'),()=>refreshStars(d))};
+    Object.entries(tabs).forEach(([k,id])=>document.getElementById(id).onclick=()=>{stop();show(k)});
+    refreshStars(d); show('order');
+  }
+  function refreshStars(d){
+    const s=STARS[d.id]||{};
+    document.querySelectorAll('[data-st]').forEach(el=>{const n=s[el.dataset.st]||0;el.textContent=n?('★'.repeat(n)):''});
+    const t=document.getElementById('total'); if(t) t.textContent='Your stars for this dish: '+dishStars(d.id)+' of 9';
+  }
+
+  /* ---------- games ---------- */
+  const GAMES={};
+  GAMES.order=function(d,el,done){
+    let attempts=0, pool=shuffle(d.steps.map((s,i)=>i)), picked=[], locked=new Set(), wrongSet=new Set(), hints=false, finished=false;
+    if(pool.every((v,i)=>v===i)) pool=shuffle(pool);
+    const draw=(msg)=>{
+      el.innerHTML=`<h3>Xếp thứ tự · Put the steps in order</h3>
+        <p class="muted">Tap the steps in the order you cook them. Tap a step in your list to send it back.</p>
+        <label style="display:flex;gap:8px;align-items:center;font-size:14.5px"><input type="checkbox" id="hint" ${hints?'checked':''}> Show English hints</label>
+        <div class="cols">
+          <div><span class="lbl">Steps to place</span><ul class="pick${d.photos?' with-ph':''}">${pool.map(i=>`<li><button type="button" data-p="${i}">${d.photos?`<img class="gth" src="${d.photos[i]}" width="800" height="600" alt="">`:''}<span class="txt"><span class="vi" lang="vi">${esc(d.steps[i][0])}</span>${hints?`<span class="en">${esc(d.steps[i][1])}</span>`:''}</span></button></li>`).join('')||'<li class="muted" style="font-size:14px">All steps placed.</li>'}</ul></div>
+          <div><span class="lbl">Your order</span><ol class="slots">${d.steps.map((s,k)=>picked[k]!==undefined?`<li><button type="button" data-q="${k}" class="${d.photos?'with-ph ':''}${locked.has(k)?'right':(wrongSet.has(k)?'wrong':'')}">${d.photos?`<img class="gth" src="${d.photos[picked[k]]}" width="800" height="600" alt="">`:''}<span class="vi" lang="vi">${esc(d.steps[picked[k]][0])}</span></button></li>`:`<li class="empty">Step ${k+1}</li>`).join('')}</ol></div>
+        </div>
+        ${msg&&msg.html?msg.html:''}
+        <div class="row" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" type="button" id="check" ${picked.filter(x=>x!==undefined).length<d.steps.length||finished?'disabled':''}>Check my order</button><button class="btn btn-ghost" type="button" id="again">Start again</button></div>`;
+      el.querySelector('#hint').onchange=e=>{hints=e.target.checked;draw(msg)};
+      el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{if(finished)return;const i=+b.dataset.p;pool=pool.filter(x=>x!==i);const slot=d.steps.findIndex((s,k)=>picked[k]===undefined);picked[slot]=i;draw()});
+      el.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const k=+b.dataset.q;if(locked.has(k)||finished)return;wrongSet.delete(k);pool.push(picked[k]);picked[k]=undefined;draw()});
+      el.querySelector('#again').onclick=()=>GAMES.order(d,el,done);
+      el.querySelector('#check').onclick=()=>{
+        attempts++;
+        const wrong=new Set();
+        d.steps.forEach((s,k)=>{if(picked[k]===k)locked.add(k);else wrong.add(k)});
+        wrongSet=wrong;
+        if(!wrong.size){
+          finished=true;const n=attempts===1?3:attempts===2?2:1;setStar(d.id,'order',n);done();
+          draw({html:`<div class="fb ok">Đúng rồi! <small>Correct, in ${attempts} ${attempts===1?'try':'tries'}.</small></div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div>`});
+        } else {
+          draw({html:`<div class="fb bad">Thử lại nhé! <small>Try again: ${d.steps.length-wrong.size} of ${d.steps.length} are in the right place (green). Tap the red ones to move them.</small></div>`});
+        }
+      };
+    };
+    draw();
+  };
+
+  GAMES.listen=function(d,el,done){
+    const rounds=shuffle(d.words.map((w,i)=>i)).slice(0,6);
+    let r=0, score=0, answered=false;
+    const audioOK=TTS&&!!V.vi;
+    const draw=(fb)=>{
+      if(r>=rounds.length){
+        const n=score>=6?3:score>=4?2:score>=2?1:0; setStar(d.id,'listen',n); done();
+        el.innerHTML=`<h3>Nghe và chọn · Listen and choose</h3><div class="fb ${n?'ok':'bad'}">${score} / ${rounds.length} correct</div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div><div><button class="btn btn-primary" type="button" id="again">Play again</button></div>`;
+        el.querySelector('#again').onclick=()=>GAMES.listen(d,el,done); return;
+      }
+      const t=rounds[r]; const others=shuffle(d.words.map((w,i)=>i).filter(i=>i!==t)).slice(0,3); const opts=shuffle([t,...others]);
+      el.innerHTML=`<h3>Nghe và chọn · Listen and choose</h3>
+        <p class="prog">Word ${r+1} of ${rounds.length} · ${score} correct</p>
+        ${audioOK?`<p class="muted">Play the word, then tap the one you heard.</p><div><button class="btn btn-primary" type="button" id="hear">▶ Play the word</button></div>`
+                 :`<p class="mode-note">No Vietnamese voice on this device, so read instead: which word means <b>${esc(d.words[t][1])}</b>?</p>`}
+        <div class="opts${d.wimg?' opts-img':''}">${opts.map(i=>`<button type="button" data-o="${i}">${d.wimg?card(d,i):`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`}${answered?ps(d.words[i][0])+`<span class="muted" style="font-size:13.5px">${esc(d.words[i][1])}</span>`:''}</button>`).join('')}</div>
+        ${fb||''}
+        ${answered?`<div><button class="btn btn-primary" type="button" id="next">${r+1<rounds.length?'Next word':'See my stars'}</button></div>`:''}`;
+      const hear=el.querySelector('#hear'); if(hear) hear.onclick=()=>sayOne(d.words[t][0],'vi',null);
+      el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{
+        if(answered) return; answered=true;
+        const ok=+b.dataset.o===t; if(ok) score++;
+        const f=ok?`<div class="fb ok">Đúng! <small>“${esc(d.words[t][0])}” means ${esc(d.words[t][1])}.</small></div>`:`<div class="fb bad">Chưa đúng. <small>It was “${esc(d.words[t][0])}”, ${esc(d.words[t][1])}.</small></div>`;
+        const pickedIdx=+b.dataset.o; draw(f);
+        el.querySelectorAll('[data-o]').forEach(x=>{const i=+x.dataset.o;if(i===t)x.classList.add('right');else if(i===pickedIdx)x.classList.add('wrong')});
+      });
+      const nx=el.querySelector('#next'); if(nx) nx.onclick=()=>{r++;answered=false;draw()};
+    };
+    draw();
+  };
+
+  /* speech scoring: match syllables in order; exact = 1, right syllable wrong tone = 0.5 */
+  const sylls=t=>t.normalize('NFC').toLowerCase().replace(/[^\p{L}\s]/gu,' ').split(/\s+/).filter(Boolean);
+  function scoreSpeech(target,heard){
+    const A=sylls(target),B=sylls(heard),ba=A.map(s=>splitTone(s).base),bb=B.map(s=>splitTone(s).base);
+    const n=A.length,m=B.length,L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+    for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)L[i][j]=ba[i]===bb[j]?1+L[i+1][j+1]:Math.max(L[i+1][j],L[i][j+1]);
+    const status=new Array(n).fill('miss');let i=0,j=0;
+    while(i<n&&j<m){if(ba[i]===bb[j]){status[i]=A[i]===B[j]?'ok':'tone';i++;j++}else if(L[i+1][j]>=L[i][j+1])i++;else j++}
+    const pts=status.reduce((s,x)=>s+(x==='ok'?1:x==='tone'?0.5:0),0);
+    return {status,syll:A,ratio:n?pts/n:0};
+  }
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  let selfMode=!SR;
+  GAMES.speak=function(d,el,done){
+    let r=0; const got=[];
+    const draw=(fb)=>{
+      if(r>=d.steps.length){
+        const avg=got.reduce((a,b)=>a+b,0)/got.length, n=Math.round(avg); setStar(d.id,'speak',n); done();
+        el.innerHTML=`<h3>Nói theo · Say it</h3><div class="fb ${n?'ok':'bad'}">You said all ${d.steps.length} steps${selfMode?' (self-rated)':''}.</div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div><div><button class="btn btn-primary" type="button" id="again">Practise again</button></div>`;
+        el.querySelector('#again').onclick=()=>GAMES.speak(d,el,done); return;
+      }
+      const s=d.steps[r];
+      el.innerHTML=`<h3>Nói theo · Say it</h3>
+        <p class="prog">Step ${r+1} of ${d.steps.length}</p>
+        <div class="target">${d.photos&&d.photos[r]?`<img class="tph" src="${d.photos[r]}" width="800" height="600" alt="Step ${r+1}: ${esc(s[1])}">`:''}${say(s[0])}<div>${ps(s[0])}</div><span class="muted" style="font-size:15px">${esc(s[1])}</span></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="model">▶ Listen first</button>${selfMode?'':'<button class="btn btn-primary" type="button" id="rec">🎤 Speak now</button>'}</div>
+        ${selfMode?'':'<p style="font-size:14px"><button class="btn btn-soft btn-sm" type="button" id="self">Microphone not working? Rate yourself instead</button></p>'}
+        ${selfMode?`<p class="mode-note">Automatic scoring needs your microphone, which this page can't use here. Say the sentence aloud, then rate how close you were.</p>
+          <div class="rate">${[1,2,3].map(n=>`<button class="btn btn-soft" type="button" data-rate="${n}">${'★'.repeat(n)} ${['Getting there','Close','Just like it'][n-1]}</button>`).join('')}</div>`:''}
+        <div id="fb">${fb||''}</div>`;
+      el.querySelector('#model').onclick=()=>sayOne(s[0],'vi',el.querySelector('.target .vi'));
+      el.querySelectorAll('[data-rate]').forEach(b=>b.onclick=()=>{got.push(+b.dataset.rate);r++;draw()});
+      const selfBtn=el.querySelector('#self'); if(selfBtn) selfBtn.onclick=()=>{selfMode=true;draw()};
+      const rec=el.querySelector('#rec');
+      if(rec) rec.onclick=()=>{
+        stop();
+        let R; try{R=new SR()}catch(e){selfMode=true;draw();return}
+        R.lang='vi-VN'; R.interimResults=false; R.maxAlternatives=3;
+        rec.disabled=true; rec.textContent='Listening…';
+        let heardSomething=false;
+        const guard=setTimeout(()=>{if(!heardSomething){try{R.abort()}catch(e){}rec.disabled=false;rec.textContent='🎤 Speak now';const f=el.querySelector('#fb');if(f)f.innerHTML='<div class="fb bad">We couldn\'t hear you. <small>Check that the page may use your microphone, or rate yourself instead.</small></div>'}},9000);
+        R.onresult=ev=>{
+          heardSomething=true; clearTimeout(guard);
+          const alts=[...ev.results[0]].map(a=>a.transcript);
+          const best=alts.map(a=>({a,res:scoreSpeech(s[0],a)})).sort((x,y)=>y.res.ratio-x.res.ratio)[0];
+          const n=best.res.ratio>=0.9?3:best.res.ratio>=0.7?2:best.res.ratio>=0.4?1:0;
+          const html=`<div class="heard">${best.res.syll.map((w,k)=>`<span class="${best.res.status[k]}" lang="vi">${esc(w)}</span>`).join('')}</div>
+            <p class="muted" style="font-size:13.5px">Green: right. Yellow: right word, check the tone. Red: not heard. We heard: “${esc(best.a)}”</p>
+            <div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="retry">Try again</button><button class="btn btn-primary" type="button" id="keep">Keep and continue</button></div>`;
+          el.querySelector('#fb').innerHTML=html; rec.disabled=false; rec.textContent='🎤 Speak now';
+          el.querySelector('#retry').onclick=()=>draw();
+          el.querySelector('#keep').onclick=()=>{got.push(n);r++;draw()};
+        };
+        R.onerror=ev=>{
+          heardSomething=true; clearTimeout(guard);
+          if(['not-allowed','service-not-allowed','audio-capture','network'].includes(ev.error)){selfMode=true;draw();return}
+          rec.disabled=false;rec.textContent='🎤 Speak now';
+          el.querySelector('#fb').innerHTML='<div class="fb bad">We didn\'t catch that. <small>Tap Speak now and say the sentence clearly.</small></div>';
+        };
+        R.onend=()=>{if(rec.isConnected&&rec.disabled){rec.disabled=false;rec.textContent='🎤 Speak now'}};
+        try{R.start()}catch(e){selfMode=true;draw()}
+      };
+    };
+    draw();
+  };
+
+  /* ---------- router ---------- */
+  function route(){
+    stop();
+    const id=location.hash.replace('#','');
+    const idx=MON_AN.findIndex(d=>d.id===id);
+    if(idx>=0) dish(MON_AN[idx],idx); else home();
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',route);
+  route();
+})();
+</script>
+
+<script>
+/* Chỉ xem: chặn chuột phải / nhấn giữ trên ảnh và video, chặn kéo thả ảnh, chặn Ctrl/Cmd+S và Ctrl/Cmd+P */
+(function(){
+  var guarded='img,svg,video,picture,figure';
+  document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest(guarded))e.preventDefault()});
+  document.addEventListener('dragstart',function(e){if(e.target.closest&&e.target.closest(guarded))e.preventDefault()});
+  function lock(){
+    document.querySelectorAll('img:not([draggable])').forEach(function(i){i.setAttribute('draggable','false')});
+    document.querySelectorAll('video:not([data-locked])').forEach(function(v){v.setAttribute('controlsList','nodownload noplaybackrate');v.setAttribute('disablePictureInPicture','');v.setAttribute('disableRemotePlayback','');v.disablePictureInPicture=true;v.dataset.locked='1'});
+  }
+  lock();
+  new MutationObserver(lock).observe(document.documentElement,{childList:true,subtree:true});
+  document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&['s','p'].indexOf((e.key||'').toLowerCase())>-1)e.preventDefault()});
+})();
+</script>
+</html>
