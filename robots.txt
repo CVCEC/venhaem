@@ -30,4 +30,5 @@ User-agent: *
 Disallow: /img/
 Disallow: /vid/
 Disallow: /vao-bep/img/
+Disallow: /vao-bep/am-ai/
 Allow: /

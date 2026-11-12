@@ -1,0 +1,7 @@
+# Cài đặt cho lần chạy giọng đọc AI của Vào Bếp Nhà Em (xem tools/giong_ai.py).
+# Cùng mô hình, cùng giọng (Kore, giọng miền Bắc) như vuihoctiengviet. Gói miễn phí có ít lượt mỗi ngày,
+# nên GitHub tự chạy lúc 08:15 UTC mỗi ngày (ngay sau khi lượt trong ngày được làm mới) cho đến khi đủ.
+# Sửa file này (vd. đổi một con số) rồi lưu để chạy lại ngay.
+GIONG_VUNG=bac
+LO=20
+TOI_DA_LUOT=10

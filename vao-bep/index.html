@@ -284,6 +284,7 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
 </div>
 <div class="print-only">Vào Bếp Nhà Em chỉ để xem trực tuyến tại venhaem.cvcec.org/vao-bep.<br>This page is for online viewing only.</div>
 
+<script src="am-ai.js"></script>
 <script>
 const MON_AN = [
  { id:'nem', vi:'Nem rán', en:'Crispy fried spring rolls', region:'Hanoi', protein:'Pork', img:'img/dish/nem.jpg',
@@ -468,9 +469,14 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     const st=document.getElementById('voice-status'); if(st) renderVoiceStatus(st);
   }
   if(TTS){pickVoices();speechSynthesis.addEventListener&&speechSynthesis.addEventListener('voiceschanged',pickVoices);setTimeout(pickVoices,800)}
-  let queue=[],speakingEl=null;
+  /* Giọng chuẩn: câu tiếng Việt nào đã có file giọng AI (am-ai.js, cùng giọng với các trang khác của trường)
+     thì phát file đó; câu chưa có thì mới dùng giọng máy của thiết bị. */
+  const AM=window.AM_AI||{};
+  const hasAM=Object.keys(AM).length>0;
+  const amFor=t=>AM[String(t||'').normalize('NFC')];
+  let queue=[],speakingEl=null,audioEl=null;
   function clearSpeaking(){if(speakingEl){speakingEl.classList.remove('speaking');speakingEl=null}document.querySelectorAll('.steps li.now').forEach(l=>l.classList.remove('now'))}
-  function stop(){queue=[];if(TTS)speechSynthesis.cancel();clearSpeaking()}
+  function stop(){queue=[];if(TTS)speechSynthesis.cancel();if(audioEl){const a=audioEl;audioEl=null;a.onended=a.onerror=null;a.pause()}clearSpeaking()}
   function utter(text,lang){
     const u=new SpeechSynthesisUtterance(text);
     if(lang==='vi'){u.lang='vi-VN';if(V.vi)u.voice=V.vi;u.rate=V.slow?0.72:0.95}
@@ -478,16 +484,28 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     return u;
   }
   function playQueue(items){
-    if(!TTS) return;
     stop(); queue=items.slice();
+    const mark=it=>{if(it.el){it.el.classList.add(it.el.tagName==='LI'?'now':'speaking');speakingEl=it.el.tagName==='LI'?null:it.el}};
+    const done=it=>{if(it.el&&it.el.tagName==='LI')it.el.classList.remove('now');next()};
+    const tts=it=>{
+      if(!TTS){next();return}
+      const u=utter(it.text,it.lang);
+      u.onstart=()=>mark(it);
+      u.onend=()=>done(it);
+      u.onerror=()=>{clearSpeaking();queue=[]};
+      speechSynthesis.speak(u);
+    };
     const next=()=>{
       clearSpeaking();
       const it=queue.shift(); if(!it) return;
-      const u=utter(it.text,it.lang);
-      u.onstart=()=>{if(it.el){it.el.classList.add(it.el.tagName==='LI'?'now':'speaking');speakingEl=it.el.tagName==='LI'?null:it.el}};
-      u.onend=()=>{if(it.el&&it.el.tagName==='LI')it.el.classList.remove('now');next()};
-      u.onerror=()=>{clearSpeaking();queue=[]};
-      speechSynthesis.speak(u);
+      const ma=it.lang==='vi'&&amFor(it.text);
+      if(!ma){tts(it);return}
+      const a=new Audio('am-ai/'+ma+'.mp3'); audioEl=a;
+      a.playbackRate=V.slow?0.9:1;
+      a.onplay=()=>mark(it);
+      a.onended=()=>{if(audioEl===a){audioEl=null;done(it)}};
+      a.onerror=()=>{if(audioEl===a){audioEl=null;tts(it)}};
+      a.play().catch(()=>{if(audioEl===a){audioEl=null;tts(it)}});
     };
     next();
   }
@@ -498,8 +516,8 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     sayOne(t.getAttribute('data-say'),t.getAttribute('data-lang')||'vi',t);
   });
   function renderVoiceStatus(el){
-    if(!TTS){el.className='voice-status warn';el.textContent='This browser cannot read text aloud, so audio is off. The words, steps and games still work.';el.hidden=false;return}
-    if(!V.vi){el.className='voice-status warn';el.textContent='No Vietnamese voice was found on this device yet. iPad and iPhone have one built in; on a computer, add a Vietnamese voice in your system speech settings.';el.hidden=false;return}
+    if(!TTS&&!hasAM){el.className='voice-status warn';el.textContent='This browser cannot read text aloud, so audio is off. The words, steps and games still work.';el.hidden=false;return}
+    if(!V.vi&&!hasAM){el.className='voice-status warn';el.textContent='No Vietnamese voice was found on this device yet. iPad and iPhone have one built in; on a computer, add a Vietnamese voice in your system speech settings.';el.hidden=false;return}
     el.hidden=true;
   }
 
@@ -640,7 +658,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
       [{text:d.en+'. '+d.intro,lang:'en'},{text:d.meaning,lang:'en'},{text:"Here's how to make it.",lang:'en'}]
       .concat(d.steps.map((s,i)=>({text:'Step '+(i+1)+'. '+s[1],lang:'en',el:stepsEls[i]}))));
     document.getElementById('play-vi').onclick=()=>playQueue(
-      [{text:'Cách làm '+d.vi+'.',lang:'vi'}].concat(d.steps.map((s,i)=>({text:'Bước '+NUM[i]+'. '+s[0],lang:'vi',el:stepsEls[i]}))));
+      [{text:'Cách làm '+d.vi+'.',lang:'vi'}].concat(...d.steps.map((s,i)=>[{text:'Bước '+NUM[i]+'.',lang:'vi'},{text:s[0],lang:'vi',el:stepsEls[i]}])));
     document.getElementById('stop').onclick=stop;
     const setSpeed=slow=>{V.slow=slow;document.getElementById('sp-slow').setAttribute('aria-pressed',slow);document.getElementById('sp-norm').setAttribute('aria-pressed',!slow)};
     document.getElementById('sp-slow').onclick=()=>setSpeed(true);
@@ -695,7 +713,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
   GAMES.listen=function(d,el,done){
     const rounds=shuffle(d.words.map((w,i)=>i)).slice(0,6);
     let r=0, score=0, answered=false;
-    const audioOK=TTS&&!!V.vi;
+    const audioOK=hasAM||(TTS&&!!V.vi);
     const draw=(fb)=>{
       if(r>=rounds.length){
         const n=score>=6?3:score>=4?2:score>=2?1:0; setStar(d.id,'listen',n); done();

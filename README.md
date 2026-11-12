@@ -11,3 +11,10 @@ Trang hoàn toàn phi lợi nhuận. Tài liệu không được sử dụng và
 The photos, video and learning materials are published to introduce the program and for learning, and may be used for research on Vietnamese as a foreign language (contact: contact@cvcec.org). This site is entirely non-profit. The materials may not be used for any commercial purpose, and may not be copied, downloaded or shared in any form without written permission from CVCEC.
 
 Copyrighted by CVCEC Trường Tiếng Việt Của Em 2026
+
+## Giọng đọc tiếng Việt (Vào Bếp Nhà Em)
+
+Các câu tiếng Việt dùng giọng AI chuẩn của trường (Google Gemini, giọng Kore, miền Bắc – giống trang vuihoctiengviet), lưu trong `vao-bep/am-ai/`. Câu nào chưa có file thì trang tạm đọc bằng giọng máy của thiết bị.
+
+- Danh sách câu: `giong-ai/can-doc.tsv` · trạng thái: `giong-ai/trang-thai.md`
+- GitHub Actions (`Giọng đọc AI`) tự chạy mỗi ngày lúc 08:15 UTC cho đến khi đủ; cần secret `GEMINI_API_KEY` trong Settings → Secrets and variables → Actions.
