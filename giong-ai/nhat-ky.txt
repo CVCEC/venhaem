@@ -1,51 +1,12 @@
-Lô 20 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper
-Lô 20 câu có đoạn cắt hỏng (gạo: đoạn quá ngắn) – chia đôi để đọc lại
-Lô 10 câu – Gemini không trả tiếng: không có tiếng trả về: {"candidates": [{"finishReason": "SAFETY", "index": 0, "finishMessage": "The audio stream could not be completed. Please retry your reque
-0.00  Phở gà  |  phô gá
-1.00  rau thơm  |  Rau thơm
-1.00  Đặt nhân lên bánh đa nem rồi cuốn chặt tay.  |  Đặt nhân lên bánh đa nem rồi cuốn chặt tay
-0.50  bánh phở  |  Bánh phơ
-1.00  Cách làm Phở gà.  |  Cách làm phở gà
-1.00  Xé gà, bóp với hành tây và rau răm.  |  xé gà, bóp với hành tây và rau răm
-0.89  Cuốn chặt tay để nhân không bị rơi ra.  |  cuốn chặt tay để nhân không bị rôi ra.
-1.00  Nêm nước mắm và hạt tiêu cho vừa ăn.  |  Nêm nước mắm và hạt tiêu cho vừa ăn.
-0.00  gạo  |  Vào!
-0.50  lá lốt  |  Lá lột
-1.00  Xào gạo với mỡ gà và nghệ.  |  xào gạo với mỡ gà và nghệ
-1.00  đường  |  Đường
-1.00  gà luộc  |  Gà luộc
-1.00  Cuốn bánh với rau sống, chấm nước chấm chay.  |  cuốn bánh với rau sống, chấm nước chấm chay
-0.00  sả  |  Sá
-1.00  Dọn mâm và mời mọi người ăn cơm.  |  dọn mâm và mời mọi người ăn cơm.
-1.00  nghệ  |  Nghệ
-0.00  xì dầu  |  xí dâu
-0.71  Rửa sạch lá lốt rồi để ráo.  |  rửa sạch lá lốt rồi đề giáo
-0.00  đổ  |  Đồ
-1.00  cuốn  |  cuốn
-1.00  Cách làm Bún mọc.  |  Cách làm bún mọc
-1.00  Đặt rau và thịt bò lên miếng bánh.  |  Đặt rau và thịt bò lên miếng bánh
-1.00  Xào nấm và đậu phụ cho thơm.  |  xào nấm và đậu phụ cho thơm.
-0.00  gà ta  |  Dạ tạ
-0.00  rán  |  Xán
-1.00  Nấu canh rau củ với nấm.  |  nấu canh rau củ với nấm
-0.75  Rán đậu phụ cho vàng đều các mặt.  |  Gián đậu phụ cho vàng đều cắt mặt
-1.00  Các bạn ơi, vào bếp cùng mình nhé!  |  Các bạn ơi, vào bếp cùng mình nhé!
-0.88  Áp chảo đến khi lá thơm và bóng.  |  áp chào đến khi lá thơm và bóng.
-1.00  Xếp gà, hành lá, lá chanh lên bánh phở rồi chan nước dùng.  |  xếp gà, hành lá, lá chanh lên bánh phở rồi chan nước dùng
-1.00  Trộn thịt với rau củ, miến và trứng.  |  trộn thịt với rau củ, miến và trứng
-1.00  hành khô  |  Hành khô
-1.00  Cách làm Nem rán.  |  cách làm, nem rán
-1.00  giò sống  |  giò sống
-0.89  Bày cơm, gà, dưa và tương ớt ra đĩa.  |  bày cơm, gà, dưa và tương ốt ra đĩa.
-0.00  xương lợn  |  Sưu lột
-1.00  lá chanh  |  Lá chanh
-1.00  Ăn nem với bún, rau sống và nước chấm.  |  ăn nem với bún, rau sống và nước chấm.
-1.00  Pha bột gạo với nước, bột nghệ và nước cốt dừa.  |  pha bột gạo với nước, bột nghệ và nước cốt dừa.
-Lô 20 câu có 8 câu lệch nhiều – có thể cắt sai, chia đôi để đọc lại
-Lô 10 câu có 4 câu lệch nhiều – có thể cắt sai, chia đôi để đọc lại
-Lô 5 câu có 3 câu lệch nhiều – có thể cắt sai, chia đôi để đọc lại
-0.00  Bước hai.  |  Book high
-0.00  tỏi  |  TÔI
-0.00  giá  |  DÀ
-0.00  ma  |  Má
-1.00  Mâm cơm chay  |  Mâm cơm chay
+1.00  nấm  |  Nấm
+0.89  Trộn giò sống với mộc nhĩ và nấm hương.  |  Trộn rò sống với mộc nhĩ và nấm hương.
+1.00  Rắc lạc rang, ăn kèm bún và rau sống.  |  rắc lạc rang, ăn kèm bún và rau sống.
+0.90  Đổ một muôi bột vào chảo cho kêu xèo xèo.  |  Đổ một muối bột vào chảo, cho kêu xèo xèo.
+1.00  Cách làm Cơm gà Hội An.  |  Cách làm cơm gà Hội An
+0.00  trứng  |  
+0.67  thịt bò xay  |  thịt bò say
+0.00  bún  |  Buôn
+0.00  mã  |  Mà...
+1.00  Cách làm Bánh xèo chay.  |  Cách làm, bánh xèo chay
+0.67  thịt lợn xay  |  thịt lợn say
+1.00  hành tây  |  hành tây
