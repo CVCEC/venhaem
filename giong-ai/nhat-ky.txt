@@ -11,3 +11,13 @@ Lô 10 câu – Gemini không trả tiếng: không có tiếng trả về: {"ca
 1.00  Nêm nước mắm và hạt tiêu cho vừa ăn.  |  Nêm nước mắm và hạt tiêu cho vừa ăn.
 0.00  gạo  |  Vào!
 0.50  lá lốt  |  Lá lột
+1.00  Xào gạo với mỡ gà và nghệ.  |  xào gạo với mỡ gà và nghệ
+1.00  đường  |  Đường
+1.00  gà luộc  |  Gà luộc
+1.00  Cuốn bánh với rau sống, chấm nước chấm chay.  |  cuốn bánh với rau sống, chấm nước chấm chay
+0.00  sả  |  Sá
+1.00  Dọn mâm và mời mọi người ăn cơm.  |  dọn mâm và mời mọi người ăn cơm.
+1.00  nghệ  |  Nghệ
+0.00  xì dầu  |  xí dâu
+0.71  Rửa sạch lá lốt rồi để ráo.  |  rửa sạch lá lốt rồi đề giáo
+0.00  đổ  |  Đồ
