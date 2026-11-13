@@ -41,6 +41,7 @@ window.AM_AI = {
 "lá lốt": "1426094a6f1d",
 "ma": "5be1a8d980eb",
 "mã": "6dcee06bf2ff",
+"mộc nhĩ": "7d5218f6faec",
 "nghệ": "2a59d9c59244",
 "nấm": "5e8635734bf5",
 "rau thơm": "048349611ffd",

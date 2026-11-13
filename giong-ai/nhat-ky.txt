@@ -7,3 +7,6 @@ Lô 3 câu không cắt được, chia đôi để đọc lại
 0.89  Đặt một thìa thịt lên mặt sau của lá.  |  đặt một thìa thịp lên mặt sau của lá.
 1.00  Pha nước chấm chua ngọt với chanh và đường.  |  pha nước chấm chua ngọt với chanh và đường.
 1.00  Lọc nước dùng và nêm nước mắm.  |  lọc nước dùng và nêm nước mắm
+Lô 3 câu – Gemini không trả tiếng: không có tiếng trả về: {"candidates": [{"finishReason": "SAFETY", "index": 0, "finishMessage": "The audio stream could not be completed. Please retry your reque
+Lô 3 câu có đoạn cắt hỏng (mà: [Errno 1094995529] Invalid data found when processing input: '/tmp/tmpeoy5ljjj/7f0256a7a41b.mp3') – chia đôi để đọc lại
+0.50  mộc nhĩ  |  Mục nhĩ
