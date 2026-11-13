@@ -52,6 +52,7 @@ window.AM_AI = {
 "xương lợn": "48ca6f5ab095",
 "Áp chảo đến khi lá thơm và bóng.": "3b9e23340306",
 "Ăn nem với bún, rau sống và nước chấm.": "4e8a8668638f",
+"Đặt một thìa thịt lên mặt sau của lá.": "775e3130d54f",
 "Đặt nhân lên bánh đa nem rồi cuốn chặt tay.": "0729e02bca5a",
 "Đặt rau và thịt bò lên miếng bánh.": "3203471c22d0",
 "Đổ một muôi bột vào chảo cho kêu xèo xèo.": "6393abf962b8",

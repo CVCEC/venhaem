@@ -1,12 +1,7 @@
-1.00  nấm  |  Nấm
-0.89  Trộn giò sống với mộc nhĩ và nấm hương.  |  Trộn rò sống với mộc nhĩ và nấm hương.
-1.00  Rắc lạc rang, ăn kèm bún và rau sống.  |  rắc lạc rang, ăn kèm bún và rau sống.
-0.90  Đổ một muôi bột vào chảo cho kêu xèo xèo.  |  Đổ một muối bột vào chảo, cho kêu xèo xèo.
-1.00  Cách làm Cơm gà Hội An.  |  Cách làm cơm gà Hội An
-0.00  trứng  |  
-0.67  thịt bò xay  |  thịt bò say
-0.00  bún  |  Buôn
-0.00  mã  |  Mà...
-1.00  Cách làm Bánh xèo chay.  |  Cách làm, bánh xèo chay
-0.67  thịt lợn xay  |  thịt lợn say
-1.00  hành tây  |  hành tây
+Lô 12 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper
+Lô 12 câu có đoạn cắt hỏng (mà: đoạn quá ngắn) – chia đôi để đọc lại
+Lô 6 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper
+Lô 6 câu có đoạn cắt hỏng (mà: đoạn quá ngắn) – chia đôi để đọc lại
+Lô 3 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper – không được
+Lô 3 câu không cắt được, chia đôi để đọc lại
+0.89  Đặt một thìa thịt lên mặt sau của lá.  |  đặt một thìa thịp lên mặt sau của lá.
