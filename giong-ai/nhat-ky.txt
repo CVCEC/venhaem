@@ -59,3 +59,9 @@ Lô 12 câu – Gemini không trả tiếng: không có tiếng trả về: {"ca
 0.00  Nem rán  |  Nèm dán
 0.50  hạt tiêu  |  Hát tiêu
 0.50  lạc rang  |  Lạc Giang
+1.00  Phở cuốn  |  phở cuốn
+1.00  Cơm gà Hội An  |  Cơm gà hội an
+1.00  má  |  Má
+1.00  Xào rau muống với tỏi trên lửa lớn.  |  xào rau muống với tỏi trên lửa lớn.
+0.00  rau răm  |  Sao dâm?
+0.00  chảo  |  Chào!
