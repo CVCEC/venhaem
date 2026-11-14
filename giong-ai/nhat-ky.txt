@@ -1,14 +1,12 @@
-Lô 12 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper
-Lô 12 câu có đoạn cắt hỏng (mà: đoạn quá ngắn) – chia đôi để đọc lại
-Lô 6 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper
-Lô 6 câu có đoạn cắt hỏng (mà: đoạn quá ngắn) – chia đôi để đọc lại
-Lô 3 câu: khoảng lặng chưa rõ, cắt theo mốc chữ của Whisper – không được
-Lô 3 câu không cắt được, chia đôi để đọc lại
-0.89  Đặt một thìa thịt lên mặt sau của lá.  |  đặt một thìa thịp lên mặt sau của lá.
-1.00  Pha nước chấm chua ngọt với chanh và đường.  |  pha nước chấm chua ngọt với chanh và đường.
-1.00  Lọc nước dùng và nêm nước mắm.  |  lọc nước dùng và nêm nước mắm
-Lô 3 câu – Gemini không trả tiếng: không có tiếng trả về: {"candidates": [{"finishReason": "SAFETY", "index": 0, "finishMessage": "The audio stream could not be completed. Please retry your reque
-Lô 3 câu có đoạn cắt hỏng (mà: [Errno 1094995529] Invalid data found when processing input: '/tmp/tmpeoy5ljjj/7f0256a7a41b.mp3') – chia đôi để đọc lại
-0.50  mộc nhĩ  |  Mục nhĩ
-1.00  mà  |  MÀ
-0.00  mời  |  Mười
+0.86  Đun nóng chảo với một chút dầu.  |  đun nóng chào với một chút dầu.
+1.00  Cuốn lá thật chặt thành từng cuộn nhỏ.  |  cuốn lá thật chặt thành từng cuộn nhỏ.
+0.89  Thái nhỏ mộc nhĩ, cà rốt và hành khô.  |  Thái nhỏ mục nhĩ, cà rốt và hành khô
+1.00  Xào nhanh thịt bò trên lửa lớn.  |  xào nhanh thịt bò trên lửa lớn.
+1.00  Bò lá lốt  |  Bò lá lốt
+0.50  Bún mọc  |  Bốn mọc
+0.89  Ướp thịt bò với sả, tỏi và hành khô.  |  Ướp thịt bò với xà, tỏi và hành khô.
+1.00  chanh  |  Chanh
+0.00  cà rốt  |  Cảm ơn.
+0.00  xà lách  |  Sao lại?
+1.00  Cách làm Mâm cơm chay.  |  Cách làm mâm cơm chay
+1.00  Bước bốn.  |  Bước 4
