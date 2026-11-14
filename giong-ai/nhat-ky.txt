@@ -46,3 +46,16 @@
 1.00  Thả mọc vào nồi nước dùng đang sôi.  |  Thả mọc vào nồi nước dùng đang sôi.
 1.00  Ninh xương lợn để lấy nước dùng trong.  |  ninh xương lợn để lấy nước dùng trong.
 1.00  mỡ gà  |  Mỡ gà
+Lô 12 câu – Gemini không trả tiếng: không có tiếng trả về: {"candidates": [{"finishReason": "SAFETY", "index": 0, "finishMessage": "The audio stream could not be completed. Please retry your reque
+1.00  Viên hỗn hợp thành những viên mọc nhỏ.  |  Viên hỗn hợp thành những viên mọc nhỏ.
+1.00  Giỏi lắm! Hẹn gặp các bạn ở món tiếp theo nhé!  |  Giỏi lắm! Hẹn gặp các bạn ở món tiếp theo nhé!
+1.00  Bước sáu.  |  Bước 6
+1.00  nước mắm  |  Nước mắm
+1.00  Vào Bếp Nhà Em  |  vào bếp nhà em.
+1.00  rau mùi  |  Rau mùi
+0.86  Bào đu đủ xanh làm dưa chua.  |  Bảo đu đủ xanh, làm dưa chua
+0.50  bột gạo  |  Một gạo
+1.00  Vớt gà ra, để nguội rồi xé nhỏ.  |  Vớt gà ra, để nguội, rồi xé nhỏ.
+0.00  Nem rán  |  Nèm dán
+0.50  hạt tiêu  |  Hát tiêu
+0.50  lạc rang  |  Lạc Giang
