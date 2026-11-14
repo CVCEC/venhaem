@@ -34,3 +34,15 @@
 0.00  miến  |  miễn
 1.00  Bánh xèo chay  |  Bánh xèo chay
 0.50  đậu phụ  |  Lộ phụ
+1.00  thịt bò  |  thịt bò
+1.00  bánh đa nem  |  Bánh đa nem
+0.50  cà chua  |  Cá chua
+1.00  Cách làm Bò lá lốt.  |  Cách làm bò lá lốt
+1.00  đu đủ xanh  |  đu đủ xanh
+0.86  Ngâm miến và mộc nhĩ cho mềm.  |  ngâm miến và mọc nhĩ cho mềm.
+1.00  Cho nhân và giá vào rồi gập đôi bánh.  |  Cho nhân và giá vào, rồi gập đôi bánh.
+1.00  Bước một.  |  Bước 1
+1.00  Nướng gừng và hành khô cho thơm.  |  nướng gừng và hành khô cho thơm
+1.00  Thả mọc vào nồi nước dùng đang sôi.  |  Thả mọc vào nồi nước dùng đang sôi.
+1.00  Ninh xương lợn để lấy nước dùng trong.  |  ninh xương lợn để lấy nước dùng trong.
+1.00  mỡ gà  |  Mỡ gà
