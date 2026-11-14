@@ -10,3 +10,15 @@
 0.00  xà lách  |  Sao lại?
 1.00  Cách làm Mâm cơm chay.  |  Cách làm mâm cơm chay
 1.00  Bước bốn.  |  Bước 4
+1.00  nước cốt dừa  |  Nước cốt dừa
+1.00  Vo gạo rồi nấu cơm.  |  vo gạo, rồi nấu cơm.
+0.50  bột nghệ  |  Bụt nghệ
+1.00  Bước ba.  |  Bước 3
+0.00  ớt  |  Ổn
+1.00  nấm hương  |  Nấm hương
+1.00  Luộc gà với gừng và hành nướng.  |  luộc gà với gừng và hành nướng.
+0.00  rau muống  |  Sao muộn?
+0.89  Rán nem trong dầu nóng đến khi vàng giòn.  |  Gián nem trong dầu nóng đến khi vàng giòn.
+1.00  Thái mỏng thịt bò, ướp với tỏi và nước mắm.  |  Thái mỏng thịt bò, ướp với tỏi và nước mắm.
+1.00  Bước năm.  |  Bước 5
+1.00  gừng  |  Gừng
