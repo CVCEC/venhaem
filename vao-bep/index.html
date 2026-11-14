@@ -7,43 +7,30 @@
 <meta name="description" content="Vào Bếp Nhà Em: eight Vietnamese home dishes with English and Vietnamese audio, a pronunciation guide and games.">
 <link rel="icon" href="img/trau-con.png">
 <title>Vào Bếp Nhà Em</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://mau.cvcec.org/v1/cvcec-chung.css">
+<script src="https://mau.cvcec.org/v1/cvcec-chung.js" defer></script>
 <style>
 /* Layout: a cookbook that talks. Hub of eight dish cards; each dish opens one long lesson page
    (about → words → steps → play) on brand paper, with tap-to-hear Vietnamese everywhere. */
 :root{
-  --paper:#F4F0EA; --paper-2:#EAE2D5; --card:#FBF8F3;
-  --ink:#3A3B3C; --ink-soft:#66625B; --line:#D9CFC0;
-  --straw:#DDAA55; --wood:#C68B59; --wood-ink:#8A5630;
-  --sage:#DCE4CB; --sage-ink:#55663A; --peach:#F5D3BD;
-  --ok:#3E7D3A; --ok-bg:#DDEBD3; --bad:#B4442A; --bad-bg:#F6DDD3; --warn:#9A6A12; --warn-bg:#F6E8C8;
-  --btn-ink:#3A3B3C;
-  --brand-paper:#F4F0EA;
-  --f-display:"Baloo 2","Nunito","Varela Round",system-ui,sans-serif;
-  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+  /* Biến cũ trỏ sang bộ mẫu chung "Làng Trâu Con" (mau.cvcec.org/v1) – màu góc học venhaem */
+  --paper:var(--ttv-nen); --paper-2:var(--ttv-vien); --card:var(--ttv-the);
+  --ink:var(--ttv-chu); --ink-soft:var(--ttv-chu-phu); --line:var(--ttv-vien);
+  --straw:var(--ttv-goc); --wood:var(--ttv-goc-dam); --wood-ink:var(--ttv-goc-dam);
+  --peach:var(--ttv-goc-nhat);
+  /* màu chức năng của trang (đã làm đậm cho đạt 4,5:1 trên nền nhạt, thẻ trắng và nền kem) */
+  --sage:#DCE4CB; --sage-ink:#55663A;
+  --ok:#397335; --ok-bg:#DDEBD3; --bad:#AC4128; --bad-bg:#F6DDD3; --warn:#8C6010; --warn-bg:#F6E8C8;
+  --btn-ink:var(--ttv-chu);
+  --brand-paper:var(--ttv-nen);
+  --f-display:var(--ttv-phong-tieu-de);
+  --f-body:var(--ttv-phong);
   --r:18px; --r-sm:12px; --w:1080px;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#232426; --paper-2:#2D2E31; --card:#2A2B2E;
-  --ink:#F1ECE3; --ink-soft:#B8B1A5; --line:#45464A;
-  --straw:#E2B565; --wood:#D59C6C; --wood-ink:#E6B387;
-  --sage:#343D2C; --sage-ink:#C3D3A4; --peach:#4F3A2E;
-  --ok:#9FD493; --ok-bg:#2C3D29; --bad:#F09A80; --bad-bg:#4A2A22; --warn:#EBC679; --warn-bg:#463A20;
-  --btn-ink:#26221B; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#232426; --paper-2:#2D2E31; --card:#2A2B2E;
-  --ink:#F1ECE3; --ink-soft:#B8B1A5; --line:#45464A;
-  --straw:#E2B565; --wood:#D59C6C; --wood-ink:#E6B387;
-  --sage:#343D2C; --sage-ink:#C3D3A4; --peach:#4F3A2E;
-  --ok:#9FD493; --ok-bg:#2C3D29; --bad:#F09A80; --bad-bg:#4A2A22; --warn:#EBC679; --warn-bg:#463A20;
-  --btn-ink:#26221B; color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:var(--w);margin-inline:auto}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6}
+.wrap{max-width:calc(var(--w) + 32px);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0;font-weight:700}
 h2{font-size:clamp(26px,3.6vw,36px)}
 h3{font-size:21px}
@@ -57,12 +44,9 @@ button{font:inherit;color:inherit}
 section{padding-block:clamp(28px,5vw,48px)}
 
 /* header */
-header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:18px}
-.logo{display:inline-flex;background:var(--brand-paper);border-radius:14px;padding:6px 10px;flex-shrink:0}
-.logo img{display:block;height:46px;width:auto}
-@media (max-width:400px){.logo img{height:38px}}
+header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;padding-block:10px}
 .top-links{display:flex;gap:16px;align-items:center;font-size:15px;font-weight:500;flex-wrap:wrap;justify-content:flex-end}
-.top-links a{color:var(--ink);text-decoration:none}
+.top-links a{color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .top-links a:hover{text-decoration:underline}
 
 /* buttons */
@@ -91,12 +75,15 @@ header.top{display:flex;justify-content:space-between;align-items:center;gap:16p
 .hello{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:clamp(18px,4vw,40px);align-items:center;padding-block:clamp(12px,3vw,28px) clamp(24px,4vw,40px)}
 .hello > *{min-width:0}
 .trau{display:block;width:100%;height:auto}
-.bubble{display:inline-flex;flex-direction:column;gap:2px;background:#FFFDF8;color:#3A3B3C;border:2px solid #DDAA55;border-radius:18px;padding:10px 14px;margin-bottom:16px;position:relative;max-width:100%}
+.bubble{display:inline-flex;flex-direction:column;gap:2px;background:var(--card);color:var(--ink);border:2px solid var(--straw);border-radius:18px;padding:10px 14px;margin-bottom:16px;position:relative;max-width:100%}
 .bubble b{font-family:var(--f-display);font-size:18px;font-weight:700}
-.bubble span{font-size:14px;color:#66625B}
+.bubble span{font-size:14px;color:var(--ink-soft)}
 .hello h1{font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1}
 .hello .ps{margin:8px 0 14px;font-size:16px}
 @media (max-width:620px){.hello{grid-template-columns:96px 1fr}}
+/* màn chào: nền trời – mây – ruộng của bộ mẫu */
+.hello.ttv-canh{border-radius:calc(var(--r) + 6px);padding:clamp(20px,4vw,40px) clamp(14px,4vw,40px) clamp(100px,13vw,140px);margin-top:4px}
+.hello.ttv-canh .ps sup{color:var(--ink)}
 
 .howto{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:h}
 .howto li{background:var(--card);border-radius:var(--r-sm);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0;counter-increment:h}
@@ -109,7 +96,7 @@ header.top{display:flex;justify-content:space-between;align-items:center;gap:16p
 .grid{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .grid li{min-width:0}
 .dcard{display:flex;flex-direction:column;height:100%;border-radius:16px;overflow:hidden;background:var(--card);text-decoration:none;color:var(--ink);transition:transform .15s ease,box-shadow .15s ease}
-.dcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(58,59,60,.14)}
+.dcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,48,96,.14)}
 .dcard img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
 .dcard .meta{display:flex;flex-direction:column;gap:2px;padding:12px 14px 14px;flex:1}
 .num{font-size:12.5px;font-weight:600;letter-spacing:.03em;color:var(--ink-soft)}
@@ -219,6 +206,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .opts button .vi{font-size:22px}
 .opts button.right{border-color:var(--ok);background:var(--ok-bg)}
 .opts button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opts button.right .ps sup,.opts button.wrong .ps sup{color:var(--ink)}
 .opts.opts-img{grid-template-columns:repeat(4,1fr)}
 .opts.opts-img button{padding:8px;gap:4px}
 .opts.opts-img .wimg{margin:0}
@@ -238,14 +226,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bye{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:center;margin-top:12px}
 .bye > *{min-width:0}
 
-footer{border-top:1px solid var(--line);margin-top:28px;padding-block:24px 36px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font-size:14.5px}
-footer > *{min-width:0}
+.wrap>footer{border-top:1px solid var(--line);margin-top:28px;padding-block:24px 36px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font-size:14.5px}
+.wrap>footer > *{min-width:0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.copyright{font-size:12px;color:var(--ink-soft);opacity:.75;width:100%}
 
 /* Chỉ xem: hạn chế lưu ảnh, kéo thả, in trang · Terms of use */
 img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .terms{margin:44px 0 8px}
+/* điều khoản: luôn thấy ngay đầu trang, kể cả trong khung của cổng */
+.terms-strip{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--straw);border-radius:12px;padding:8px 14px;font-size:14px;line-height:1.45;margin:0 0 8px}
+.terms-strip a,.terms-strip button{color:var(--wood-ink);font-weight:700}
+.terms-strip button{border:0;background:none;padding:0;cursor:pointer;text-decoration:underline;font-size:14px;min-height:32px}
 .terms-box{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--straw);border-radius:12px;padding:18px 20px;max-width:860px}
 .terms-box h2{font-family:var(--f-body);font-size:18px;font-weight:800;line-height:1.3;margin:0 0 6px}
 .terms-box h2 .en{font-weight:600;color:var(--ink-soft)}
@@ -259,12 +250,12 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
 
 <div class="wrap">
   <header class="top">
-    <a class="logo" href="#"><img src="img/wordmark.png" width="640" height="257" alt="Trường Tiếng Việt Của Em"></a>
     <nav class="top-links" aria-label="Site">
       <a href="#">All dishes</a>
       <a href="../">Về Nhà Em trip</a>
     </nav>
   </header>
+  <p class="terms-strip" role="note"><span lang="vi"><b>Chỉ để xem</b> · phi lợi nhuận · không dùng vào mục đích thương mại, không sao chép, tải xuống khi chưa được CVCEC đồng ý · <a href="mailto:contact@cvcec.org">contact@cvcec.org</a></span><button type="button" id="terms-go">Điều khoản · Terms of use ↓</button></p>
   <main id="app" aria-live="polite"></main>
   <section class="terms" id="terms" aria-labelledby="terms-title">
     <div class="terms-box">
@@ -279,7 +270,6 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
   <footer>
     <span>Vào Bếp Nhà Em is part of Về Nhà Em, organized by CVCEC.</span>
     <span>Questions? <span style="user-select:all">trang.ptq@cvcec.org</span></span>
-    <p class="copyright">Copyrighted by CVCEC Trường Tiếng Việt Của Em 2026</p>
   </footer>
 </div>
 <div class="print-only">Vào Bếp Nhà Em chỉ để xem trực tuyến tại venhaem.cvcec.org/vao-bep.<br>This page is for online viewing only.</div>
@@ -458,29 +448,28 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
   }
   const dishStars=id=>{const s=STARS[id]||{};return (s.order||0)+(s.listen||0)+(s.speak||0)};
 
-  /* ---------- voices ---------- */
+  /* ---------- voices ----------
+     NGOẠI LỆ RIÊNG KHO venhaem: câu TIẾNG VIỆT chỉ phát tệp giọng chuẩn của trường (am-ai/, am-ai.js),
+     KHÔNG BAO GIỜ đọc bằng giọng máy; câu nào chưa có tệp thì bỏ qua (ghi console.warn).
+     Câu TIẾNG ANH vẫn đọc bằng giọng máy của thiết bị (trường chưa có giọng chuẩn tiếng Anh). */
   const TTS='speechSynthesis' in window;
-  const V={vi:null,en:null,slow:true};
+  const V={en:null,slow:true};
   function pickVoices(){
     if(!TTS) return;
     const vs=speechSynthesis.getVoices();
-    V.vi=vs.find(v=>/^vi[-_]VN/i.test(v.lang))||vs.find(v=>/^vi/i.test(v.lang))||null;
     V.en=['en-CA','en-US','en-GB'].map(l=>vs.find(v=>v.lang.replace('_','-')===l)).find(Boolean)||vs.find(v=>/^en/i.test(v.lang))||null;
     const st=document.getElementById('voice-status'); if(st) renderVoiceStatus(st);
   }
   if(TTS){pickVoices();speechSynthesis.addEventListener&&speechSynthesis.addEventListener('voiceschanged',pickVoices);setTimeout(pickVoices,800)}
-  /* Giọng chuẩn: câu tiếng Việt nào đã có file giọng AI (am-ai.js, cùng giọng với các trang khác của trường)
-     thì phát file đó; câu chưa có thì mới dùng giọng máy của thiết bị. */
   const AM=window.AM_AI||{};
   const hasAM=Object.keys(AM).length>0;
   const amFor=t=>AM[String(t||'').normalize('NFC')];
   let queue=[],speakingEl=null,audioEl=null;
   function clearSpeaking(){if(speakingEl){speakingEl.classList.remove('speaking');speakingEl=null}document.querySelectorAll('.steps li.now').forEach(l=>l.classList.remove('now'))}
   function stop(){queue=[];if(TTS)speechSynthesis.cancel();if(audioEl){const a=audioEl;audioEl=null;a.onended=a.onerror=null;a.pause()}clearSpeaking()}
-  function utter(text,lang){
+  function utter(text){ // chỉ dùng cho tiếng Anh
     const u=new SpeechSynthesisUtterance(text);
-    if(lang==='vi'){u.lang='vi-VN';if(V.vi)u.voice=V.vi;u.rate=V.slow?0.72:0.95}
-    else{u.lang='en-US';if(V.en){u.voice=V.en;u.lang=V.en.lang}u.rate=0.98}
+    u.lang='en-US';if(V.en){u.voice=V.en;u.lang=V.en.lang}u.rate=0.98;
     return u;
   }
   function playQueue(items){
@@ -488,8 +477,8 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     const mark=it=>{if(it.el){it.el.classList.add(it.el.tagName==='LI'?'now':'speaking');speakingEl=it.el.tagName==='LI'?null:it.el}};
     const done=it=>{if(it.el&&it.el.tagName==='LI')it.el.classList.remove('now');next()};
     const tts=it=>{
-      if(!TTS){next();return}
-      const u=utter(it.text,it.lang);
+      if(it.lang==='vi'||!TTS){next();return} // không bao giờ đọc tiếng Việt bằng giọng máy
+      const u=utter(it.text);
       u.onstart=()=>mark(it);
       u.onend=()=>done(it);
       u.onerror=()=>{clearSpeaking();queue=[]};
@@ -498,14 +487,16 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     const next=()=>{
       clearSpeaking();
       const it=queue.shift(); if(!it) return;
-      const ma=it.lang==='vi'&&amFor(it.text);
-      if(!ma){tts(it);return}
+      if(it.lang!=='vi'){tts(it);return}
+      const ma=amFor(it.text);
+      if(!ma){console.warn('Vào Bếp: chưa có tệp giọng cho câu',it.text);next();return}
       const a=new Audio('am-ai/'+ma+'.mp3'); audioEl=a;
       a.playbackRate=V.slow?0.9:1;
       a.onplay=()=>mark(it);
       a.onended=()=>{if(audioEl===a){audioEl=null;done(it)}};
-      a.onerror=()=>{if(audioEl===a){audioEl=null;tts(it)}};
-      a.play().catch(()=>{if(audioEl===a){audioEl=null;tts(it)}});
+      const skip=()=>{if(audioEl===a){audioEl=null;console.warn('Vào Bếp: không phát được tệp giọng',ma);next()}};
+      a.onerror=skip;
+      a.play().catch(skip);
     };
     next();
   }
@@ -516,8 +507,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     sayOne(t.getAttribute('data-say'),t.getAttribute('data-lang')||'vi',t);
   });
   function renderVoiceStatus(el){
-    if(!TTS&&!hasAM){el.className='voice-status warn';el.textContent='This browser cannot read text aloud, so audio is off. The words, steps and games still work.';el.hidden=false;return}
-    if(!V.vi&&!hasAM){el.className='voice-status warn';el.textContent='No Vietnamese voice was found on this device yet. iPad and iPhone have one built in; on a computer, add a Vietnamese voice in your system speech settings.';el.hidden=false;return}
+    if(!TTS){el.className='voice-status warn';el.textContent='This browser cannot read English aloud. Vietnamese audio still plays.';el.hidden=false;return}
     el.hidden=true;
   }
 
@@ -525,7 +515,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
   function home(){
     document.title='Vào Bếp Nhà Em';
     app.innerHTML=`
-    <section class="hello" aria-labelledby="h1">
+    <section class="hello ttv-canh" aria-labelledby="h1">
       <img class="trau" src="img/trau-con.png" width="609" height="720" alt="Trâu Con, a cartoon water buffalo in a conical straw hat, waving.">
       <div>
         <div class="bubble"><b lang="vi" data-say="Các bạn ơi, vào bếp cùng mình nhé!">Các bạn ơi, vào bếp cùng mình nhé!</b><span>Hi everyone, come into the kitchen with me!</span></div>
@@ -582,7 +572,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
           </dl>
         </div>
       </div>
-      <p class="note">Audio uses your device's built-in voices. iPad and iPhone have a Vietnamese voice built in. Stars are saved in this browser only.</p>
+      <p class="note">Vietnamese audio uses our school's standard recorded voice. English is read aloud by your device's built-in voice. Stars are saved in this browser only.</p>
     </section>`;
   }
 
@@ -713,7 +703,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
   GAMES.listen=function(d,el,done){
     const rounds=shuffle(d.words.map((w,i)=>i)).slice(0,6);
     let r=0, score=0, answered=false;
-    const audioOK=hasAM||(TTS&&!!V.vi);
+    const audioOK=hasAM;
     const draw=(fb)=>{
       if(r>=rounds.length){
         const n=score>=6?3:score>=4?2:score>=2?1:0; setStar(d.id,'listen',n); done();
@@ -813,10 +803,13 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     stop();
     const id=location.hash.replace('#','');
     const idx=MON_AN.findIndex(d=>d.id===id);
+    // màn bài học, màn chơi: nền kem trơn; màn chào: trời – mây – ruộng
+    if(idx>=0) document.body.setAttribute('data-ttv-nen','don-gian'); else document.body.removeAttribute('data-ttv-nen');
     if(idx>=0) dish(MON_AN[idx],idx); else home();
     window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',route);
+  document.getElementById('terms-go').addEventListener('click',()=>document.getElementById('terms').scrollIntoView({block:'start'}));
   route();
 })();
 </script>

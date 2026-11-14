@@ -12,9 +12,18 @@ The photos, video and learning materials are published to introduce the program 
 
 Copyrighted by CVCEC Trường Tiếng Việt Của Em 2026
 
+## Bộ mẫu chung "Làng Trâu Con"
+
+`index.html` và `vao-bep/index.html` nạp bộ mẫu chung từ https://mau.cvcec.org/v1/ (màu góc học `venhaem`). Bộ mẫu tự chèn thanh các góc học (khi mở riêng), dòng bản quyền và liên hệ. Trang nội bộ `giong-ai/` và thư mục `tools/` không gắn bộ mẫu.
+
 ## Giọng đọc tiếng Việt (Vào Bếp Nhà Em)
 
-Các câu tiếng Việt dùng giọng AI chuẩn của trường (Google Gemini, giọng Kore, miền Bắc – giống trang vuihoctiengviet), lưu trong `vao-bep/am-ai/`. Câu nào chưa có file thì trang tạm đọc bằng giọng máy của thiết bị.
+Các câu tiếng Việt dùng giọng AI chuẩn của trường (Google Gemini, giọng Kore, miền Bắc – giống trang vuihoctiengviet), lưu trong `vao-bep/am-ai/`.
+
+**Quy ước (ngoại lệ riêng kho venhaem, xem quy tắc 7 trong `CLAUDE.md`):**
+
+- Câu **tiếng Việt** chỉ phát tệp giọng AI. Câu nào chưa có tệp thì **không đọc** (không dùng giọng máy) và ghi cảnh báo trong console. Khi thêm câu mới vào bài, phải tạo tệp giọng cho câu đó (`tools/gan_am.py`).
+- Câu **tiếng Anh** vẫn đọc bằng giọng máy của thiết bị (`speechSynthesis`), vì trường chưa có giọng chuẩn tiếng Anh.
 
 - Danh sách câu: `giong-ai/can-doc.tsv` · trạng thái: `giong-ai/trang-thai.md`
 - GitHub Actions (`Giọng đọc AI`) tự chạy mỗi ngày lúc 08:15 UTC cho đến khi đủ; cần secret `GEMINI_API_KEY` trong Settings → Secrets and variables → Actions.
