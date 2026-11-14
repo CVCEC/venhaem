@@ -22,3 +22,15 @@
 1.00  Thái mỏng thịt bò, ướp với tỏi và nước mắm.  |  Thái mỏng thịt bò, ướp với tỏi và nước mắm.
 1.00  Bước năm.  |  Bước 5
 1.00  gừng  |  Gừng
+1.00  hành lá  |  hành lá
+1.00  Cho bún vào bát, chan nước dùng, rắc hành lá.  |  Cho bún vào bát Chan nước dùng Rắc hành lá
+0.00  mả  |  mà
+1.00  Trần bánh phở qua nước sôi.  |  Trần bánh phở qua nước sôi
+1.00  Xào cà chua, nêm xì dầu rồi cho đậu phụ vào.  |  xào cà chua, nêm xì dầu, rồi cho đậu phụ vào.
+1.00  Nấu cơm bằng nước luộc gà.  |  nấu cơm bằng nước luộc gà
+1.00  Cách làm Phở cuốn.  |  Cách làm phở cuốn
+1.00  Luộc gà với chút muối, giữ lại nước luộc.  |  Luộc gà với chút muối Giữ lại nước luộc
+0.00  mạ  |  mà
+0.00  miến  |  miễn
+1.00  Bánh xèo chay  |  Bánh xèo chay
+0.50  đậu phụ  |  Lộ phụ
