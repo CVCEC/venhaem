@@ -80,6 +80,7 @@ figcaption{font-size:13.5px;color:var(--ink-soft);margin-top:10px;line-height:1.
 .hero.ttv-canh .facts li{background:var(--card)}
 /* điều khoản: luôn thấy ngay đầu trang, kể cả trong khung của cổng */
 .terms-strip{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--straw);border-radius:12px;padding:8px 14px;font-size:14px;line-height:1.45;margin:4px 0 12px}
+.visually-hidden-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .terms-strip a{color:var(--wood-ink);font-weight:700;display:inline-flex;align-items:center;min-height:32px}
 
 /* steps */
@@ -258,6 +259,49 @@ details p{padding-bottom:18px;max-width:68ch;color:var(--ink-soft)}
 .wrap>footer{border-top:1px solid var(--line);padding-block:32px 40px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px;font-size:15px}
 .wrap>footer > *{min-width:0}
 
+
+/* ===== Bắt đầu ở đây: Chương trình + Hướng dẫn học (16-11-2026) ===== */
+.start{padding-block:clamp(8px,2vw,16px) clamp(32px,5vw,48px)}
+.start-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,24px);margin-top:16px}
+.start-grid > *{min-width:0}
+@media (max-width:700px){.start-grid{grid-template-columns:1fr}}
+.start-card{background:var(--card);border:2px solid var(--line);border-radius:calc(var(--r) + 6px);padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:12px}
+.start-card.learn{border-color:var(--straw)}
+.start-card h2{font-size:clamp(24px,3vw,30px)}
+.start-card h2 .vi-tag{display:block;font-size:15px;font-family:var(--f-body);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--wood-ink);margin-bottom:4px}
+.path{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;counter-reset:p}
+.path li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;counter-increment:p}
+.path li::before{content:counter(p);width:40px;height:40px;border-radius:50%;background:var(--wood);color:#FFFFFF;font-family:var(--f-display);font-weight:800;display:grid;place-items:center;font-size:18px}
+.path b{display:block;font-size:17px}
+.path b span[lang="vi"]{color:var(--wood-ink)}
+.path p{font-size:15.5px;color:var(--ink-soft)}
+.start-card .cta-row{margin-top:auto;padding-top:6px}
+.start-card .btn{min-height:48px}
+.start-note{font-size:14px;color:var(--ink-soft)}
+/* hai khối thu gọn được */
+details.vne-khoi{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:0;margin-top:14px}
+details.vne-khoi summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:10px 18px;font-family:var(--f-display);font-size:clamp(19px,2.4vw,22px);font-weight:700}
+details.vne-khoi summary::after{content:"Show more";position:static;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--ink);background:var(--peach);border-radius:999px;padding:0 14px;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
+details.vne-khoi[open] summary::after{content:"Show less"}
+.vne-ruot{padding:4px 20px 18px;border-top:2px dashed var(--line);display:grid;grid-template-columns:1fr 1fr;gap:4px 28px}
+.vne-ruot > *{min-width:0}
+@media (max-width:760px){.vne-ruot{grid-template-columns:1fr}}
+.vne-ruot h3{font-size:18px;margin:14px 0 6px;color:var(--wood-ink)}
+.vne-ruot ul,.vne-ruot ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15.5px}
+details.vne-khoi p{padding:0;max-width:none;color:var(--ink)}
+/* khoá món khi khách học thử */
+.dish.locked .thumb img{filter:grayscale(.35) brightness(.96)}
+.lock-tag{align-self:flex-start;margin-top:8px;display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--peach);color:var(--ink)}
+.try-tag{align-self:flex-start;margin-top:8px;font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--wood);color:#FFFFFF}
+.invite{grid-column:1/-1;background:var(--card);border:3px solid var(--straw);border-radius:var(--r);padding:clamp(16px,3vw,24px);display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:start}
+.invite > *{min-width:0}
+.invite img{width:84px;height:auto}
+.invite h3{font-size:clamp(20px,2.6vw,24px)}
+.invite ul{margin:6px 0 10px;padding-left:20px;font-size:15.5px}
+.invite .cta-row .btn{min-height:48px}
+.invite .tr{font-size:13.5px;color:var(--ink-soft)}
+@media (max-width:560px){.invite{grid-template-columns:1fr}.invite img{width:70px}}
+
 /* Chỉ xem: hạn chế lưu ảnh, kéo thả, in trang · Terms of use */
 img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .terms{margin:44px 0 8px}
@@ -275,6 +319,7 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
 <div class="wrap">
 <header class="top">
   <nav class="top-nav" aria-label="Page">
+    <a href="#start">Start here</a>
     <a href="#how">How it works</a>
     <a href="#about">About us</a>
     <a href="#covered">What's covered</a>
@@ -311,6 +356,86 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
     <img src="img/hero.jpg" width="1276" height="956" alt="A visitor in a straw hat laughing with a street vendor in a conical hat at a hat stall in a leafy Hanoi park.">
     <figcaption>Hanoi, on an Educap program for which our team created the Vietnamese learning materials.</figcaption>
   </figure>
+</section>
+
+<section class="start" id="start" aria-labelledby="start-h">
+  <p class="eyebrow"><span lang="vi">Bắt đầu ở đây</span> · Start here</p>
+  <h2 id="start-h" class="visually-hidden-h">What Về Nhà Em is, and how to learn</h2>
+  <div class="start-grid">
+    <article class="start-card" aria-labelledby="prog-h">
+      <h2 id="prog-h"><span class="vi-tag" lang="vi">Chương trình Về Nhà Em</span>The program, in three steps</h2>
+      <ol class="path">
+        <li><div><b><span lang="vi">Cà phê</span> · Coffee talk in Canada</b><p>Meet our team over Vietnamese iced coffee and bánh mì. Hear about the trip and ask anything. No commitment.</p></div></li>
+        <li><div><b><span lang="vi">Học nói</span> · Learn online, then film</b><p>Take the short speaking lessons on this page, then make a short video in Vietnamese.</p></div></li>
+        <li><div><b><span lang="vi">Về nhà</span> · Five sponsored places</b><p>The five top learners whose videos are voted best win a sponsored place: about ten days in Hanoi, Da Nang and Hội An, summer 2027.</p></div></li>
+      </ol>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#register">Join the coffee talk</a>
+        <a class="btn btn-ghost" href="#covered">What's covered</a>
+      </div>
+    </article>
+    <article class="start-card learn" aria-labelledby="learn-h">
+      <h2 id="learn-h"><span class="vi-tag" lang="vi">Hướng dẫn học</span>How to learn</h2>
+      <p>Eight cooking lessons, <span lang="vi">Vào Bếp Nhà Em</span>. Each one has four parts:</p>
+      <ol class="path">
+        <li><div><b>Listen</b><p>Hear how to make the dish in English, then the steps read aloud in Vietnamese.</p></div></li>
+        <li><div><b>Learn the words</b><p>Key ingredients and verbs, each with a pronunciation guide. Tap a word to hear it.</p></div></li>
+        <li><div><b>Follow the steps</b><p>Short Vietnamese steps with a plain English line.</p></div></li>
+        <li><div><b>Play</b><p>Put the steps in order, listen and choose, say it aloud. Up to 9 stars per dish.</p></div></li>
+      </ol>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="start-try" href="vao-bep/#nem">Try lesson 1: Nem rán</a>
+        <a class="btn btn-ghost" id="start-signin" href="https://vietclass.cvcec.org/dang-nhap/?ve=%2F%23venhaem" target="_top" hidden>Sign in for all 8 dishes</a>
+      </div>
+      <p class="start-note" id="start-note" hidden>Lesson 1 is open to everyone. Sign in to Trường Tiếng Việt Của Em to open all eight dishes and keep your stars.</p>
+    </article>
+  </div>
+
+  <details class="vne-khoi" open>
+    <summary><span><span lang="vi">Tổng quan</span> · Overview and goals</span></summary>
+    <div class="vne-ruot">
+      <div>
+        <h3>What's inside</h3>
+        <ul>
+          <li><b>Eight home dishes</b> we cook with families on the trip: two with pork, two with chicken, two with beef and two vegetarian, from Hanoi, Hội An and central Vietnam.</li>
+          <li>Every lesson is explained in English, with Vietnamese steps read in the school's recorded voice.</li>
+          <li>A pronunciation guide for the six tones, and three games per dish.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>By the end, you can</h3>
+        <ul>
+          <li>Name the ingredients you'll see at the market and in the kitchen.</li>
+          <li>Follow, and say, simple cooking steps in Vietnamese.</li>
+          <li>Hear the six tones and read our pronunciation guide.</li>
+          <li>Join in when your host family cooks, and start on your short video with confidence.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details class="vne-khoi" open>
+    <summary><span><span lang="vi">Hướng dẫn</span> · Study guide</span></summary>
+    <div class="vne-ruot">
+      <div>
+        <h3>Each session</h3>
+        <ol>
+          <li><b>Short and regular:</b> 20–30 minutes, two or three times a week. One dish a week gets you through all eight in two months.</li>
+          <li><b>In order:</b> listen, learn the words, follow the steps, then play.</li>
+          <li><b>Sound on:</b> tap any Vietnamese word to hear it, then say it out loud. Speaking matters more than tapping the right answer.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Good to know</h3>
+        <ul>
+          <li>The grey line under each Vietnamese word spells it the English way, Hanoi style. The small arrow shows the tone.</li>
+          <li>The “say it aloud” game uses your microphone if your browser allows it. If not, you listen and check yourself.</li>
+          <li>Your stars (up to 9 per dish) are kept on this device.</li>
+          <li>We'll share the video theme, the deadline and how voting works at the coffee talk. The phrases you learn here are a good start.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
 </section>
 
 <section id="how" aria-labelledby="how-h">
@@ -388,7 +513,7 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
         <p class="lede" style="margin-top:12px">Every topic follows the same learning cycle. You practise each step on our platform before you fly, then live it in Vietnam with the people you meet.</p>
       </div>
       <div class="try">
-        <a class="btn btn-primary" href="https://vietclass.cvcec.org" target="_top">Try a free lesson</a>
+        <a class="btn btn-primary" href="vao-bep/#nem">Try lesson 1: Nem rán</a>
         <span>On Trường Tiếng Việt Của Em</span>
       </div>
     </div>
@@ -453,9 +578,9 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
         <div class="bubble"><p lang="vi"><b>Mình là Trâu Con. Hẹn gặp các bạn ở Hà Nội nhé!</b></p><p class="tr">I'm Trâu Con, the buffalo in the conical hat. See you in Hanoi!</p></div>
       </div>
       <h3>Trường Tiếng Việt Của Em</h3>
-      <p class="mission">Our mission: help every overseas Vietnamese child keep their Vietnamese, for free.</p>
+      <p class="mission">Our mission, as a non-profit: help every overseas Vietnamese child keep their Vietnamese.</p>
       <ul class="facts-list">
-        <li><b>40+ free lessons</b> across 8 themes, open to every child, for life</li>
+        <li><b>40+ lessons</b> across 8 themes, open to every child, for life</li>
         <li><b>Speaking practice</b> with pictures, sound, games and recordings</li>
         <li><b>Community classes</b> in Toronto and Prince Edward Island</li>
         <li><b>Digitized textbooks</b>, including the <span lang="vi">Vui học Tiếng Việt</span> series from the Ho Chi Minh City University of Education Publishing House</li>
@@ -601,6 +726,26 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
   <div class="foot-contact"><b>Questions?</b> Ask Tilia (Thi Quynh Trang Phan), Founder &amp; President, CVCEC<br><span class="muted" style="user-select:all">trang.ptq@cvcec.org</span><br><span class="muted">Organized by CVCEC · <span style="user-select:all">contact@cvcec.org</span></span></div>
 </footer>
 </div>
+<template id="tpl-invite">
+  <li class="invite" aria-labelledby="inv-h">
+    <img src="img/trau-con.png" width="609" height="720" alt="">
+    <div>
+      <div class="bubble"><b lang="vi">Các bạn nấu giỏi quá! Đăng nhập để vào bếp tiếp với mình nhé.</b><span class="tr">Great cooking! Sign in to keep cooking with me.</span></div>
+      <h3 id="inv-h" style="margin-top:12px">Ready for all eight dishes?</h3>
+      <p><span lang="vi">Về Nhà Em</span> is part of Trường Tiếng Việt Của Em, a non-profit project by CVCEC. Sign in once to:</p>
+      <ul>
+        <li>open all eight cooking lessons;</li>
+        <li>keep your stars and progress;</li>
+        <li>help us keep these materials safe for the community.</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn btn-primary" data-dang-nhap href="https://vietclass.cvcec.org/dang-nhap/?ve=%2F%23venhaem" target="_top">Sign in to keep learning</a>
+        <a class="btn btn-ghost" data-dang-ky href="https://vietclass.cvcec.org/dang-nhap/?che-do=ky&amp;ve=%2F%23venhaem" target="_top">Create an account</a>
+      </div>
+      <p class="start-note" style="margin-top:8px">Takes less than a minute.</p>
+    </div>
+  </li>
+</template>
 <div class="print-only">Về Nhà Em chỉ để xem trực tuyến tại venhaem.cvcec.org.<br>This page is for online viewing only.</div>
 
 <script>
@@ -630,6 +775,41 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
   el('dlg-close').addEventListener('click',closeDlg);
   dlg.addEventListener('click',function(e){if(e.target===dlg)closeDlg()});
   document.querySelectorAll('.dish').forEach(function(b){b.addEventListener('click',function(){openDish(+b.dataset.dish,b)})});
+})();
+</script>
+
+
+<script>
+/* Học thử (khách chưa đăng nhập, mở trong cổng): Món 1 mở, Món 2–8 mời đăng nhập; dải mời nằm ngay sau Món 1.
+   Chế độ học do cổng báo qua bộ mẫu chung (TTV.cheDoHoc(), sự kiện "ttv-che-do"). */
+(function(){
+  function cheDo(){return (window.TTV&&TTV.cheDoHoc)?TTV.cheDoHoc():null}
+  function dangNhap(ky){return (window.TTV&&TTV.duongDangNhap)?TTV.duongDangNhap(ky):'https://vietclass.cvcec.org/dang-nhap/?'+(ky?'che-do=ky&':'')+'ve=%2F%23venhaem'}
+  function capNhat(){
+    var thu=cheDo()==='thu';
+    var si=document.getElementById('start-signin'), note=document.getElementById('start-note');
+    si.hidden=!thu; note.hidden=!thu; si.href=dangNhap(false);
+    var old=document.querySelector('.dishes .invite'); if(old) old.remove();
+    document.querySelectorAll('.dish').forEach(function(b){
+      var i=+b.dataset.dish, meta=b.querySelector('.dish-meta');
+      var t=meta.querySelector('.lock-tag,.try-tag'); if(t) t.remove();
+      b.classList.toggle('locked', thu&&i>0);
+      if(thu){var s=document.createElement('span'); s.className=i>0?'lock-tag':'try-tag'; s.textContent=i>0?'🔒 Sign in to learn':'Try it'; meta.appendChild(s)}
+    });
+    if(thu){
+      var inv=document.getElementById('tpl-invite').content.firstElementChild.cloneNode(true);
+      inv.querySelector('[data-dang-nhap]').href=dangNhap(false); inv.querySelector('[data-dang-ky]').href=dangNhap(true);
+      var first=document.querySelector('.dishes > li'); first.parentNode.insertBefore(inv, first.nextSibling);
+    }
+  }
+  // Món đang khoá: hộp món vẫn mở để xem từ, nhưng nút bài học thành nút đăng nhập
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.dish.locked'); if(!b) return;
+    setTimeout(function(){var g=document.getElementById('dlg-game'); g.innerHTML='';
+      var a=document.createElement('a'); a.className='btn btn-primary'; a.href=dangNhap(false); a.target='_top'; a.textContent='Sign in to open this lesson →'; g.appendChild(a)},0);
+  });
+  document.addEventListener('ttv-che-do',capNhat);
+  if(cheDo()) capNhat();
 })();
 </script>
 
