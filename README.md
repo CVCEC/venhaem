@@ -20,10 +20,24 @@ Copyrighted by CVCEC Trường Tiếng Việt Của Em 2026
 
 Các câu tiếng Việt dùng giọng AI chuẩn của trường (Google Gemini, giọng Kore, miền Bắc – giống trang vuihoctiengviet), lưu trong `vao-bep/am-ai/`.
 
-**Quy ước (ngoại lệ riêng kho venhaem, xem quy tắc 7 trong `CLAUDE.md`):**
+**Quy ước (ngoại lệ riêng kho venhaem, xem quy tắc 7 trong `CLAUDE.md`):** trang không gọi `speechSynthesis` trực tiếp, mọi tiếng đọc đi qua bộ mẫu chung.
 
-- Câu **tiếng Việt** chỉ phát tệp giọng AI. Câu nào chưa có tệp thì **không đọc** (không dùng giọng máy) và ghi cảnh báo trong console. Khi thêm câu mới vào bài, phải tạo tệp giọng cho câu đó (`tools/gan_am.py`).
-- Câu **tiếng Anh** vẫn đọc bằng giọng máy của thiết bị (`speechSynthesis`), vì trường chưa có giọng chuẩn tiếng Anh.
+- Câu **tiếng Việt**: `TTV.phat({ tep: "am-ai/….mp3", chu })`, ưu tiên tệp giọng AI có sẵn. Câu nào chưa có tệp thì bộ mẫu tạm đọc bằng giọng máy và trang ghi cảnh báo trong console. Khi thêm câu mới vào bài, phải tạo tệp giọng cho câu đó (`tools/gan_am.py`). Nút Chậm/Thường đổi tốc độ phát tệp.
+- Câu **tiếng Anh**: `TTV.giong.doc(chu, { ngonNgu: "en" })` (giọng máy của thiết bị, vì trường chưa có giọng chuẩn tiếng Anh; máy không có giọng Anh thì im lặng).
+- Bộ mẫu chưa nạp (`window.TTV` chưa có): tệp tiếng Việt vẫn phát, tiếng Anh bỏ qua.
+- Theo quy tắc 5, trang **không hiện cách đọc (phiên âm)** dưới chữ: người học bấm để nghe tệp giọng chuẩn và đọc chữ tiếng Việt có dấu đầy đủ.
 
 - Danh sách câu: `giong-ai/can-doc.tsv` · trạng thái: `giong-ai/trang-thai.md`
 - GitHub Actions (`Giọng đọc AI`) tự chạy mỗi ngày lúc 08:15 UTC cho đến khi đủ; cần secret `GEMINI_API_KEY` trong Settings → Secrets and variables → Actions.
+
+## Ghi kết quả học (Vào Bếp Nhà Em)
+
+Chơi xong một trò của một món, trang gọi `TTV.ghiKetQua` (bộ mẫu chỉ gửi khi trang nằm trong cổng vietclass.cvcec.org và người học đã đăng nhập; ngoài cổng hàm trả `false`):
+
+| Trò | `hoatDong` | `diem` / `diemToiDa` |
+|---|---|---|
+| 1 · Xếp thứ tự | `order` | số bước đúng chỗ ở lần kiểm tra đầu / số bước |
+| 2 · Nghe và chọn | `listen` | số từ chọn đúng / 6 |
+| 3 · Nói theo | `speak` | tổng sao các câu / 3 × số câu |
+
+`bai` là mã món (`nem`, `bun-moc`, `pho-ga`, `com-ga`, `pho-cuon`, `bo-la-lot`, `com-chay`, `banh-xeo-chay`), `soTroChoi: 3`, `sao` (0–3) đúng như sao trang hiện, `thoiGianGiay` tính từ lúc mở trò. Sao trên máy vẫn lưu ở khoá `vaobep-stars-v1` như cũ; không có khoá localStorage mới.
