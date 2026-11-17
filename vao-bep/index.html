@@ -643,9 +643,17 @@ if (typeof module!=='undefined') module.exports={splitTone};
   }
 
   /* ---------- games ---------- */
+  /* Ghi kết quả học: chơi xong một trò của một món thì gửi lên cổng qua bộ mẫu chung.
+     Bộ mẫu tự kiểm tra (ngoài cổng, khách học thử: không gửi). Không tạo khoá localStorage mới. */
+  function ghiKetQua(d,hoatDong,diem,diemToiDa,sao,batDau){
+    try{
+      if(window.TTV&&TTV.ghiKetQua) TTV.ghiKetQua({bai:d.id,hoatDong:hoatDong,soTroChoi:3,diem:diem,diemToiDa:diemToiDa,sao:sao,thoiGianGiay:Math.round((Date.now()-batDau)/1000)});
+    }catch(e){}
+  }
   const GAMES={};
   GAMES.order=function(d,el,done){
-    let attempts=0, pool=shuffle(d.steps.map((s,i)=>i)), picked=[], locked=new Set(), wrongSet=new Set(), hints=false, finished=false;
+    let attempts=0, pool=shuffle(d.steps.map((s,i)=>i)), picked=[], locked=new Set(), wrongSet=new Set(), hints=false, finished=false, dungLan1=0;
+    const batDau=Date.now();
     if(pool.every((v,i)=>v===i)) pool=shuffle(pool);
     const draw=(msg)=>{
       el.innerHTML=`<h3>Xếp thứ tự · Put the steps in order</h3>
@@ -666,8 +674,10 @@ if (typeof module!=='undefined') module.exports={splitTone};
         const wrong=new Set();
         d.steps.forEach((s,k)=>{if(picked[k]===k)locked.add(k);else wrong.add(k)});
         wrongSet=wrong;
+        if(attempts===1) dungLan1=d.steps.length-wrong.size; // điểm: số bước đúng chỗ ở lần kiểm tra đầu
         if(!wrong.size){
           finished=true;const n=attempts===1?3:attempts===2?2:1;setStar(d.id,'order',n);done();
+          ghiKetQua(d,'order',dungLan1,d.steps.length,n,batDau);
           draw({html:`<div class="fb ok">Đúng rồi! <small>Correct, in ${attempts} ${attempts===1?'try':'tries'}.</small></div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div>`});
         } else {
           draw({html:`<div class="fb bad">Thử lại nhé! <small>Try again: ${d.steps.length-wrong.size} of ${d.steps.length} are in the right place (green). Tap the red ones to move them.</small></div>`});
@@ -680,10 +690,11 @@ if (typeof module!=='undefined') module.exports={splitTone};
   GAMES.listen=function(d,el,done){
     const rounds=shuffle(d.words.map((w,i)=>i)).slice(0,6);
     let r=0, score=0, answered=false;
-    const audioOK=hasAM;
+    const audioOK=hasAM, batDau=Date.now();
     const draw=(fb)=>{
       if(r>=rounds.length){
         const n=score>=6?3:score>=4?2:score>=2?1:0; setStar(d.id,'listen',n); done();
+        ghiKetQua(d,'listen',score,rounds.length,n,batDau);
         el.innerHTML=`<h3>Nghe và chọn · Listen and choose</h3><div class="fb ${n?'ok':'bad'}">${score} / ${rounds.length} correct</div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div><div><button class="btn btn-primary" type="button" id="again">Play again</button></div>`;
         el.querySelector('#again').onclick=()=>GAMES.listen(d,el,done); return;
       }
@@ -722,10 +733,11 @@ if (typeof module!=='undefined') module.exports={splitTone};
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   let selfMode=!SR;
   GAMES.speak=function(d,el,done){
-    let r=0; const got=[];
+    let r=0; const got=[], batDau=Date.now();
     const draw=(fb)=>{
       if(r>=d.steps.length){
         const avg=got.reduce((a,b)=>a+b,0)/got.length, n=Math.round(avg); setStar(d.id,'speak',n); done();
+        ghiKetQua(d,'speak',got.reduce((a,b)=>a+b,0),3*got.length,n,batDau); // mỗi câu 0–3 sao
         el.innerHTML=`<h3>Nói theo · Say it</h3><div class="fb ${n?'ok':'bad'}">You said all ${d.steps.length} steps${selfMode?' (self-rated)':''}.</div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div><div><button class="btn btn-primary" type="button" id="again">Practise again</button></div>`;
         el.querySelector('#again').onclick=()=>GAMES.speak(d,el,done); return;
       }
