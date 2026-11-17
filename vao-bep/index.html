@@ -20,7 +20,7 @@
   --peach:var(--ttv-goc-nhat);
   /* màu chức năng của trang (đã làm đậm cho đạt 4,5:1 trên nền nhạt, thẻ trắng và nền kem) */
   --sage:#DCE4CB; --sage-ink:#55663A;
-  --ok:#397335; --ok-bg:#DDEBD3; --bad:#AC4128; --bad-bg:#F6DDD3; --warn:#8C6010; --warn-bg:#F6E8C8;
+  --ok:var(--ttv-dung); --ok-bg:var(--ttv-dung-nen); --bad:var(--ttv-sai); --bad-bg:var(--ttv-sai-nen); --warn:#8C6010; --warn-bg:#F6E8C8;
   --btn-ink:var(--ttv-chu);
   --brand-paper:var(--ttv-nen);
   --f-display:var(--ttv-phong-tieu-de);
@@ -50,20 +50,22 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 .top-links a:hover{text-decoration:underline}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15.5px/1.1 var(--f-body);padding:12px 18px;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;background:transparent;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font:600 15.5px/1.1 var(--f-body);padding:12px 18px;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;background:transparent;color:var(--ink)}
 .btn-primary{background:var(--straw);color:var(--btn-ink)}
 .btn-ghost{border-color:var(--ink)}
 .btn-soft{background:var(--paper-2)}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
 .btn-sm{padding:8px 14px;font-size:14.5px}
 .seg{display:inline-flex;background:var(--paper-2);border-radius:999px;padding:3px}
-.seg button{border:0;background:transparent;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
+.seg button{min-height:44px;border:0;background:transparent;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
 .seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 
 /* tap-to-hear */
 [data-say]{cursor:pointer;border-radius:6px;transition:background .15s ease}
 [data-say]:hover{background:color-mix(in srgb,var(--straw) 22%,transparent)}
 [data-say].speaking{background:color-mix(in srgb,var(--straw) 40%,transparent)}
+/* vùng chạm tối thiểu 44px cho chữ bấm để nghe (quy tắc 11) */
+.bubble b[data-say],.tones .vi,.steps .vi,.target .vi,.dhero h1{min-height:44px;display:flex;align-items:center}
 .vi{font-family:var(--f-display);font-weight:700}
 
 /* home */
@@ -104,7 +106,7 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 /* Học thử: món khoá, nhãn, dải mời đăng nhập sau Món 1 */
 .dcard.locked img{filter:grayscale(.35) brightness(.96)}
 .lock-tag{font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--peach);color:var(--ink);white-space:nowrap}
-.try-tag{align-self:flex-start;font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--wood);color:#FFFFFF;margin-top:4px}
+.try-tag{align-self:flex-start;font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--wood);color:var(--ttv-the);margin-top:4px}
 .grid li.invite{grid-column:1/-1;background:var(--card);border:3px solid var(--straw);border-radius:var(--r);padding:clamp(16px,3vw,24px);display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:start}
 .invite img{width:84px;height:auto}
 .invite h3{font-size:clamp(20px,2.6vw,24px);margin:4px 0 6px}
@@ -129,7 +131,7 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 .note{background:var(--paper-2);border-radius:var(--r-sm);padding:14px 16px;font-size:15px;margin-top:18px}
 
 /* dish */
-.back{display:inline-flex;align-items:center;gap:6px;font-weight:600;text-decoration:none;color:var(--ink);margin-top:4px}
+.back{display:inline-flex;align-items:center;min-height:44px;gap:6px;font-weight:600;text-decoration:none;color:var(--ink);margin-top:4px}
 .dhero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,44px);align-items:center;padding-block:18px 8px}
 .dhero > *{min-width:0}
 .dhero img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r)}
@@ -143,7 +145,7 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 @media (max-width:820px){.dhero{grid-template-columns:1fr}}
 .subnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);display:flex;gap:8px;padding-block:10px;overflow-x:auto;border-bottom:1px solid var(--line)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
-.subnav button{flex-shrink:0;border:0;border-radius:999px;padding:8px 14px;background:var(--paper-2);font-weight:600;font-size:14.5px;cursor:pointer}
+.subnav button{flex-shrink:0;min-height:44px;border:0;border-radius:999px;padding:8px 14px;background:var(--paper-2);font-weight:600;font-size:14.5px;cursor:pointer}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,4vw,44px);margin-top:16px}
 .about > *{min-width:0}
 .about h3{margin-bottom:8px}
@@ -153,7 +155,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .words .vi{font-size:22px;line-height:1.15;align-self:flex-start;padding:0 4px;margin-left:-4px}
 .words .en{font-size:14.5px}
 .words.words-img li{padding:10px 10px 12px;gap:4px;cursor:pointer}
-.wtile{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:10px;background:#FFFFFF;border:clamp(8px,1.6vw,14px) solid #9DB57A;margin-bottom:4px;font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3vw,34px);color:#1E1E1E;text-align:center;padding:8px;line-height:1.1}
+.wtile{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:10px;background:var(--ttv-the);border:clamp(8px,1.6vw,14px) solid #9DB57A;margin-bottom:4px;font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3vw,34px);color:var(--ttv-chu);text-align:center;padding:8px;line-height:1.1}
 .wimg{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:10px;margin-bottom:4px}
 @media (max-width:820px){.words{grid-template-columns:1fr 1fr}}
 .steps{list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:10px;counter-reset:st}
@@ -176,7 +178,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .play{background:var(--sage);border-radius:calc(var(--r) + 6px);padding:clamp(18px,4vw,34px);margin-top:16px}
 .play .eyebrow{color:var(--sage-ink)}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
-.tabs button{border:0;border-radius:999px;padding:9px 14px;background:var(--card);font-weight:600;font-size:14.5px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.tabs button{min-height:44px;border:0;border-radius:999px;padding:9px 14px;background:var(--card);font-weight:600;font-size:14.5px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
 .tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 .tabs .stars{color:inherit;opacity:.85}
 .panel{background:var(--card);border-radius:var(--r);padding:clamp(16px,3vw,24px);display:flex;flex-direction:column;gap:14px}
@@ -240,7 +242,7 @@ img,svg,video,picture{-webkit-user-drag:none;user-select:none;-webkit-user-selec
 /* điều khoản: luôn thấy ngay đầu trang, kể cả trong khung của cổng */
 .terms-strip{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--straw);border-radius:12px;padding:8px 14px;font-size:14px;line-height:1.45;margin:0 0 8px}
 .terms-strip a,.terms-strip button{color:var(--wood-ink);font-weight:700}
-.terms-strip button{border:0;background:none;padding:0;cursor:pointer;text-decoration:underline;font-size:14px;min-height:32px}
+.terms-strip button{border:0;background:none;padding:0;cursor:pointer;text-decoration:underline;font-size:14px;min-height:44px}
 .terms-box{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--straw);border-radius:12px;padding:18px 20px;max-width:860px}
 .terms-box h2{font-family:var(--f-body);font-size:18px;font-weight:800;line-height:1.3;margin:0 0 6px}
 .terms-box h2 .en{font-weight:600;color:var(--ink-soft)}
@@ -519,7 +521,7 @@ if (typeof module!=='undefined') module.exports={splitTone};
         ${MON_AN.map((d,i)=>`<li><a class="dcard${khoaMon(i)?' locked':''}" href="${khoaMon(i)?esc(dangNhap(false))+'" target="_top':'#'+d.id}">
           <img src="${d.img}" width="800" height="600" loading="lazy" alt="${esc(d.vi)} (${esc(d.en)}), as typically served">
           <span class="meta"><span class="num">Món ${i+1} · ${esc(d.region)}</span><span class="name" lang="vi">${esc(d.vi)}</span><span class="en">${esc(d.en)}</span>
-          ${thuMon(i)?'<span class="try-tag">Try it</span>':''}<span class="foot"><span class="ptag p-${d.protein.toLowerCase()}">${d.protein}</span>${khoaMon(i)?'<span class="lock-tag">🔒 Sign in to learn</span>':`<span class="stars" aria-label="${dishStars(d.id)} of 9 stars">★ ${dishStars(d.id)}/9</span>`}</span></span>
+          ${thuMon(i)?'<span class="try-tag">Try it</span>':''}<span class="foot"><span class="ptag p-${d.protein.toLowerCase()}">${d.protein}</span>${khoaMon(i)?'<span class="lock-tag">Sign in to learn</span>':`<span class="stars" aria-label="${dishStars(d.id)} of 9 stars">★ ${dishStars(d.id)}/9</span>`}</span></span>
         </a></li>${thuMon(i)?moiDangNhap():''}`).join('')}
       </ul>
     </section>
@@ -543,9 +545,9 @@ if (typeof module!=='undefined') module.exports={splitTone};
             <dt>ng</dt><dd>as in "si<b>ng</b>", even at the start of a word</dd>
             <dt>ph · x · tr</dt><dd><b>f</b> · <b>s</b> · <b>ch</b></dd>
             <dt>kh</dt><dd>like "ch" in Scottish "loch"</dd>
-            <dt>a · ă</dt><dd><b>ah</b> · written <b>a</b>: a short, clipped "ah"</dd>
+            <dt>a · ă</dt><dd><b>ah</b> · ă is a short, clipped "ah"</dd>
             <dt>ơ, â</dt><dd><b>uh</b>; ơ is longer</dd>
-            <dt>ư</dt><dd>written <b>eu</b>: say "oo" with a smile</dd>
+            <dt>ư</dt><dd>say "oo" with a smile</dd>
             <dt>o · ô · ê</dt><dd><b>aw</b> · <b>oh</b> · <b>ay</b></dd>
           </dl>
         </div>
@@ -567,8 +569,8 @@ if (typeof module!=='undefined') module.exports={splitTone};
         <p class="en">${esc(d.en)}</p>
         <div class="audio" role="group" aria-label="Listen">
           <div class="row">
-            <button class="btn btn-primary btn-sm" type="button" id="play-en">▶ How to make it · English</button>
-            <button class="btn btn-ghost btn-sm" type="button" id="play-vi">▶ Đọc các bước · Vietnamese</button>
+            <button class="btn btn-primary btn-sm" type="button" id="play-en">▶︎ How to make it · English</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="play-vi">▶︎ Đọc các bước · Vietnamese</button>
             <button class="btn btn-soft btn-sm" type="button" id="stop">■ Stop</button>
           </div>
           <div class="row"><span class="hint">Vietnamese speed</span>
@@ -658,7 +660,7 @@ if (typeof module!=='undefined') module.exports={splitTone};
     const draw=(msg)=>{
       el.innerHTML=`<h3>Xếp thứ tự · Put the steps in order</h3>
         <p class="muted">Tap the steps in the order you cook them. Tap a step in your list to send it back.</p>
-        <label style="display:flex;gap:8px;align-items:center;font-size:14.5px"><input type="checkbox" id="hint" ${hints?'checked':''}> Show English hints</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:14.5px;min-height:44px;cursor:pointer"><input type="checkbox" id="hint" style="width:22px;height:22px;margin:0" ${hints?'checked':''}> Show English hints</label>
         <div class="cols">
           <div><span class="lbl">Steps to place</span><ul class="pick${d.photos?' with-ph':''}">${pool.map(i=>`<li><button type="button" data-p="${i}">${d.photos?`<img class="gth" src="${d.photos[i]}" width="800" height="600" alt="">`:''}<span class="txt"><span class="vi" lang="vi">${esc(d.steps[i][0])}</span>${hints?`<span class="en">${esc(d.steps[i][1])}</span>`:''}</span></button></li>`).join('')||'<li class="muted" style="font-size:14px">All steps placed.</li>'}</ul></div>
           <div><span class="lbl">Your order</span><ol class="slots">${d.steps.map((s,k)=>picked[k]!==undefined?`<li><button type="button" data-q="${k}" class="${d.photos?'with-ph ':''}${locked.has(k)?'right':(wrongSet.has(k)?'wrong':'')}">${d.photos?`<img class="gth" src="${d.photos[picked[k]]}" width="800" height="600" alt="">`:''}<span class="vi" lang="vi">${esc(d.steps[picked[k]][0])}</span></button></li>`:`<li class="empty">Step ${k+1}</li>`).join('')}</ol></div>
@@ -701,16 +703,16 @@ if (typeof module!=='undefined') module.exports={splitTone};
       const t=rounds[r]; const others=shuffle(d.words.map((w,i)=>i).filter(i=>i!==t)).slice(0,3); const opts=shuffle([t,...others]);
       el.innerHTML=`<h3>Nghe và chọn · Listen and choose</h3>
         <p class="prog">Word ${r+1} of ${rounds.length} · ${score} correct</p>
-        ${audioOK?`<p class="muted">Play the word, then tap the one you heard.</p><div><button class="btn btn-primary" type="button" id="hear">▶ Play the word</button></div>`
+        ${audioOK?`<p class="muted">Play the word, then tap the one you heard.</p><div><button class="btn btn-primary" type="button" id="hear">▶︎ Play the word</button></div>`
                  :`<p class="mode-note">No Vietnamese voice on this device, so read instead: which word means <b>${esc(d.words[t][1])}</b>?</p>`}
-        <div class="opts${d.wimg?' opts-img':''}">${opts.map(i=>`<button type="button" data-o="${i}">${d.wimg?card(d,i):`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`}${answered?(d.wimg?`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`:'')+`<span class="muted" style="font-size:13.5px">${esc(d.words[i][1])}</span>`:''}</button>`).join('')}</div>
+        <div class="opts${d.wimg?' opts-img':''}">${opts.map(i=>`<button type="button" data-o="${i}">${d.wimg?card(d,i):`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`}${answered?`<span class="muted" style="font-size:13.5px">${esc(d.words[i][1])}</span>`:''}</button>`).join('')}</div>
         ${fb||''}
         ${answered?`<div><button class="btn btn-primary" type="button" id="next">${r+1<rounds.length?'Next word':'See my stars'}</button></div>`:''}`;
       const hear=el.querySelector('#hear'); if(hear) hear.onclick=()=>sayOne(d.words[t][0],'vi',null);
       el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{
         if(answered) return; answered=true;
         const ok=+b.dataset.o===t; if(ok) score++;
-        const f=ok?`<div class="fb ok">Đúng! <small>“${esc(d.words[t][0])}” means ${esc(d.words[t][1])}.</small></div>`:`<div class="fb bad">Chưa đúng. <small>It was “${esc(d.words[t][0])}”, ${esc(d.words[t][1])}.</small></div>`;
+        const f=ok?`<div class="fb ok">Đúng rồi! <small>“${esc(d.words[t][0])}” means ${esc(d.words[t][1])}.</small></div>`:`<div class="fb bad">Thử lại nhé! <small>It was “${esc(d.words[t][0])}”, ${esc(d.words[t][1])}.</small></div>`;
         const pickedIdx=+b.dataset.o; draw(f);
         el.querySelectorAll('[data-o]').forEach(x=>{const i=+x.dataset.o;if(i===t)x.classList.add('right');else if(i===pickedIdx)x.classList.add('wrong')});
       });
@@ -745,7 +747,7 @@ if (typeof module!=='undefined') module.exports={splitTone};
       el.innerHTML=`<h3>Nói theo · Say it</h3>
         <p class="prog">Step ${r+1} of ${d.steps.length}</p>
         <div class="target">${d.photos&&d.photos[r]?`<img class="tph" src="${d.photos[r]}" width="800" height="600" alt="Step ${r+1}: ${esc(s[1])}">`:''}${say(s[0])}<span class="muted" style="font-size:15px;display:block">${esc(s[1])}</span></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="model">▶ Listen first</button>${selfMode?'':'<button class="btn btn-primary" type="button" id="rec">🎤 Speak now</button>'}</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="model">▶︎ Listen first</button>${selfMode?'':'<button class="btn btn-primary" type="button" id="rec">Speak now</button>'}</div>
         ${selfMode?'':'<p style="font-size:14px"><button class="btn btn-soft btn-sm" type="button" id="self">Microphone not working? Rate yourself instead</button></p>'}
         ${selfMode?`<p class="mode-note">Automatic scoring needs your microphone, which this page can't use here. Say the sentence aloud, then rate how close you were.</p>
           <div class="rate">${[1,2,3].map(n=>`<button class="btn btn-soft" type="button" data-rate="${n}">${'★'.repeat(n)} ${['Getting there','Close','Just like it'][n-1]}</button>`).join('')}</div>`:''}
@@ -760,7 +762,7 @@ if (typeof module!=='undefined') module.exports={splitTone};
         R.lang='vi-VN'; R.interimResults=false; R.maxAlternatives=3;
         rec.disabled=true; rec.textContent='Listening…';
         let heardSomething=false;
-        const guard=setTimeout(()=>{if(!heardSomething){try{R.abort()}catch(e){}rec.disabled=false;rec.textContent='🎤 Speak now';const f=el.querySelector('#fb');if(f)f.innerHTML='<div class="fb bad">We couldn\'t hear you. <small>Check that the page may use your microphone, or rate yourself instead.</small></div>'}},9000);
+        const guard=setTimeout(()=>{if(!heardSomething){try{R.abort()}catch(e){}rec.disabled=false;rec.textContent='Speak now';const f=el.querySelector('#fb');if(f)f.innerHTML='<div class="fb bad">We couldn\'t hear you. <small>Check that the page may use your microphone, or rate yourself instead.</small></div>'}},9000);
         R.onresult=ev=>{
           heardSomething=true; clearTimeout(guard);
           const alts=[...ev.results[0]].map(a=>a.transcript);
@@ -770,17 +772,17 @@ if (typeof module!=='undefined') module.exports={splitTone};
             <p class="muted" style="font-size:13.5px">Green: right. Yellow: right word, check the tone. Red: not heard. We heard: “${esc(best.a)}”</p>
             <div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div>
             <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="retry">Try again</button><button class="btn btn-primary" type="button" id="keep">Keep and continue</button></div>`;
-          el.querySelector('#fb').innerHTML=html; rec.disabled=false; rec.textContent='🎤 Speak now';
+          el.querySelector('#fb').innerHTML=html; rec.disabled=false; rec.textContent='Speak now';
           el.querySelector('#retry').onclick=()=>draw();
           el.querySelector('#keep').onclick=()=>{got.push(n);r++;draw()};
         };
         R.onerror=ev=>{
           heardSomething=true; clearTimeout(guard);
           if(['not-allowed','service-not-allowed','audio-capture','network'].includes(ev.error)){selfMode=true;draw();return}
-          rec.disabled=false;rec.textContent='🎤 Speak now';
+          rec.disabled=false;rec.textContent='Speak now';
           el.querySelector('#fb').innerHTML='<div class="fb bad">We didn\'t catch that. <small>Tap Speak now and say the sentence clearly.</small></div>';
         };
-        R.onend=()=>{if(rec.isConnected&&rec.disabled){rec.disabled=false;rec.textContent='🎤 Speak now'}};
+        R.onend=()=>{if(rec.isConnected&&rec.disabled){rec.disabled=false;rec.textContent='Speak now'}};
         try{R.start()}catch(e){selfMode=true;draw()}
       };
     };
