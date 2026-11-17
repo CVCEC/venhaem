@@ -410,55 +410,55 @@ if (typeof module!=='undefined') module.exports={splitTone};
   }
   const dishStars=id=>{const s=STARS[id]||{};return (s.order||0)+(s.listen||0)+(s.speak||0)};
 
-  /* ---------- voices ----------
-     NGOẠI LỆ RIÊNG KHO venhaem: câu TIẾNG VIỆT chỉ phát tệp giọng chuẩn của trường (am-ai/, am-ai.js),
-     KHÔNG BAO GIỜ đọc bằng giọng máy; câu nào chưa có tệp thì bỏ qua (ghi console.warn).
-     Câu TIẾNG ANH vẫn đọc bằng giọng máy của thiết bị (trường chưa có giọng chuẩn tiếng Anh). */
-  const TTS='speechSynthesis' in window;
-  const V={en:null,slow:true};
-  function pickVoices(){
-    if(!TTS) return;
-    const vs=speechSynthesis.getVoices();
-    V.en=['en-CA','en-US','en-GB'].map(l=>vs.find(v=>v.lang.replace('_','-')===l)).find(Boolean)||vs.find(v=>/^en/i.test(v.lang))||null;
-    const st=document.getElementById('voice-status'); if(st) renderVoiceStatus(st);
-  }
-  if(TTS){pickVoices();speechSynthesis.addEventListener&&speechSynthesis.addEventListener('voiceschanged',pickVoices);setTimeout(pickVoices,800)}
+  /* ---------- giọng đọc (quy tắc 7) ----------
+     Trang KHÔNG gọi speechSynthesis trực tiếp; mọi tiếng đọc đi qua bộ mẫu chung (mau.cvcec.org/v1):
+     - câu TIẾNG VIỆT: TTV.phat({tep, chu}) – ưu tiên tệp giọng AI chuẩn của trường (am-ai/, am-ai.js);
+       câu chưa có tệp (hoặc tệp lỗi) thì bộ mẫu tạm đọc bằng giọng máy (ghi console.warn để thêm tệp).
+     - câu TIẾNG ANH: TTV.giong.doc(chu, {ngonNgu:'en'}).
+     Bộ mẫu chưa nạp (window.TTV chưa có): câu tiếng Việt có tệp vẫn phát, tiếng Anh thì bỏ qua.
+     Chỉ phát sau khi người học chạm (mọi lời gọi nằm trong sự kiện click). */
+  const TTS='speechSynthesis' in window; // chỉ kiểm tra để báo trạng thái, không gọi
+  const V={slow:true};
   const AM=window.AM_AI||{};
   const hasAM=Object.keys(AM).length>0;
   const amFor=t=>AM[String(t||'').normalize('NFC')];
-  let queue=[],speakingEl=null,audioEl=null;
+  const ttvPhat=()=>window.TTV&&(TTV.phat||(TTV.giong&&TTV.giong.phat))||null;
+  const ttvDoc=()=>window.TTV&&TTV.giong&&TTV.giong.doc||null;
+  let queue=[],speakingEl=null,audioEl=null,luot=0;
   function clearSpeaking(){if(speakingEl){speakingEl.classList.remove('speaking');speakingEl=null}document.querySelectorAll('.steps li.now').forEach(l=>l.classList.remove('now'))}
-  function stop(){queue=[];if(TTS)speechSynthesis.cancel();if(audioEl){const a=audioEl;audioEl=null;a.onended=a.onerror=null;a.pause()}clearSpeaking()}
-  function utter(text){ // chỉ dùng cho tiếng Anh
-    const u=new SpeechSynthesisUtterance(text);
-    u.lang='en-US';if(V.en){u.voice=V.en;u.lang=V.en.lang}u.rate=0.98;
-    return u;
+  function stop(){luot++;queue=[];if(window.TTV&&TTV.giong&&TTV.giong.dung)TTV.giong.dung();if(audioEl){const a=audioEl;audioEl=null;a.onended=a.onerror=null;a.pause()}clearSpeaking()}
+  // Câu tiếng Việt. rate: tốc độ tệp (chậm 0,9 / thường 1). TTV.phat tạo Audio ngay lúc được gọi, nên tạm bọc
+  // window.Audio trong lúc gọi để giữ nút Chậm/Thường; nếu bộ mẫu đổi cách làm thì tệp chỉ phát ở tốc độ thường.
+  function phatViet(text,rate){
+    const ma=amFor(text), tep=ma?'am-ai/'+ma+'.mp3':undefined, f=ttvPhat();
+    if(!ma) console.warn('Vào Bếp: chưa có tệp giọng cho câu',text);
+    if(f){
+      const A0=window.Audio;
+      if(tep&&rate!==1) window.Audio=function(src){const a=new A0(src);a.defaultPlaybackRate=a.playbackRate=rate;return a};
+      try{return Promise.resolve(f({tep:tep,chu:text},{toc:rate<1?0.8:0.9}))}catch(e){return Promise.resolve(false)}finally{window.Audio=A0}
+    }
+    if(!tep) return Promise.resolve(false);
+    return new Promise(xong=>{
+      const a=new Audio(tep); audioEl=a; a.defaultPlaybackRate=a.playbackRate=rate;
+      const het=ok=>{if(audioEl===a){audioEl=null;xong(ok)}};
+      a.onended=()=>het(true); a.onerror=()=>het(false); a.play().catch(()=>het(false));
+    });
   }
+  // Câu tiếng Anh: giọng máy qua bộ mẫu (máy không có giọng Anh thì im lặng).
+  function docAnh(text){const doc=ttvDoc();return doc?Promise.resolve(doc(text,{ngonNgu:'en'})):Promise.resolve(false)}
   function playQueue(items){
-    stop(); queue=items.slice();
+    stop(); queue=items.slice(); const my=luot;
     const mark=it=>{if(it.el){it.el.classList.add(it.el.tagName==='LI'?'now':'speaking');speakingEl=it.el.tagName==='LI'?null:it.el}};
-    const done=it=>{if(it.el&&it.el.tagName==='LI')it.el.classList.remove('now');next()};
-    const tts=it=>{
-      if(it.lang==='vi'||!TTS){next();return} // không bao giờ đọc tiếng Việt bằng giọng máy
-      const u=utter(it.text);
-      u.onstart=()=>mark(it);
-      u.onend=()=>done(it);
-      u.onerror=()=>{clearSpeaking();queue=[]};
-      speechSynthesis.speak(u);
-    };
     const next=()=>{
+      if(my!==luot) return;
       clearSpeaking();
       const it=queue.shift(); if(!it) return;
-      if(it.lang!=='vi'){tts(it);return}
-      const ma=amFor(it.text);
-      if(!ma){console.warn('Vào Bếp: chưa có tệp giọng cho câu',it.text);next();return}
-      const a=new Audio('am-ai/'+ma+'.mp3'); audioEl=a;
-      a.playbackRate=V.slow?0.9:1;
-      a.onplay=()=>mark(it);
-      a.onended=()=>{if(audioEl===a){audioEl=null;done(it)}};
-      const skip=()=>{if(audioEl===a){audioEl=null;console.warn('Vào Bếp: không phát được tệp giọng',ma);next()}};
-      a.onerror=skip;
-      a.play().catch(skip);
+      mark(it);
+      (it.lang==='vi'?phatViet(it.text,V.slow?0.9:1):docAnh(it.text)).then(ok=>{
+        if(my!==luot) return;
+        if(!ok&&it.lang!=='vi'){clearSpeaking();queue=[];return} // không đọc được tiếng Anh: dừng cả lượt
+        next();
+      },()=>{if(my===luot)next()});
     };
     next();
   }
@@ -469,6 +469,7 @@ if (typeof module!=='undefined') module.exports={splitTone};
     sayOne(t.getAttribute('data-say'),t.getAttribute('data-lang')||'vi',t);
   });
   function renderVoiceStatus(el){
+    if(!el) return;
     if(!TTS){el.className='voice-status warn';el.textContent='This browser cannot read English aloud. Vietnamese audio still plays.';el.hidden=false;return}
     el.hidden=true;
   }
