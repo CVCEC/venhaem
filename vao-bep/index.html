@@ -66,11 +66,6 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 [data-say].speaking{background:color-mix(in srgb,var(--straw) 40%,transparent)}
 .vi{font-family:var(--f-display);font-weight:700}
 
-/* respelling */
-.ps{font-size:14.5px;color:var(--ink-soft);letter-spacing:.01em}
-.ps .s{white-space:nowrap}
-.ps sup{font-size:.78em;color:var(--wood-ink);font-weight:700;margin-left:1px}
-
 /* home */
 .hello{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:clamp(18px,4vw,40px);align-items:center;padding-block:clamp(12px,3vw,28px) clamp(24px,4vw,40px)}
 .hello > *{min-width:0}
@@ -79,11 +74,9 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 .bubble b{font-family:var(--f-display);font-size:18px;font-weight:700}
 .bubble span{font-size:14px;color:var(--ink-soft)}
 .hello h1{font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1}
-.hello .ps{margin:8px 0 14px;font-size:16px}
 @media (max-width:620px){.hello{grid-template-columns:96px 1fr}}
 /* màn chào: nền trời – mây – ruộng của bộ mẫu */
 .hello.ttv-canh{border-radius:calc(var(--r) + 6px);padding:clamp(20px,4vw,40px) clamp(14px,4vw,40px) clamp(100px,13vw,140px);margin-top:4px}
-.hello.ttv-canh .ps sup{color:var(--ink)}
 
 .howto{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:h}
 .howto li{background:var(--card);border-radius:var(--r-sm);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0;counter-increment:h}
@@ -141,7 +134,6 @@ header.top{display:flex;justify-content:flex-end;align-items:center;gap:16px;pad
 .dhero > *{min-width:0}
 .dhero img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r)}
 .dhero h1{font-size:clamp(38px,6vw,60px);font-weight:800;line-height:1.02;display:inline-block;padding:0 4px;margin-left:-4px}
-.dhero .ps{display:block;font-size:16px;margin:6px 0 4px}
 .dhero .en{font-size:19px;font-weight:500}
 .audio{margin-top:18px;background:var(--card);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
 .audio .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -219,7 +211,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .opts button .vi{font-size:22px}
 .opts button.right{border-color:var(--ok);background:var(--ok-bg)}
 .opts button.wrong{border-color:var(--bad);background:var(--bad-bg)}
-.opts button.right .ps sup,.opts button.wrong .ps sup{color:var(--ink)}
 .opts.opts-img{grid-template-columns:repeat(4,1fr)}
 .opts.opts-img button{padding:8px;gap:4px}
 .opts.opts-img .wimg{margin:0}
@@ -388,62 +379,20 @@ const MON_AN = [
 ];
 if (typeof module!=='undefined') module.exports={MON_AN};
 
-/* Phiên âm: Hanoi-standard respelling for English speakers, with tone arrows. */
+/* Tách dấu thanh khỏi âm tiết (dùng khi chấm phần Nói theo). Quy tắc 5: trang không hiện cách đọc
+   (phiên âm) dưới chữ; người học nghe tệp giọng chuẩn và đọc chữ tiếng Việt có dấu đầy đủ. */
 const TONE_OF = {'́':'sac','̀':'huyen','̉':'hoi','̃':'nga','̣':'nang'};
-const TONE_GLYPH = {ngang:'', sac:'↗', huyen:'↘', hoi:'↘↗', nga:'~↗', nang:'↓'};
-const INITS = ['ngh','ng','nh','ch','gh','gi','kh','ph','th','tr','qu','b','c','d','đ','g','h','k','l','m','n','p','r','s','t','v','x'];
-const INIT_MAP = {ngh:'ng',ng:'ng',nh:'ny',ch:'ch',gh:'g',gi:'z',kh:'kh',ph:'f',th:'t',tr:'ch',qu:'kw',b:'b',c:'k',d:'z','đ':'d',g:'g',h:'h',k:'k',l:'l',m:'m',n:'n',p:'p',r:'z',s:'s',t:'t',v:'v',x:'s'};
-const VOWELS = 'aăâeêioôơuưy';
-const VOW = {a:'ah','ă':'a','â':'uh',e:'eh','ê':'ay',i:'ee',y:'ee',o:'aw','ô':'oh','ơ':'uh',u:'oo','ư':'eu'};
-const FIN = {c:'k',ch:'k',ng:'ng',nh:'ng',m:'m',n:'n',p:'p',t:'t'};
-const RHYME = {
-  anh:'aing',ach:'aik','ênh':'ayng','êch':'ayk',inh:'ing',ich:'ik',
-  ong:'awng',oc:'awk','ông':'ohng','ôc':'ohk',ung:'oong',uc:'ook',
-  ai:'ahy',ay:'ahy',ao:'ow',au:'ow','âu':'oh','ây':'uhy',eo:'eh-oo','êu':'ay-oo',iu:'ew',
-  oi:'oy','ôi':'oy','ơi':'uhy',ui:'ooy','ưi':'euy','ưu':'eu-oo',
-  ia:'ee-uh','iê':'ee-uh','iên':'ee-uhn','iêng':'ee-uhng','iêc':'ee-uhk','iêt':'ee-uht','iêm':'ee-uhm','iêp':'ee-uhp','iêu':'ee-ew',
-  'yê':'ee-uh','yên':'ee-uhn','yêu':'ee-ew',
-  ua:'oo-uh','uô':'oo-uh','uôn':'oo-uhn','uông':'oo-uhng','uôc':'oo-uhk','uôt':'oo-uht','uôm':'oo-uhm','uôi':'oo-uhy',
-  'ưa':'eu-uh','ươ':'eu-uh','ươn':'eu-uhn','ương':'eu-uhng','ươc':'eu-uhk','ươt':'eu-uht','ươm':'eu-uhm','ươp':'eu-uhp','ươi':'eu-uhy','ươu':'eu-uhw',
-  oa:'wah',oan:'wahn',oang:'wahng',oat:'waht',oac:'wahk',oanh:'waing',oach:'waik',oai:'wahy',oay:'wahy','oăn':'wan','oăt':'wat','oăng':'wang',
-  oe:'weh',oen:'wehn',oet:'weht','uê':'way','uênh':'wayng',uy:'wee',uyn:'ween',uyt:'weet',uynh:'wing',uych:'wik',
-  'uyên':'wee-uhn','uyêt':'wee-uht',uya:'wee-uh','uân':'wuhn','uât':'wuht','uâng':'wuhng','uơ':'wuh'
-};
 function splitTone(syl){
   let tone='ngang', out='';
   for (const ch of syl.normalize('NFD')) { if (TONE_OF[ch]) tone=TONE_OF[ch]; else out+=ch; }
   return {base: out.normalize('NFC').toLowerCase(), tone};
 }
-function respellSyllable(syl){
-  const {base, tone} = splitTone(syl);
-  if (!/[a-zđăâêôơư]/.test(base)) return {text: syl, tone: 'ngang'};
-  let init='', rest=base;
-  for (const i of INITS) { if (base.startsWith(i)) { init=i; rest=base.slice(i.length); break; } }
-  if (init==='gi' && (rest==='' || !VOWELS.includes(rest[0]))) rest='i'+rest;      // gì, gìn
-  if (init==='qu' && rest==='') rest='';
-  let r;
-  if (RHYME[rest]!==undefined) r=RHYME[rest];
-  else {
-    let k=0; while (k<rest.length && VOWELS.includes(rest[k])) k++;
-    const v=rest.slice(0,k), f=rest.slice(k);
-    r = (RHYME[v]!==undefined ? RHYME[v] : [...v].map(c=>VOW[c]||c).join('')) + (f ? (FIN[f]||f) : '');
-  }
-  return {text: (INIT_MAP[init]||'') + r, tone};
-}
-function respellParts(text){
-  // returns [{text, tone}] for each syllable, punctuation kept as plain text tokens
-  return text.split(/(\s+|[,.;:!?()“”"'…–-]+)/).filter(Boolean).map(tok => {
-    if (/^\s+$/.test(tok) || /^[,.;:!?()“”"'…–-]+$/.test(tok)) return {sep: tok};
-    return respellSyllable(tok);
-  });
-}
-if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,splitTone,TONE_GLYPH};
+if (typeof module!=='undefined') module.exports={splitTone};
 
 (function(){
   const NUM=['một','hai','ba','bốn','năm','sáu','bảy','tám'];
   const app=document.getElementById('app');
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const ps=t=>'<span class="ps">'+respellParts(t).map(p=>p.sep!==undefined?esc(p.sep):'<span class="s">'+esc(p.text)+(TONE_GLYPH[p.tone]?'<sup>'+TONE_GLYPH[p.tone]+'</sup>':'')+'</span>').join('')+'</span>';
   const say=(t,cls)=>'<span class="vi '+(cls||'')+'" lang="vi" data-say="'+esc(t)+'">'+esc(t)+'</span>';
   const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
   const card=(d,i)=>{const im=d.wimg&&d.wimg[i],w=d.words[i];return im?`<img class="wimg" src="${im}" width="600" height="600" loading="lazy" alt="${esc(w[0])}: ${esc(w[1])}">`:`<span class="wtile" role="img" aria-label="${esc(w[0])}: ${esc(w[1])}"><span lang="vi">${esc(w[0])}</span></span>`};
@@ -549,7 +498,6 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
       <div>
         <div class="bubble"><b lang="vi" data-say="Các bạn ơi, vào bếp cùng mình nhé!">Các bạn ơi, vào bếp cùng mình nhé!</b><span>Hi everyone, come into the kitchen with me!</span></div>
         <h1 id="h1" lang="vi">${say('Vào Bếp Nhà Em')}</h1>
-        ${ps('Vào Bếp Nhà Em')}
         <p class="lede">Cook, listen and speak your way through eight Vietnamese home dishes before the trip. Every lesson is explained in English, with Vietnamese steps you can hear, read and say.</p>
       </div>
     </section>
@@ -558,8 +506,8 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
       <h2 id="how-h">Listen, learn, cook, play</h2>
       <ol class="howto">
         <li><b>Listen</b><span>Hear how to make the dish in English, then the steps read aloud in Vietnamese.</span></li>
-        <li><b>Learn the words</b><span>Key ingredients and verbs, each with a pronunciation guide.</span></li>
-        <li><b>Follow the steps</b><span>Short Vietnamese steps with pronunciation and a plain English line.</span></li>
+        <li><b>Learn the words</b><span>Key ingredients and verbs. Tap each word to hear it.</span></li>
+        <li><b>Follow the steps</b><span>Short Vietnamese steps you can hear, with a plain English line.</span></li>
         <li><b>Play</b><span>Three games: put the steps in order, listen and choose, say it aloud. Up to 9 stars per dish.</span></li>
       </ol>
     </section>
@@ -576,8 +524,8 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     </section>
     <section aria-labelledby="read-h">
       <p class="eyebrow">Pronunciation guide</p>
-      <h2 id="read-h">How to read the pronunciation</h2>
-      <p class="lede" style="margin-top:8px">The grey line under each Vietnamese word spells it the English way, Hanoi style. The small arrow after each syllable shows its tone. Tap any Vietnamese word to hear it.</p>
+      <h2 id="read-h">How Vietnamese sounds</h2>
+      <p class="lede" style="margin-top:8px">Listen first, then read the Vietnamese with all its marks. Tap any Vietnamese word to hear it.</p>
       <div class="guide">
         <div>
           <h3>Six tones</h3>
@@ -615,7 +563,6 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
       <div>
         <p class="num">Món ${idx+1} · ${esc(d.region)} · ${d.protein}</p>
         <h1 id="dn" lang="vi" data-say="${esc(d.vi)}">${esc(d.vi)}</h1>
-        ${ps(d.vi)}
         <p class="en">${esc(d.en)}</p>
         <div class="audio" role="group" aria-label="Listen">
           <div class="row">
@@ -644,12 +591,12 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
     <section id="sec-words" aria-labelledby="w-h">
       <p class="eyebrow">Từ vựng · Key words</p>
       <h2 id="w-h">Words for this dish</h2>
-      <ul class="words${d.wimg?' words-img':''}">${d.words.map((w,i)=>d.wimg?`<li data-say="${esc(w[0])}" tabindex="0" role="button" aria-label="Hear ${esc(w[0])}, ${esc(w[1])}">${card(d,i)}${ps(w[0])}<span class="en">${esc(w[1])}</span></li>`:`<li>${say(w[0])}${ps(w[0])}<span class="en">${esc(w[1])}</span></li>`).join('')}</ul>
+      <ul class="words${d.wimg?' words-img':''}">${d.words.map((w,i)=>d.wimg?`<li data-say="${esc(w[0])}" tabindex="0" role="button" aria-label="Hear ${esc(w[0])}, ${esc(w[1])}">${card(d,i)}<span class="en">${esc(w[1])}</span></li>`:`<li>${say(w[0])}<span class="en">${esc(w[1])}</span></li>`).join('')}</ul>
     </section>
     <section id="sec-steps" aria-labelledby="s-h">
       <p class="eyebrow">Cách làm · How to make it</p>
       <h2 id="s-h">${['','One','Two','Three','Four','Five','Six','Seven','Eight'][d.steps.length]||d.steps.length} steps</h2>
-      <ol class="steps${d.photos?' steps-grid':''}" id="steps">${d.steps.map((s,i)=>{const ph=d.photos&&d.photos[i];return `<li>${ph?`<img class="step-ph" src="${ph}" width="800" height="600" loading="lazy" alt="Step ${i+1}: ${esc(s[1])}">`:''}<div>${say(s[0])}${ps(s[0])}<span class="en">${esc(s[1])}</span></div></li>`}).join('')}</ol>
+      <ol class="steps${d.photos?' steps-grid':''}" id="steps">${d.steps.map((s,i)=>{const ph=d.photos&&d.photos[i];return `<li>${ph?`<img class="step-ph" src="${ph}" width="800" height="600" loading="lazy" alt="Step ${i+1}: ${esc(s[1])}">`:''}<div>${say(s[0])}<span class="en">${esc(s[1])}</span></div></li>`}).join('')}</ol>
     </section>
     <section id="sec-play" aria-labelledby="p-h">
       <div class="play">
@@ -744,7 +691,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
         <p class="prog">Word ${r+1} of ${rounds.length} · ${score} correct</p>
         ${audioOK?`<p class="muted">Play the word, then tap the one you heard.</p><div><button class="btn btn-primary" type="button" id="hear">▶ Play the word</button></div>`
                  :`<p class="mode-note">No Vietnamese voice on this device, so read instead: which word means <b>${esc(d.words[t][1])}</b>?</p>`}
-        <div class="opts${d.wimg?' opts-img':''}">${opts.map(i=>`<button type="button" data-o="${i}">${d.wimg?card(d,i):`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`}${answered?ps(d.words[i][0])+`<span class="muted" style="font-size:13.5px">${esc(d.words[i][1])}</span>`:''}</button>`).join('')}</div>
+        <div class="opts${d.wimg?' opts-img':''}">${opts.map(i=>`<button type="button" data-o="${i}">${d.wimg?card(d,i):`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`}${answered?(d.wimg?`<span class="vi" lang="vi">${esc(d.words[i][0])}</span>`:'')+`<span class="muted" style="font-size:13.5px">${esc(d.words[i][1])}</span>`:''}</button>`).join('')}</div>
         ${fb||''}
         ${answered?`<div><button class="btn btn-primary" type="button" id="next">${r+1<rounds.length?'Next word':'See my stars'}</button></div>`:''}`;
       const hear=el.querySelector('#hear'); if(hear) hear.onclick=()=>sayOne(d.words[t][0],'vi',null);
@@ -784,7 +731,7 @@ if (typeof module!=='undefined') module.exports={respellSyllable,respellParts,sp
       const s=d.steps[r];
       el.innerHTML=`<h3>Nói theo · Say it</h3>
         <p class="prog">Step ${r+1} of ${d.steps.length}</p>
-        <div class="target">${d.photos&&d.photos[r]?`<img class="tph" src="${d.photos[r]}" width="800" height="600" alt="Step ${r+1}: ${esc(s[1])}">`:''}${say(s[0])}<div>${ps(s[0])}</div><span class="muted" style="font-size:15px">${esc(s[1])}</span></div>
+        <div class="target">${d.photos&&d.photos[r]?`<img class="tph" src="${d.photos[r]}" width="800" height="600" alt="Step ${r+1}: ${esc(s[1])}">`:''}${say(s[0])}<span class="muted" style="font-size:15px;display:block">${esc(s[1])}</span></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="model">▶ Listen first</button>${selfMode?'':'<button class="btn btn-primary" type="button" id="rec">🎤 Speak now</button>'}</div>
         ${selfMode?'':'<p style="font-size:14px"><button class="btn btn-soft btn-sm" type="button" id="self">Microphone not working? Rate yourself instead</button></p>'}
         ${selfMode?`<p class="mode-note">Automatic scoring needs your microphone, which this page can't use here. Say the sentence aloud, then rate how close you were.</p>
