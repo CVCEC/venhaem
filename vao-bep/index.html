@@ -647,14 +647,21 @@ if (typeof module!=='undefined') module.exports={splitTone};
   /* ---------- games ---------- */
   /* Ghi kết quả học: chơi xong một trò của một món thì gửi lên cổng qua bộ mẫu chung.
      Bộ mẫu tự kiểm tra (ngoài cổng, khách học thử: không gửi). Không tạo khoá localStorage mới. */
-  function ghiKetQua(d,hoatDong,diem,diemToiDa,sao,batDau){
+  /* Kết quả từng câu (từ 26-11-2026): cau = [{ma, tu, dung, mang, loi}], tối đa 40.
+     tu luôn là từ/câu ĐÍCH trong dữ liệu món (≤30 ký tự), không bao giờ là lời người học nói. */
+  const tuDich=t=>{t=String(t).normalize('NFC');return t.length>30?t.slice(0,29).trimEnd()+'…':t};
+  const cauKQ=(ma,tu,dung,mang,loi)=>{const c={ma:ma,tu:tuDich(tu),dung:!!dung,mang:mang};if(!dung&&loi)c.loi=loi;return c};
+  function ghiKetQua(d,hoatDong,diem,diemToiDa,sao,batDau,cau){
     try{
-      if(window.TTV&&TTV.ghiKetQua) TTV.ghiKetQua({bai:d.id,hoatDong:hoatDong,soTroChoi:3,diem:diem,diemToiDa:diemToiDa,sao:sao,thoiGianGiay:Math.round((Date.now()-batDau)/1000)});
+      const kq={bai:d.id,hoatDong:hoatDong,soTroChoi:3,diem:diem,diemToiDa:diemToiDa,sao:sao,thoiGianGiay:Math.round((Date.now()-batDau)/1000)};
+      if(cau&&cau.length) kq.cau=cau.slice(0,40);
+      if(window.TTV&&TTV.ghiKetQua) TTV.ghiKetQua(kq);
     }catch(e){}
   }
+  const TTV_LOAI_LOI=(a,b)=>{try{return (window.TTV&&TTV.loaiLoi)?TTV.loaiLoi(a,b):null}catch(e){return null}};
   const GAMES={};
   GAMES.order=function(d,el,done){
-    let attempts=0, pool=shuffle(d.steps.map((s,i)=>i)), picked=[], locked=new Set(), wrongSet=new Set(), hints=false, finished=false, dungLan1=0;
+    let attempts=0, pool=shuffle(d.steps.map((s,i)=>i)), picked=[], locked=new Set(), wrongSet=new Set(), hints=false, finished=false, dungLan1=0, cauLan1=[];
     const batDau=Date.now();
     if(pool.every((v,i)=>v===i)) pool=shuffle(pool);
     const draw=(msg)=>{
@@ -676,10 +683,11 @@ if (typeof module!=='undefined') module.exports={splitTone};
         const wrong=new Set();
         d.steps.forEach((s,k)=>{if(picked[k]===k)locked.add(k);else wrong.add(k)});
         wrongSet=wrong;
-        if(attempts===1) dungLan1=d.steps.length-wrong.size; // điểm: số bước đúng chỗ ở lần kiểm tra đầu
+        if(attempts===1){dungLan1=d.steps.length-wrong.size; // điểm: số bước đúng chỗ ở lần kiểm tra đầu
+          cauLan1=d.steps.map((s,k)=>cauKQ('buoc-'+(k+1),s[0],!wrong.has(k),'ngu-phap','trat-tu'));}
         if(!wrong.size){
           finished=true;const n=attempts===1?3:attempts===2?2:1;setStar(d.id,'order',n);done();
-          ghiKetQua(d,'order',dungLan1,d.steps.length,n,batDau);
+          ghiKetQua(d,'order',dungLan1,d.steps.length,n,batDau,cauLan1);
           draw({html:`<div class="fb ok">Đúng rồi! <small>Correct, in ${attempts} ${attempts===1?'try':'tries'}.</small></div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div>`});
         } else {
           draw({html:`<div class="fb bad">Thử lại nhé! <small>Try again: ${d.steps.length-wrong.size} of ${d.steps.length} are in the right place (green). Tap the red ones to move them.</small></div>`});
@@ -691,12 +699,12 @@ if (typeof module!=='undefined') module.exports={splitTone};
 
   GAMES.listen=function(d,el,done){
     const rounds=shuffle(d.words.map((w,i)=>i)).slice(0,6);
-    let r=0, score=0, answered=false;
+    let r=0, score=0, answered=false; const cau=[];
     const audioOK=hasAM, batDau=Date.now();
     const draw=(fb)=>{
       if(r>=rounds.length){
         const n=score>=6?3:score>=4?2:score>=2?1:0; setStar(d.id,'listen',n); done();
-        ghiKetQua(d,'listen',score,rounds.length,n,batDau);
+        ghiKetQua(d,'listen',score,rounds.length,n,batDau,cau);
         el.innerHTML=`<h3>Nghe và chọn · Listen and choose</h3><div class="fb ${n?'ok':'bad'}">${score} / ${rounds.length} correct</div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div><div><button class="btn btn-primary" type="button" id="again">Play again</button></div>`;
         el.querySelector('#again').onclick=()=>GAMES.listen(d,el,done); return;
       }
@@ -712,6 +720,10 @@ if (typeof module!=='undefined') module.exports={splitTone};
       el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{
         if(answered) return; answered=true;
         const ok=+b.dataset.o===t; if(ok) score++;
+        // nghe từ rồi chọn → nghe-hieu; không có giọng (đọc nghĩa tiếng Anh) → tu-vung. So từ đích với từ đã chọn (cả hai lấy từ dữ liệu món).
+        const chon=d.words[+b.dataset.o][0];
+        cau.push(cauKQ('tu-'+(t+1),d.words[t][0],ok,audioOK?'nghe-hieu':'tu-vung',
+          audioOK?(TTV_LOAI_LOI(d.words[t][0],chon)||'nghia'):'nghia'));
         const f=ok?`<div class="fb ok">Đúng rồi! <small>“${esc(d.words[t][0])}” means ${esc(d.words[t][1])}.</small></div>`:`<div class="fb bad">Thử lại nhé! <small>It was “${esc(d.words[t][0])}”, ${esc(d.words[t][1])}.</small></div>`;
         const pickedIdx=+b.dataset.o; draw(f);
         el.querySelectorAll('[data-o]').forEach(x=>{const i=+x.dataset.o;if(i===t)x.classList.add('right');else if(i===pickedIdx)x.classList.add('wrong')});
@@ -735,11 +747,12 @@ if (typeof module!=='undefined') module.exports={splitTone};
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   let selfMode=!SR;
   GAMES.speak=function(d,el,done){
-    let r=0; const got=[], batDau=Date.now();
+    let r=0; const got=[], batDau=Date.now(), lan1=[]; // lan1[r]: kết quả lần nói đầu của bước r
     const draw=(fb)=>{
       if(r>=d.steps.length){
         const avg=got.reduce((a,b)=>a+b,0)/got.length, n=Math.round(avg); setStar(d.id,'speak',n); done();
-        ghiKetQua(d,'speak',got.reduce((a,b)=>a+b,0),3*got.length,n,batDau); // mỗi câu 0–3 sao
+        const cau=d.steps.map((s,k)=>{const l=lan1[k]||{dung:got[k]===3};return cauKQ('buoc-'+(k+1),s[0],l.dung,'noi',l.loi||'khac')});
+        ghiKetQua(d,'speak',got.reduce((a,b)=>a+b,0),3*got.length,n,batDau,cau); // mỗi câu 0–3 sao
         el.innerHTML=`<h3>Nói theo · Say it</h3><div class="fb ${n?'ok':'bad'}">You said all ${d.steps.length} steps${selfMode?' (self-rated)':''}.</div><div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div><div><button class="btn btn-primary" type="button" id="again">Practise again</button></div>`;
         el.querySelector('#again').onclick=()=>GAMES.speak(d,el,done); return;
       }
@@ -753,7 +766,7 @@ if (typeof module!=='undefined') module.exports={splitTone};
           <div class="rate">${[1,2,3].map(n=>`<button class="btn btn-soft" type="button" data-rate="${n}">${'★'.repeat(n)} ${['Getting there','Close','Just like it'][n-1]}</button>`).join('')}</div>`:''}
         <div id="fb">${fb||''}</div>`;
       el.querySelector('#model').onclick=()=>sayOne(s[0],'vi',el.querySelector('.target .vi'));
-      el.querySelectorAll('[data-rate]').forEach(b=>b.onclick=()=>{got.push(+b.dataset.rate);r++;draw()});
+      el.querySelectorAll('[data-rate]').forEach(b=>b.onclick=()=>{if(!lan1[r])lan1[r]={dung:+b.dataset.rate===3,loi:'khac'};got.push(+b.dataset.rate);r++;draw()});
       const selfBtn=el.querySelector('#self'); if(selfBtn) selfBtn.onclick=()=>{selfMode=true;draw()};
       const rec=el.querySelector('#rec');
       if(rec) rec.onclick=()=>{
@@ -768,6 +781,8 @@ if (typeof module!=='undefined') module.exports={splitTone};
           const alts=[...ev.results[0]].map(a=>a.transcript);
           const best=alts.map(a=>({a,res:scoreSpeech(s[0],a)})).sort((x,y)=>y.res.ratio-x.res.ratio)[0];
           const n=best.res.ratio>=0.9?3:best.res.ratio>=0.7?2:best.res.ratio>=0.4?1:0;
+          // chỉ ghi trạng thái âm tiết đích (đúng/sai thanh/thiếu), không ghi lời người học
+          if(!lan1[r]) lan1[r]={dung:n===3,loi:best.res.status.includes('miss')?'am-van':(best.res.status.includes('tone')?'dau-thanh':'khac')};
           const html=`<div class="heard">${best.res.syll.map((w,k)=>`<span class="${best.res.status[k]}" lang="vi">${esc(w)}</span>`).join('')}</div>
             <p class="muted" style="font-size:13.5px">Green: right. Yellow: right word, check the tone. Red: not heard. We heard: “${esc(best.a)}”</p>
             <div class="big-star">${'★'.repeat(n)}<span class="off">${'★'.repeat(3-n)}</span></div>

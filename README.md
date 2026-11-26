@@ -41,3 +41,15 @@ Chơi xong một trò của một món, trang gọi `TTV.ghiKetQua` (bộ mẫu 
 | 3 · Nói theo | `speak` | tổng sao các câu / 3 × số câu |
 
 `bai` là mã món (`nem`, `bun-moc`, `pho-ga`, `com-ga`, `pho-cuon`, `bo-la-lot`, `com-chay`, `banh-xeo-chay`), `soTroChoi: 3`, `sao` (0–3) đúng như sao trang hiện, `thoiGianGiay` tính từ lúc mở trò. Sao trên máy vẫn lưu ở khoá `vaobep-stars-v1` như cũ; không có khoá localStorage mới.
+
+### Kết quả từng câu (từ 26-11-2026)
+
+Mỗi lần gọi có thêm `cau: [{ma, tu, dung, mang, loi}]` (tối đa 40) theo hợp đồng của bộ mẫu chung. `tu` luôn là từ/câu **đích** trong dữ liệu món (cắt còn ≤30 ký tự), không bao giờ là lời người học nói; `dung` = đúng ngay lần đầu.
+
+| Trò | `ma` | `mang` | `loi` khi sai |
+|---|---|---|---|
+| 1 · Xếp thứ tự | `buoc-1`… | `ngu-phap` | `trat-tu` (theo lần kiểm tra đầu) |
+| 2 · Nghe và chọn | `tu-1`… (theo `words`) | `nghe-hieu`; máy không có giọng (đọc nghĩa) → `tu-vung` | so từ đích với từ đã chọn bằng `TTV.loaiLoi` (vd. `dau-thanh`), không đoán được → `nghia`; chế độ đọc → `nghia` |
+| 3 · Nói theo | `buoc-1`… | `noi` | lần nói đầu: thiếu âm tiết → `am-van`, chỉ sai thanh → `dau-thanh`; tự chấm → `khac` |
+
+Bộ mẫu cũ bỏ qua `cau`; điểm, sao, mã món, mã trò không đổi.
